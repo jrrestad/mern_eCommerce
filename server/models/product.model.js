@@ -1,0 +1,46 @@
+const mongoose = require('mongoose')
+
+const ProductSchema  = new mongoose.Schema({
+    category: {
+        type: String,
+        required: [true, "Please select a category"]
+    },
+    condition: {
+        type: String,
+        required: [true, "Please select a condition"]
+    },
+    product: {
+        type: String,
+        required: [true, "Please give your product a title"]
+    },
+    location: {
+        type: String,
+        required: [true, "Please enter a zip code"],
+        validate: {
+            validator: function(v) {
+              return /^[0-9]{5}(?:-[0-9]{4})?$/.test(v)
+            },
+            message: "Please follow format 12345 or 12345-1234"
+        },
+    },
+    price: {
+        type: Number,
+        required: [true, "Please set a listing price"],
+        min: 0
+    },
+    description: {
+        type: String,
+        required: [true, "Please provide a description"],
+        minlength: [10, "The description must be at least 10 characters"]
+    },
+    createdBy: {
+        type: String,
+        required: [true]
+    }
+}, {timestamps: true})
+
+const Product = mongoose.model("Product", ProductSchema);
+
+module.exports = {
+    Product
+};
