@@ -4,13 +4,16 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 
-// const myFirstSecret = process.env.FIRST_SECRET_KEY;
-
 require('./config/mongoose.config')(process.env.DB_NAME);
 app.use(cookieParser());
 // app.use(cors());
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(express.json(), express.urlencoded({extended: true}));
+
+// ***********
+// SET STORAGE
+app.use('/uploads', express.static('uploads'));
+// *************
 
 require('./routes/routes')(app);
 

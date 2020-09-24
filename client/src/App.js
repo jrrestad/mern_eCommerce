@@ -3,6 +3,7 @@ import axios from 'axios';
 import Navbar from "./components/display/Navbar";
 import Sidebar from "./components/display/Sidebar";
 import Buy from "./components/buy/Buy"
+import ImageTest from "./ImageTest";
 
 function App() {
   const [user, setUser] = useState(localStorage.getItem('myValue') || '')
@@ -19,20 +20,18 @@ function App() {
         setAllProducts(res.data)
       })
     .catch(err => console.log(err))
-  }, [allProducts])
-
+  }, [])
+  // context as alternative to passing state in
+  // google use Context
   return (
     <>
     <div className="col">
         <Navbar user={user} setUser={setUser}/>
+        <ImageTest/>
         <div className="wrapper row">
         <Sidebar 
         // allProducts={allProducts} setAllProducts={setAllProducts}
         user={user} setUser={setUser}/>
-        {/* <Profile user={user} setUser={setUser}/> */}
-          {/* <Router>
-            <Profile user={user} setUser={setUser} path={"/profile"}/>
-          </Router> */}
         </div>
         <Buy allProducts={allProducts} setAllProducts={setAllProducts}
         user={user} setUser={setUser}/>

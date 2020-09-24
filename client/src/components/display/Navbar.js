@@ -7,7 +7,7 @@ const Navbar = ({user, setUser}) => {
 
     const logout = () => {
         // need to send the cookie in request so server can clear it
-        axios.post("http://localhost:8000/api/logout", {withCredentials: true})
+        axios.post("http://localhost:8000/api/logout2", {withCredentials: true})
             .then((res) => {
               console.log(res);
               console.log("log me out!")

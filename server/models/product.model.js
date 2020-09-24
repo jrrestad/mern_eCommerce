@@ -33,10 +33,14 @@ const ProductSchema  = new mongoose.Schema({
         required: [true, "Please provide a description"],
         minlength: [10, "The description must be at least 10 characters"]
     },
+    productImage: {
+        type: String,
+        required: [true, "Must contain an image"]
+    },
     createdBy: {
         type: String,
         required: [true]
-    }
+    },
 }, {timestamps: true})
 
 const Product = mongoose.model("Product", ProductSchema);

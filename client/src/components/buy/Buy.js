@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React from 'react'
 
-const Buy = ({allProducts, setAllProducts}) => {
 
+const Buy = ({allProducts}) => {
+    let URL = "http://localhost:8000/"
     // const [allProducts, setAllProducts] = useState([])
 
     // useEffect(() => {
@@ -21,8 +21,8 @@ const Buy = ({allProducts, setAllProducts}) => {
             <div className="d-flex flex-wrap">
             {
                 allProducts.map( (item, i) => 
-                <div className="col-3">
-                    <div className="col mb-4 border" key={i}>
+                <div className="col-3" key={i}>
+                    <div className="col mb-4 border" >
                         <h5 className="bg-primary p-2 rounded text-white row">{item.createdBy}</h5>
                         <div className="p-4">
 
@@ -43,6 +43,9 @@ const Buy = ({allProducts, setAllProducts}) => {
                         <h5>Zip Code: {item.location}</h5>
                         <h5>Price: ${item.price}</h5>
                         <p>- {item.description}</p>
+                        <img src={URL + item.productImage} width="200" alt=""/>
+                        {/* <img src="http://localhost:8000/uploads\\1600934786593KODAGOTCHI-SLEEP.png" width="200" alt=""/>
+                        <img src="http://localhost:3000/5aec199a-2f90-45e5-b3a8-83443287d042" width="200" alt=""/> */}
                         </div>
                     </div>
                 </div>

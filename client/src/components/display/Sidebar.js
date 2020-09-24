@@ -1,31 +1,31 @@
 import React, { useState } from 'react'
-import { Link, navigate } from '@reach/router'
-import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+import { Link } from '@reach/router'
+// import axios from 'axios';
+// import jwt_decode from 'jwt-decode';
 import SellForm from '../sell/SellForm'
 import Profile from '../profile/Profile'
 import './Display.css'
 
 const Sidebar = ({user, setUser, allProducts, setAllProducts}) => {
 
-    const authenticate = () => {
-        axios.get("http://localhost:8000/api/users/loggedin", {withCredentials: true})
-        .then(res => {
-            console.log('res')
-            console.log(res)
-            const usertoken = localStorage.getItem('myValue')
-            console.log(usertoken)
-            const decoded = jwt_decode(usertoken)
-            if (decoded.id === res.data._id) {
-                console.log(res.data)
-                navigate('/sell')
-            } else {
-                window.alert("You need to be logged in to sell items.")
-                navigate('/')
-            }
-        })
-        .catch(err => console.log(err))
-    }
+    // const authenticate = () => {
+    //     axios.get("http://localhost:8000/api/users/loggedin", {withCredentials: true})
+    //     .then(res => {
+    //         console.log('res')
+    //         console.log(res)
+    //         const usertoken = localStorage.getItem('myValue')
+    //         console.log(usertoken)
+    //         const decoded = jwt_decode(usertoken)
+    //         if (decoded.id === res.data._id) {
+    //             console.log(res.data)
+    //             navigate('/sell')
+    //         } else {
+    //             window.alert("You need to be logged in to sell items.")
+    //             navigate('/')
+    //         }
+    //     })
+    //     .catch(err => console.log(err))
+    // }
     const [showSellForm, setShowSellForm] = useState(false)
     const [showProfile, setShowProfile] = useState(false)
 

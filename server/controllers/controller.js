@@ -75,6 +75,7 @@ module.exports = {
         httpOnly: true,
         maxAge: 0,
         })
+        res.clearCookie("usertoken")
         .json({ msg: "ok" });
     },
 
