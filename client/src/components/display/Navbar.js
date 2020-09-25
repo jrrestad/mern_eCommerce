@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import { Link, navigate } from '@reach/router'
+import React from 'react'
 import axios from 'axios';
 
-const Navbar = ({user, setUser}) => {
-    const [thisUser, setThisUser] = useState('')
+const Navbar = (props) => {
+    const {
+        user, setUser, 
+        loggedUser, 
+        showProfile, setShowProfile} = props;
 
     const logout = () => {
-        // need to send the cookie in request so server can clear it
-        axios.post("http://localhost:8000/api/logout2", {withCredentials: true})
+        axios.post("http://localhost:8000/api/logout", {withCredentials: true})
             .then((res) => {
               console.log(res);
               console.log("log me out!")
@@ -17,41 +18,33 @@ const Navbar = ({user, setUser}) => {
               .catch(err => console.log(err));
       };
 
-      useEffect(() => {
-        axios.get("http://localhost:8000/api/users/loggedin", {withCredentials: true})
-          .then((res) => {
-            console.log(res.data)
-            setThisUser(res.data);
-          })
-          .catch((err) => {
-            console.log("not authorized");
-            navigate("/");
-          });
-      }, []);
+      const handleProfile = () => {
+        if (showProfile === true) {
+            setShowProfile(false)
+        } else {
+            setShowProfile(true);
+        }
+    }
 
     return (
         <>
-        <nav className="row d-flex justify-content-between border-bottom">
-            <h1><Link to={"/"}>
-                Marketplace
-            </Link></h1>
-            <div className="border">
+        <div className="row d-flex justify-content-between border-bottom" style={{height: "120px"}}>
+            <h1 className="mt-4 ml-5">Marketplace</h1>
+            <div className="col-6 float-right">
             {
                 user ? 
-                <>
-                <div className="border p-3">
-                <Link to={"/profile"}><h3 className="text-center mb-0">{thisUser.username}</h3></Link>
-                <button className="btn-link btn" onClick={logout}>Logout</button>
+                <div className="float-right">
+                    <p className="my-3"><button className="btn btn-primary float-right btn-lg" onClick={handleProfile}>{loggedUser.username}</button></p>
+                    <p><button className="btn-link btn btn-lg float-right mt-2" onClick={logout}>Logout</button></p>
                 </div>
-                </>
                 : 
-                <>
-                <Link to={"/profile"}><h3 className="text-center mb-3">Sign In</h3></Link>
-                <p className="text-muted font-italic">(not logged in)</p>
-                </>
+                <div className="float-right">
+                    <button className="btn btn-primary btn-lg float-right my-3" onClick={handleProfile}>Sign In</button>
+                    <p className="text-muted font-italic mt-2">(not logged in)</p>
+                </div>
             }
             </div>
-        </nav>
+        </div>
         </>
     )
 }

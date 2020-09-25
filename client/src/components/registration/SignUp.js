@@ -33,46 +33,38 @@ const SignUp = (props) => {
 
   return (
     <>
-    <div className="col-12">
-      <h3 className="mt-1">Sign Up</h3>
+    <div style={{height: "450px"}} className="FadeIn col-3 my-3 ml-3 rounded border shadow bg-white">
       <form onSubmit={register}>
+      <h3 className="py-3 mb-3 d-flex justify-content-center rounded bg-primary row text-white">Sign Up</h3>
 
-        <div className="form-group row">
-          <label className="col-4 col-form-label">Username:</label>
-          <div className="col-8">
-            <input className="form-control" type="text" name="username" onChange={(e) => setUsername(e.target.value)} value={username} />
+        <div className="form-group d-flex justify-content-between">
+          <label className="col-form-label">Username:</label>
+            <input className="col-8 form-control" type="text" name="username" onChange={(e) => setUsername(e.target.value)} value={username} />
             {/* ?. is called optional chaining, lets you safely try to access keys that might not exist and avoid errors */}
+        </div>
             {errors?.username && (<p className="text-danger text-right mb-0">{errors.username?.properties?.message}</p>)}
-          </div>
-        </div>
 
-        <div className="form-group row">
-          <label className="col-4 col-form-label">Email:</label>
-          <div className="col-8">
-            <input className="form-control" type="text" name="email" onChange={(e) => setEmail(e.target.value)} value={email} />
+        <div className="form-group d-flex justify-content-between">
+          <label className="col-form-label">Email:</label>
+            <input className="col-8 form-control" type="text" name="email" onChange={(e) => setEmail(e.target.value)} value={email} />
+        </div>
             {errors?.email && (<p className="text-danger text-right mb-0">{errors.email?.properties?.message}</p>)}
-          </div>
-        </div>
 
-        <div className="form-group row">
-          <label className="col-4 col-form-label">Password:</label>
-          <div className="col-8">
-            <input className="form-control" type="password" name="email" onChange={(e) => setPassword(e.target.value)} value={password} />
+        <div className="form-group d-flex justify-content-between">
+          <label className="col-form-label">Password:</label>
+            <input className="col-8 form-control" type="password" name="email" onChange={(e) => setPassword(e.target.value)} value={password} />
+        </div>
             {errors?.password && (<p className="text-danger text-right mb-0">{errors.password?.properties?.message}</p>)}
-          </div>
-        </div>
 
-        <div className="form-group row">
-          <label className="col-4 col-form-label">Confirm Password:</label>
-          <div className="col-8">
-            <input className="form-control" type="password" name="confirmPassword" onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword} />
+        <div className="form-group d-flex justify-content-between">
+          <label className="col-form-label">Confirm Password:</label>
+            <input className="col-8 form-control" type="password" name="confirmPassword" onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword} />
+        </div>
             {errors?.confirmPassword && (<p className="text-danger text-right mb-0">{errors.confirmPassword?.properties?.message}</p>)}
-          </div>
-        </div>
 
-        <input className="offset-10 btn btn-primary mb-3" type="submit" value="Sign Up"  />
+        <input className="form-control btn btn-primary" type="submit" value="Sign Up"  />
       </form>
-    </div>
+      </div>
     </>
   );
 };

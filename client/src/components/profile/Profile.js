@@ -1,24 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import SignIn from "../login/SignIn";
 import SignUp from "../registration/SignUp";
 import User from "../login/User";
 import './Profile.css'
 
-const Profile = ({user, setUser}) => {
+const Profile = ({user, setUser, thisUser, setThisUser, loggedUser, setLoggedUser}) => {
+
+  const [signUp, setSignUp] = useState(false)
 
   return (
     <>
-    <div className="FadeIn col-4 p-4 m-2 border shadow">
+    {/* <div style={{height: "300px"}} className="FadeIn col-3 my-3 ml-3 rounded border shadow bg-white"> */}
         {
           user ?
-          <User/>
+          <User
+            loggedUser={loggedUser} setLoggedUser={setLoggedUser}
+            thisUser={thisUser} setThisUser={setThisUser}/>
           :
-          <div>
-            <SignIn user={user} setUser={setUser}/>
-            <SignUp user={user} setUser={setUser}/>
-          </div>
+          <>
+            <SignUp 
+              signUp={signUp} setSignUp={setSignUp}
+              user={user} setUser={setUser}/>
+            <SignIn
+              signUp={signUp} setSignUp={setSignUp}
+              user={user} setUser={setUser}/>
+          </>
         }
-      </div>
+      {/* </div> */}
     </>
   );
 }

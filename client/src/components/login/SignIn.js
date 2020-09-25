@@ -33,24 +33,22 @@ const SignIn = ({setUser}) => {
 
   return (
     <>
-    <div className="col-12">
-      <h3 className="mt-1">Sign In</h3>
+    <div style={{height: "300px"}} className="FadeIn col-3 my-3 ml-3 rounded border shadow bg-white">
       <form onSubmit={login}>
-        <div className="form-group row">
-          <label className="col-4 col-form-label">Email:</label>
-          <div className="col-8">
-            <input className="form-control" type="text" name="email" onChange={(e) => setEmail(e.target.value)} value={email}/>
-            {/* <p className="text-danger text-right mb-0">{errors ? errors : ''}</p> */}
+        <h3 className="py-3 mb-3 d-flex justify-content-center rounded bg-primary row text-white">Sign In</h3>
+          
+          <div className="form-group d-flex justify-content-between">
+            <label className="col-form-label">Email:</label>
+            <input className="col-8 form-control" type="text" name="email" onChange={(e) => setEmail(e.target.value)} value={email}/>
           </div>
-        </div>
-        <div className="form-group row">
-          <label className="col-4 col-form-label">Password:</label>
-          <div className="col-8">
-          <input className="form-control" type="password" name="email" onChange={(e) => setPassword(e.target.value)} value={password}/>
-          <p className="text-danger text-right mb-0">{errors ? errors : ''}</p>
+
+          <div className="form-group d-flex justify-content-between">
+            <label className="col-form-label">Password:</label>
+            <input className="col-8 form-control" type="password" name="email" onChange={(e) => setPassword(e.target.value)} value={password}/>
           </div>
-        </div>
-        <input className="offset-10  mb-2 btn btn-primary" type="submit" value="Sign In" />
+            <p className="text-danger text-right mb-2">{errors ? errors : ''}</p>
+          
+          <input className="form-control btn btn-primary" type="submit" value="Sign In" />
       </form>
     </div>
     </>

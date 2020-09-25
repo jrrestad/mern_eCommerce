@@ -39,13 +39,15 @@ module.exports = app => {
     app.post("/api/register", userController.register);
     app.post("/api/login", userController.login);
     app.post("/api/logout", userController.logout);
+    app.post("/api/logout2", userController.logout2);
   
     // this route now has to be authenticated
     app.get("/api/users", authenticate, userController.getAll);
     app.get("/api/users/loggedin", authenticate, userController.getLoggedInUser);
 
-    app.get("/api/products/:category", productController.getByCategory);
-    app.get("/api/products/:username", productController.getByUser);
+    app.get("/api/products/category/:category", productController.getByCategory);
+    app.get("/api/products/username/:createdBy", productController.getByUser);
+    // app.get("/api/products/:userID", productController.getUserProducts);
     app.post("/api/product", productController.addProduct);
     // app.post("/api/product/image", upload.single("imageData"), productController.multiPart);
     app.delete("/api/product/:id", productController.deleteProduct);

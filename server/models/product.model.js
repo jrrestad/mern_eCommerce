@@ -39,7 +39,7 @@ const ProductSchema  = new mongoose.Schema({
     },
     createdBy: {
         type: String,
-        required: [true]
+        required: [true, "Must have a created by name"]
     },
 }, {timestamps: true})
 

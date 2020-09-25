@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from '@reach/router'
 // import axios from 'axios';
 // import jwt_decode from 'jwt-decode';
@@ -6,7 +6,15 @@ import SellForm from '../sell/SellForm'
 import Profile from '../profile/Profile'
 import './Display.css'
 
-const Sidebar = ({user, setUser, allProducts, setAllProducts}) => {
+const Sidebar = (props) => {
+
+    const {user, setUser,
+         thisUser, setThisUser,
+         showProfile, setShowProfile,
+         allProducts, setAllProducts,
+         loggedUser, setLoggedUser,
+    } = props;
+
 
     // const authenticate = () => {
     //     axios.get("http://localhost:8000/api/users/loggedin", {withCredentials: true})
@@ -26,8 +34,9 @@ const Sidebar = ({user, setUser, allProducts, setAllProducts}) => {
     //     })
     //     .catch(err => console.log(err))
     // }
+
+
     const [showSellForm, setShowSellForm] = useState(false)
-    const [showProfile, setShowProfile] = useState(false)
 
     const handleSellForm = () => {
         if (showSellForm === true) {
@@ -45,14 +54,24 @@ const Sidebar = ({user, setUser, allProducts, setAllProducts}) => {
         }
     }
 
+    const [toggleMarket, setToggleMarket] = useState(false)
+    useEffect(() => {
+        console.log(window.location.pathname)
+        if (window.location.pathname === "/buy") {
+            setToggleMarket(true)
+        } else {
+            setToggleMarket(false)
+        }
+    }, [])
     return (
         <>
-        <div className="col-2 border">
-            <p className="btn btn-primary my-3 form-control">
-            <Link to={"/"}>
-                <span className="text-white">Marketplace</span>
-            </Link>
-            </p>
+        <div className="col-2 border bg-white">
+            {
+            toggleMarket ? 
+            <Link to={"/"}><button className="btn btn-danger my-3 form-control" onClick={() => setToggleMarket(false)}>Marketplace</button></Link>
+            :
+            <Link to={"/buy"}><button className="btn btn-primary my-3 form-control" onClick={() => setToggleMarket(true)}>Marketplace</button></Link>
+            }
             <div className="form-group">
 
                 <input className={showSellForm ?"btn btn-danger form-control mb-3":"btn btn-primary form-control mb-3"} type="button" onClick={handleSellForm} value={showSellForm?"Close Salesbox":  "Open Salesbox"}/>
@@ -64,9 +83,11 @@ const Sidebar = ({user, setUser, allProducts, setAllProducts}) => {
                 }
             </div>
         </div>
-            {showSellForm ? <SellForm user={user} showSellForm={showSellForm} allProducts={allProducts} setAllProducts={setAllProducts}
+            {showSellForm ? <SellForm loggedUser={loggedUser} setLoggedUser={setLoggedUser}
+ thisUser={thisUser} setThisUser={setThisUser} user={user} showSellForm={showSellForm} allProducts={allProducts} setAllProducts={setAllProducts}
             /> : ''}
-            {showProfile ? <Profile user={user} setUser={setUser} showProfile={showProfile}/> : ''}
+            {showProfile ? <Profile loggedUser={loggedUser} setLoggedUser={setLoggedUser}
+ thisUser={thisUser} setThisUser={setThisUser} user={user} setUser={setUser} showProfile={showProfile}/> : ''}
         </>
     )
 }

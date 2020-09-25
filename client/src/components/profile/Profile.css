@@ -5,6 +5,6 @@
 
 @media (prefers-reduced-motion: no-preference) {
     .FadeIn {
-        animation: Fade-In .5s 1;
+        animation: Fade-In .7s 1;
     }
 }
