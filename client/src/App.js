@@ -4,6 +4,9 @@ import Navbar from "./components/display/Navbar";
 import Sidebar from "./components/display/Sidebar";
 import Buy from "./components/buy/Buy"
 import { Router } from '@reach/router';
+// import Modal from './components/buy/Modal';
+// import useModal from './components/buy/useModal';
+import './App.css'
 
 function App() {
   const [user, setUser] = useState(localStorage.getItem('myValue') || '')
@@ -19,8 +22,10 @@ function App() {
   useEffect(() => {
     axios.get("http://localhost:8000/api/users/loggedin", {withCredentials: true})
       .then((res) => {
-        console.log(res.data)
-        setThisUser(res.data);
+        if (res.data != null) {
+          console.log(res.data)
+          setThisUser(res.data);
+        }
       })
       .catch((err) => {
         console.log("not authorized");
@@ -39,6 +44,8 @@ function App() {
   // google use Context
 
   // const [toggleMarket, setToggleMarket] = useState(false)
+ 
+  // const { isShowing, toggle} = useModal();
 
   return (
     <div className="col">
@@ -47,7 +54,10 @@ function App() {
       loggedUser={loggedUser} setLoggedUser={setLoggedUser}
       thisUser={thisUser} setThisUser={setThisUser}
       user={user} setUser={setUser}/>
-
+    {/* <div className="App">
+    <button className="button-default" onClick={toggle}>Show Modal</button>
+    <Modal isShowing={isShowing} hide={toggle}/>
+    </div> */}
       <div className="wrapper row bg-light border-bottom" style={{minHeight: "700px"}}>
         <Sidebar 
         showProfile={showProfile} setShowProfile={setShowProfile}

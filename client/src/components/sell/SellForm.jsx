@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import './Sell.css'
 
-const SellForm = ({thisUser, setThisUser, allProducts, setAllProducts}) => {
+const SellForm = ({thisUser, allProducts, setAllProducts}) => {
     const API_URL = "http://localhost:8000"
     const [defaultImg, setDefaultImage] = useState('')
     const [state, setState] = useState({
@@ -25,7 +25,7 @@ const SellForm = ({thisUser, setThisUser, allProducts, setAllProducts}) => {
         price: price,
         description: description,
         productImage: defaultImg.imageData,
-        createdBy: thisUser.createdBy,
+        createdBy: thisUser.username,
     }
 
     // useEffect( () => {
@@ -37,25 +37,34 @@ const SellForm = ({thisUser, setThisUser, allProducts, setAllProducts}) => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        console.log(state.multerImage)
+        // console.log(state.multerImage)
+        console.log("username")
+        console.log(thisUser)
+        console.log(thisUser.username)
         axios.post(`http://localhost:8000/api/product`, listProduct)
         .then(res => {
             console.log(res)
+            console.log("breaks here? 1")
             if(res.data.errors) {
+                console.log("breaks here? 2")
                 setErrors(res.data.errors)
             } else {
+                console.log("breaks here? 3")
                 setErrors('')
                 console.log("SUCCESSFUL PRODUCT CREATION")
                 setAllProducts([...allProducts, listProduct])
+                console.log("Does it set the product list?")
                 setCategory('')
                 setCondition('')
                 setProduct('')
                 setLocation('')
                 setPrice('')
                 setDescription('')
+                console.log("DOES IT SET EVERYTHING?")
             }
         })
-        .catch(err => console.log(err))
+        console.log("breaks here? 4")
+        // .catch((err) => console.log(err))
     }
 
     const uploadImage = (e) => {

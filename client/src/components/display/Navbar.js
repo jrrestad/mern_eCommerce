@@ -15,9 +15,10 @@ const Navbar = (props) => {
               localStorage.clear();
               setUser('')
             })
-              .catch(err => console.log(err));
-      };
+            .catch(err => console.log(err));
+        };
 
+        
       const handleProfile = () => {
         if (showProfile === true) {
             setShowProfile(false)
@@ -29,7 +30,12 @@ const Navbar = (props) => {
     return (
         <>
         <div className="row d-flex justify-content-between border-bottom" style={{height: "120px"}}>
-            <h1 className="mt-4 ml-5">Marketplace</h1>
+            <div className="col">
+
+            <h1 className="mt-4 mb-0 ml-5">The Swap Meet</h1>
+            <p className="mt-0 ml-5">A digital trading post</p>
+            <hr/>
+            </div>
             <div className="col-6 float-right">
             {
                 user ? 

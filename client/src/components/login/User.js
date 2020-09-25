@@ -35,7 +35,7 @@ const User = ({thisUser, loggedUser, setLoggedUser}) => {
 
         <p><strong>Created On:</strong> {loggedUser.createdAt}</p>
         <p><strong>Email: </strong> {loggedUser.email}</p>
-        <p className="d-flex">You have listed <h5 className="mx-2">{myProducts.length}</h5> products</p>
+        <h5 className="mx-2">Your products {myProducts.length}</h5>
         <div className="d-flex flex-wrap overflow-auto border" style={{maxHeight: "200px"}} >
           {
             myProducts ? myProducts.map( (item, i) =>

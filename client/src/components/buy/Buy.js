@@ -1,10 +1,19 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { Link } from '@reach/router'
+import Modal from './Modal';
+// import useModal from './useModal';
+
 
 
 const Buy = ({allProducts, setAllProducts}) => {
     let URL = "http://localhost:8000/"
+
+    const [countModal, setCountModal] = useState([])
+
+
+    // const { isShowing, toggle } = useModal();
+
     // const [allProducts, setAllProducts] = useState([])
 
     // useEffect(() => {
@@ -22,6 +31,14 @@ const Buy = ({allProducts, setAllProducts}) => {
         .then(res => {
             console.log(res.data)
             setAllProducts(res.data)
+            // console.log(res.data.length)
+            let ren = [];
+            for (let i = 0; i < res.data.length; i++) {
+                ren.push(false)
+            }
+            setCountModal(ren)
+            console.log(ren)
+
         })
         .catch(err => console.log(err))
     }
@@ -51,7 +68,34 @@ const Buy = ({allProducts, setAllProducts}) => {
         })
         .catch(err => console.log(err))
     }
+    // const [ state, setState] = useState()
+    
+    
+    // const toggle = () => {
+    //     let { toggle } = state
+    //     setState({toggle: !toggle})
+    // }
 
+    // const modalToggle = (i) => {
+    //     let [...isShowing] = render;
+    //     isShowing[i] = !isShowing[i];
+    //     setRender(isShowing)
+    // }
+    // const { toggle } = useModal();
+
+    const toggleCountModal = (i) => {
+        // console.log(countModal)
+        let [...newCount] = countModal;
+        if (newCount[i] === true) {
+            newCount[i] = false
+        } else {
+            newCount[i] = true
+        }
+        // newCount[i] = !newCount[i];
+        console.log(newCount)
+        setCountModal(newCount)
+    }
+    
     return (
         <div>
             <hr/>
@@ -94,16 +138,34 @@ const Buy = ({allProducts, setAllProducts}) => {
 
             <hr/>
             <div className="d-flex flex-wrap bg-light container-fluid" style={{minHeight: "1000px"}}>
+
             {
                 allProducts.map( (item, i) => 
+                
                 <div className="col-3" key={i}>
+                        <div className="App" id={i}>
+                        {/* <button className="btn btn-success" onClick={toggle}>Show Modal</button> */}
+                        <button className="btn btn-success" onClick={ () => toggleCountModal(i)}>Show Modal</button>
+                        {
+                            countModal[i] ?
+                            <Modal 
+                            item={item}
+                            toggleCountModal={toggleCountModal}
+                            id={i}
+                            isShowing={countModal[i]}
+                            />
+                         : ''   
+                        }
+                        </div>
+                    
                     <div className="col mb-4 border shadow" style={{maxHeight: "500px", minHeight: "500px"}}>
                         <h5 className="py-3 mb-3 d-flex justify-content-center rounded bg-primary row text-white">
-                            <Link to={item._id}>
+                            {/* <Link to={item._id}>
                                 <span className="text-white">
                                 {item.createdBy}
                                 </span>
-                            </Link>
+                            </Link> */}
+                            {item.createdBy}
                         </h5>
                         <div className="p-4">
 
@@ -123,7 +185,7 @@ const Buy = ({allProducts, setAllProducts}) => {
                             </h5>
                         <h5>Zip Code: {item.location}</h5>
                         <h5>Price: ${item.price}</h5>
-                        <p>- {item.description}</p>
+                        {/* <p>- {item.description}</p> */}
                         <img src={URL + item.productImage} width="200" alt=""/>
                         {/* <img src="http://localhost:8000/uploads\\1600934786593KODAGOTCHI-SLEEP.png" width="200" alt=""/>
                         <img src="http://localhost:3000/5aec199a-2f90-45e5-b3a8-83443287d042" width="200" alt=""/> */}

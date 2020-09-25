@@ -12,7 +12,7 @@ const Profile = ({user, setUser, thisUser, setThisUser, loggedUser, setLoggedUse
     <>
     {/* <div style={{height: "300px"}} className="FadeIn col-3 my-3 ml-3 rounded border shadow bg-white"> */}
         {
-          user ?
+          user.length >= 0 && user ?
           <User
             loggedUser={loggedUser} setLoggedUser={setLoggedUser}
             thisUser={thisUser} setThisUser={setThisUser}/>
