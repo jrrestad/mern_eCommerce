@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import './Sell.css'
 
-const SellForm = ({thisUser, allProducts, setAllProducts}) => {
+const SellForm = ({loggedUser, allProducts, setAllProducts}) => {
     const API_URL = "http://localhost:8000"
     const [defaultImg, setDefaultImage] = useState('')
     const [state, setState] = useState({
@@ -25,46 +25,27 @@ const SellForm = ({thisUser, allProducts, setAllProducts}) => {
         price: price,
         description: description,
         productImage: defaultImg.imageData,
-        createdBy: thisUser.username,
+        createdBy: loggedUser.username,
     }
 
-    // useEffect( () => {
-    //         const usertoken = localStorage.getItem('myValue')
-    //         console.log(usertoken)
-    //         setCurrentUser(jwt_decode(usertoken))
-    //         console.log(currentUser)
-    // }, [])
-
     const submitHandler = (e) => {
-        e.preventDefault()
-        // console.log(state.multerImage)
-        console.log("username")
-        console.log(thisUser)
-        console.log(thisUser.username)
+        e.preventDefault()  
         axios.post(`http://localhost:8000/api/product`, listProduct)
         .then(res => {
-            console.log(res)
-            console.log("breaks here? 1")
             if(res.data.errors) {
-                console.log("breaks here? 2")
                 setErrors(res.data.errors)
             } else {
-                console.log("breaks here? 3")
                 setErrors('')
-                console.log("SUCCESSFUL PRODUCT CREATION")
                 setAllProducts([...allProducts, listProduct])
-                console.log("Does it set the product list?")
                 setCategory('')
                 setCondition('')
                 setProduct('')
                 setLocation('')
                 setPrice('')
                 setDescription('')
-                console.log("DOES IT SET EVERYTHING?")
             }
         })
-        console.log("breaks here? 4")
-        // .catch((err) => console.log(err))
+        .catch((err) => console.log(err))
     }
 
     const uploadImage = (e) => {
@@ -72,9 +53,7 @@ const SellForm = ({thisUser, allProducts, setAllProducts}) => {
           let imageFormObj = new FormData();
           imageFormObj.append("imageName", "multer-image-" + Date.now());
           imageFormObj.append("imageData", e.target.files[0]);
-    
-          // stores a readable instance of 
-          // the image being uploaded using multer
+          // stores a readable instance of the image being uploaded using multer
           setState({
             multerImage: URL.createObjectURL(e.target.files[0])
           });
@@ -83,7 +62,6 @@ const SellForm = ({thisUser, allProducts, setAllProducts}) => {
           .then((res) => {
               if (res.data.success) {
                   console.log(res.data)
-                // alert("Image has been successfully uploaded using multer");
                 setDefaultImage(res.data.document)
               }
             })
@@ -158,16 +136,3 @@ const SellForm = ({thisUser, allProducts, setAllProducts}) => {
 }
 
 export default SellForm
-
-// const imageHandler = (e) => {
-//     let imageFormObj = new FormData();
-//       imageFormObj.append("imageName", "multer-image-" + Date.now());
-//       imageFormObj.append("imageData", e.target.files[0]);
-
-//       // stores a readable instance of 
-//       // the image being uploaded using multer
-//       setState({
-//         multerImage: URL.createObjectURL(e.target.files[0])
-//       });
-//       setCurrentImg(imageFormObj)
-// }

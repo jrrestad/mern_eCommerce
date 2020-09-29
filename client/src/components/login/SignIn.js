@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import jwt_decode from 'jwt-decode'
+// import jwt_decode from 'jwt-decode'
 
-const SignIn = ({setUser}) => {
+const SignIn = ({setUser, loggedUser, setLoggedUser}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState("");
@@ -11,23 +11,38 @@ const SignIn = ({setUser}) => {
     event.preventDefault();
     axios.post("http://localhost:8000/api/login", { email, password }, {withCredentials: true})
       .then((res) => {
-        console.log(res)
         if (res.data.errors) {
+          console.log('RES DATA')
+          console.log(res.data)
           setErrors(res.data.errors)
         } else {
           console.log(res.data);
-          const usertoken = res.data.usertoken
-          const decoded = jwt_decode(usertoken)
+          console.log("SIGN IN SUCCESSFUL")
+          // const usertoken = res.data.usertoken
+          // const decoded = jwt_decode(usertoken)
           // decoded is the JWT_token object
-          console.log(decoded)
+          // console.log(decoded)
           // the user token will get set into local storage (avaiabile to all pages, but have to check still)
-          localStorage.setItem('myValue', usertoken)
-          setUser(localStorage.getItem('myValue') || '')
+          // localStorage.setItem('myValue', usertoken)
+          // setUser(localStorage.getItem('myValue') || '')
+          // setLoggedUser(res.data.usertoken)
+          axios.get("http://localhost:8000/api/users/loggedin", {withCredentials: true})
+          .then((res) => {
+            if (res.data != null) {
+              console.log("SETTING LOGGED USER DATA")
+              setLoggedUser(res.data);
+              console.log(res.data)
+            }
+          })
+          .catch((err) => {
+            console.log("not authorized");
+            console.log(loggedUser)
+          });
         }
       })
       .catch((err) => {
         console.log(err);
-        setErrors(err.response.data.msg)
+        // setErrors(err.response.data.msg)
       });
   };
 

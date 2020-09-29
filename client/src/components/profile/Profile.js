@@ -4,15 +4,15 @@ import SignUp from "../registration/SignUp";
 import User from "../login/User";
 import './Profile.css'
 
-const Profile = ({user, setUser, thisUser, setThisUser, loggedUser, setLoggedUser}) => {
+const Profile = (props) => {
+  const {user, setUser, thisUser, setThisUser, loggedUser, setLoggedUser} = props;
 
   const [signUp, setSignUp] = useState(false)
 
   return (
     <>
-    {/* <div style={{height: "300px"}} className="FadeIn col-3 my-3 ml-3 rounded border shadow bg-white"> */}
         {
-          user.length >= 0 && user ?
+          loggedUser ?
           <User
             loggedUser={loggedUser} setLoggedUser={setLoggedUser}
             thisUser={thisUser} setThisUser={setThisUser}/>
@@ -20,13 +20,16 @@ const Profile = ({user, setUser, thisUser, setThisUser, loggedUser, setLoggedUse
           <>
             <SignUp 
               signUp={signUp} setSignUp={setSignUp}
-              user={user} setUser={setUser}/>
+              user={user} setUser={setUser}
+              loggedUser={loggedUser} setLoggedUser={setLoggedUser}
+              />
             <SignIn
               signUp={signUp} setSignUp={setSignUp}
-              user={user} setUser={setUser}/>
+              user={user} setUser={setUser}
+              loggedUser={loggedUser} setLoggedUser={setLoggedUser}
+              />
           </>
         }
-      {/* </div> */}
     </>
   );
 }
