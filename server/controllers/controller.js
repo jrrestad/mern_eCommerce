@@ -21,7 +21,7 @@ module.exports = {
     //   },
 
     login: (req, res) => {
-        User.findOne({ email: req.body.email })
+        User.findOne({ email: req.body.email }).select("+password") // select: false in user.models, but added +password here for validation on log in
           .then((user) => {
             if (user === null) {
               res.status(400).json({ msg: "Invalid login attempt" });
@@ -75,7 +75,6 @@ module.exports = {
         httpOnly: true,
         maxAge: 0,
         })
-        res.clearCookie("usertoken")
         .json({ msg: "ok" });
     },
 
