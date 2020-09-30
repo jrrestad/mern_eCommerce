@@ -45,6 +45,7 @@
   z-index: 1000;
   width: 100vw;
   height: 100vh;
+  cursor: pointer;
   background-color: rgba(0,0,0,0.6);
 }
 
@@ -55,6 +56,42 @@
   z-index: 1010;
   width: 70vw;
   height: 90vh;
+}
+
+.modal-profile {
+  position: fixed;
+  top: 5%;
+  left: 15%;
+  z-index: 1010;
+  width: 70vw;
+  height: 90vh;
+}
+
+.modal-sell {
+  position: fixed;
+  top: 5%;
+  left: 30%;
+  z-index: 1010;
+  width: 40vw;
+  height: 90vh;
+}
+
+.modal-signin {
+  position: fixed;
+  top: 25%;
+  left: 37.5%;
+  z-index: 1010;
+  width: 25vw;
+  height: 50vh;
+}
+
+.modal-signup {
+  position: fixed;
+  top: 10%;
+  left: 37.5%;
+  z-index: 1010;
+  width: 25vw;
+  height: 80vh;
 }
 
 /* .modal-wrapper {
@@ -87,6 +124,7 @@
 .modal-close-button {
   position: absolute;
   right: 0;
+  z-index: 1020;
   font-size: 1.4rem;
   font-weight: 700;
   line-height: 1;

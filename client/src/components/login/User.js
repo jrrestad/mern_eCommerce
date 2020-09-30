@@ -11,7 +11,7 @@ const User = ({thisUser, loggedUser, setLoggedUser}) => {
   useEffect(() => {
     axios.get("http://localhost:8000/api/users/loggedin", {withCredentials: true})
       .then((res) => {
-        console.log("GETTING USER DATA")
+        console.log("GETTING USER")
         console.log(res.data)
         setLoggedUser(res.data);
       })

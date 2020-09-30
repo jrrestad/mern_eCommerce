@@ -61,8 +61,9 @@ const Buy = ({allProducts, setAllProducts}) => {
     
     return (
         <div>
-            <hr/>
-            <h1 className="ml-4">See whats for sale</h1>
+            {/* <hr/> */}
+            {/* <h1 className="ml-4">See whats for sale</h1> */}
+            <br/>
             <div className="d-flex rounded p-2 bg-primary">
                 <h6 className="text-white mt-3">Search:</h6>
             
