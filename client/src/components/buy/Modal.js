@@ -6,7 +6,7 @@ const Modal = ({isShowing, toggleCountModal, id, item}) => isShowing ? ReactDOM.
         <div className="modal-overlay" onClick={ () => toggleCountModal(id)}></div>
         <div className="modal-overlay-2 rounded bg-white">
             <div className="d-flex max-height">
-                <div className="col-8 p-0r v-align">
+                <div className="col-8 p-0 v-align">
                     <img className="img-fluid" src={`http://localhost:8000/${item.productImage}`} alt=""/>
                 </div>
                 <div className="col-4 border-left max-height p-3">

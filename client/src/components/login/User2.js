@@ -37,17 +37,39 @@ const User2 = ({loggedUser, setLoggedUser}) => {
 
       <div className="FadeIn">
           <h3 className="text-center py-1 bg-primary text-white">{loggedUser.username}</h3>
-
+          
           <p><strong>Created On:</strong> {loggedUser.createdAt}</p>
+          <p>{Date()}</p>
           <p><strong>Email: </strong> {loggedUser.email}</p>
           <h5 className="mx-2">Your products {myProducts.length}</h5>
-          <div className="d-flex flex-wrap overflow-auto border" style={{maxHeight: "400px"}} >
+          <div className="d-flex flex-wrap overflow-auto border" style={{maxHeight: "400px"}}>
+
             {
               myProducts ? myProducts.map( (item, i) =>
               <div className="col-4 p-0 border" key={i}>
-                <p className="container bg-primary position-absolute overflow-hidden text-white" style={{maxHeight: "25px"}}>{item.product}</p>
-                <img className="mw-25 mh-25 img-fluid" src={URL + item.productImage} alt=""/>
-                    
+                <div className="border">
+                        <div className="overflow-hidden" style={{height: "200px"}}>
+                            <img className="img-fluid" src={URL + item.productImage} alt="img"/>
+                        </div>
+                        <div className="p-2 border-top">
+                        <h6 className="font-card">{item.product}</h6>
+                            <p className="font-card">Condition: <span>
+                            {
+                                (item.condition === 'Poor') ?
+                                <span className="text-danger">{item.condition}</span>
+                                : (item.condition === 'Fair') ?
+                                <span className="text-warning">{item.condition}</span>
+                                : (item.condition === 'Good') ?
+                                <span className="text-info">{item.condition}</span>
+                                :
+                                <span className="text-primary">{item.condition}</span>
+                            }
+                            </span>
+                            </p>
+                        <p className="font-card">Zip Code: {item.location}</p>
+                        <p className="font-card">Price: ${item.price}</p>
+                        </div>
+                    </div>
                 </div>
             ):''
           }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import Modal from './Modal';
+import './Buy.css'
 
 const Buy = ({allProducts, setAllProducts}) => {
     let URL = "http://localhost:8000/"
@@ -101,12 +102,12 @@ const Buy = ({allProducts, setAllProducts}) => {
         </div>
 
             <hr/>
-            <div className="d-flex flex-wrap bg-light container-fluid" style={{minHeight: "1000px"}}>
+            <div className="d-flex flex-wrap bg-light">
 
             {
                 allProducts.map( (item, i) => 
                 
-                <div className="col-3" key={i}>
+                <div className="m-2 bg-white shadow translucent pointer" style={{width: "14rem"}} key={i}>
                         {
                             countModal[i] ?
                             <Modal 
@@ -115,14 +116,15 @@ const Buy = ({allProducts, setAllProducts}) => {
                                 id={i}
                                 isShowing={countModal[i]}
                             />
-                         : ''   
+                         : ''
                         }
-                    <div className="col mb-4 border shadow" style={{maxHeight: "500px", minHeight: "500px"}} onClick={ () => toggleCountModal(i)}>
-                        <h5 className="py-2 mb-3 d-flex justify-content-center rounded bg-primary row text-white">{item.createdBy}</h5>
-                        <div className="p-4">
-
-                        <h5>{item.product} <span className="text-muted font-italic">({item.category})</span></h5>
-                            <h5>Condition: <span>
+                    <div className="border" onClick={ () => toggleCountModal(i)}>
+                        <div className="overflow-hidden" style={{height: "200px"}}>
+                            <img className="img-fluid" src={URL + item.productImage} alt="img"/>
+                        </div>
+                        <div className="p-2 border-top">
+                        <h6 className="font-card">{item.product}</h6>
+                            <p className="font-card">Condition: <span>
                             {
                                 (item.condition === 'Poor') ?
                                 <span className="text-danger">{item.condition}</span>
@@ -134,10 +136,9 @@ const Buy = ({allProducts, setAllProducts}) => {
                                 <span className="text-primary">{item.condition}</span>
                             }
                             </span>
-                            </h5>
-                        <h5>Zip Code: {item.location}</h5>
-                        <h5>Price: ${item.price}</h5>
-                        <img src={URL + item.productImage} width="200" alt=""/>
+                            </p>
+                        <p className="font-card">Zip Code: {item.location}</p>
+                        <p className="font-card">Price: ${item.price}</p>
                         </div>
                     </div>
                 </div>
