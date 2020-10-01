@@ -59,17 +59,17 @@ const Buy = ({allProducts, setAllProducts}) => {
         console.log(newCount)
         setCountModal(newCount)
     }
-    
+
     return (
         <div>
             {/* <hr/> */}
             {/* <h1 className="ml-4">See whats for sale</h1> */}
             <br/>
-            <div className="d-flex rounded p-2 bg-primary">
-                <h6 className="text-white mt-3">Search:</h6>
+            <div className="d-flex rounded bg-primary">
+                <h6 className="text-white ml-1 mt-3">Search:</h6>
             
             <div className="col-2 mt-2">
-                <select className="form-control mb-2" name="searchType" id="" onChange={checkSearchType}>
+                <select className="form-control pl-0 mb-2" name="searchType" id="" onChange={checkSearchType}>
                     <option value="">Search by...</option>
                     <option value="category">Category</option>
                     <option value="seller">Seller</option>
@@ -106,7 +106,6 @@ const Buy = ({allProducts, setAllProducts}) => {
 
             {
                 allProducts.map( (item, i) => 
-                
                 <div className="m-2 bg-white shadow translucent pointer" style={{width: "14rem"}} key={i}>
                         {
                             countModal[i] ?

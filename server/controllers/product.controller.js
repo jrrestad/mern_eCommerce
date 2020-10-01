@@ -32,12 +32,12 @@ const { Product } = require('../models/product.model');
 
 module.exports = {
     getByCategory: (req, res) => {
-        Product.find({ category: req.params.category })
+        Product.find({ category: req.params.category }).sort({ createdAt: -1})
         .then(data => res.json(data))
         .catch(err => res.json(err))
     },
     getByUser: (req, res) => {
-        Product.find({ createdBy: req.params.createdBy })
+        Product.find({ createdBy: req.params.createdBy }).sort({ createdAt: -1})
         .then(data => res.json(data))
         .catch(err => res.json(err))
     },

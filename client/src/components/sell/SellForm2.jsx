@@ -78,11 +78,11 @@ const SellForm2 = ({loggedUser, allProducts, setAllProducts}) => {
     <Link to={"/"}><div className="modal-overlay"></div></Link>
     <div className="modal-sell bg-white rounded">
 
-            <form className="FadeIn col-12" encType="multipart/form-data" onSubmit={submitHandler}>
-                <h3 className="py-3 row d-flex justify-content-center bg-primary text-center text-white">List an item for sale</h3>
+            <form className="FadeIn max-height" encType="multipart/form-data" onSubmit={submitHandler}>
 
-                <div className="overflow-auto" style={{maxHeight: "550px"}} >
-                    <div className="form-group d-flex justify-content-between">
+                <h3 className="py-3 m-0 d-flex justify-content-center bg-primary text-center text-white">List an item for sale</h3>
+                <div className="overflow-auto pl-2 border" style={{maxHeight: "70%"}} >
+                    <div className="form-group pt-2 d-flex justify-content-between">
                         <label  className="col-form-label" htmlFor="category">Category:</label>
                         <select className="col-8 form-control" value={category} name="category" onChange={(e) => setCategory(e.target.value)}>
                             <option value=" "></option>
@@ -128,13 +128,14 @@ const SellForm2 = ({loggedUser, allProducts, setAllProducts}) => {
                         <label className="col-form-label" htmlFor="upload">Upload:</label>
                         <input type="file" className="col-8 form-control btn-primary" name="upload" onChange={uploadImage}/>
                     </div>
+
                     <div className=" border col-8 offset-4 d-flex justify-content-center row mb-2" style={{height: "100px"}}>
                         <img className="img-fluid mw-100 mh-100" src={state.multerImage} alt=""/>
                     </div>
                 </div>
 
-                <div className="form-group">
-                    <input className="form-control btn btn-primary" type="submit" value="List Item" />
+                <div className="form-group d-flex justify-content-center">
+                    <input className="form-control m-2 btn btn-primary" type="submit" value="List Item" />
                 </div>
             </form>
         </div>

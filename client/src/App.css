@@ -38,6 +38,10 @@
   }
 }
 
+option {
+  font-size: 12px;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -151,9 +155,17 @@ button {
 
 .max-height {
   height: 100%;
-  border-right: 1px solid black;
+}
+.half-height {
+  height: 100%;
 }
 
+.img-center {
+  align-items: center;
+}
+.borderr {
+  border: 1px solid red;
+}
 .v-align {
   display: flex;
   align-items: center;
