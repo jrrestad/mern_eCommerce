@@ -4,13 +4,20 @@ const jwt = require("jsonwebtoken");
 
 module.exports = {
     register: (req, res) => {
-        User.create(req.body)
-        .then(user => {
-            const usertoken = jwt.sign({id: user._id}, process.env.JWT_SECRET); 
-            res.cookie("usertoken", usertoken, secret, { httpOnly: true })
-            .json({msg: "Success!", user: user})
+        User.findOne({ $or: [ {username: req.body.username}, {email: req.body.email} ]})
+        .then(data => {
+            if (data == null) {
+                User.create(req.body)
+                .then(user => {
+                    const usertoken = jwt.sign({id: user._id}, process.env.JWT_SECRET); 
+                    res.cookie("usertoken", usertoken, secret, { httpOnly: true })
+                    .json({msg: "Success!", user: user})
+                })
+                .catch(err => res.json(err))
+            } else {
+                res.json({errors: {username: {message: "Username or email already taken"}, email: {message: "Username or email already taken"}}})
+            }
         })
-        .catch(err => res.json(err))
     },
     // register: (req, res) => {
     //     User.create(req.body)

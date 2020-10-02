@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from '@reach/router'
+import { Link, navigate } from '@reach/router'
 import axios from "axios";
 import './SignUp.css'
 
@@ -25,6 +25,10 @@ const SignUp2 = (props) => {
           setEmail("");
           setPassword("");
           setConfirmPassword("");
+          // create a congratulations for signing up link
+          // and explain benefits of signing in, from there
+          // can redirect to sign in pages
+          navigate('/signin')
         }
       })
       .catch((err) => {
@@ -47,13 +51,13 @@ const SignUp2 = (props) => {
             <input className="col-8 form-control" type="text" name="username" onChange={(e) => setUsername(e.target.value)} value={username} />
             {/* ?. is called optional chaining, lets you safely try to access keys that might not exist and avoid errors */}
         </div>
-            {errors?.username && (<p className="text-danger text-right mb-0">{errors.username?.properties?.message}</p>)}
+            {errors?.username && (<p className="text-danger text-right mb-0">{errors.username?.message}</p>)}
 
         <div className="form-group d-flex justify-content-between">
           <label className="col-form-label">Email:</label>
             <input className="col-8 form-control" type="text" name="email" onChange={(e) => setEmail(e.target.value)} value={email} />
         </div>
-            {errors?.email && (<p className="text-danger text-right mb-0">{errors.email?.properties?.message}</p>)}
+            {errors?.email && (<p className="text-danger text-right mb-0">{errors.email?.message}</p>)}
 
         <div className="form-group d-flex justify-content-between">
           <label className="col-form-label">Password:</label>

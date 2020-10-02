@@ -6,12 +6,27 @@ import User2 from "./components/login/User2";
 import SellForm2 from "./components/sell/SellForm2";
 import SignIn2 from "./components/login/SignIn2";
 import SignUp2 from "./components/registration/SignUp2"
+import Update from "./components/profile/Update"
+import NotFound from "./components/NotFound"
 import { Router } from '@reach/router';
 import './App.css'
 
 function App() {
   const [allProducts, setAllProducts] = useState([])
-  const [loggedUser, setLoggedUser] = useState({})
+  const [loggedUser, setLoggedUser] = useState('')
+
+
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/users/loggedin", {withCredentials: true})
+      .then((res) => {
+          console.log("GETTING USER DATA")
+          console.log(res.data)
+          setLoggedUser(res.data);
+      })
+      .catch((err) => {
+        console.log("not authorized");
+      });
+  }, [setLoggedUser]);
 
   useEffect(() => {
     axios.get(`http://localhost:8000/api/products/category/Electronics`)
@@ -29,6 +44,7 @@ function App() {
       <Buy 
       allProducts={allProducts} setAllProducts={setAllProducts}/>
       <Router>
+        <NotFound default/>
         <SignIn2 
         loggedUser={loggedUser} setLoggedUser={setLoggedUser}
         path={"/signin"}/>
@@ -42,6 +58,10 @@ function App() {
         loggedUser={loggedUser} setLoggedUser={setLoggedUser}
         allProducts={allProducts} setAllProducts={setAllProducts}
         path={"/sell"}/>
+        <Update 
+        loggedUser={loggedUser}
+        allProducts={allProducts}
+        path={"/profile/update/:id"}/>
       </Router>
     </div>
   );

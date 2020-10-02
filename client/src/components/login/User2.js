@@ -7,6 +7,8 @@ const User2 = ({loggedUser, setLoggedUser}) => {
   const getUser = loggedUser.username
   let URL = "http://localhost:8000/"
 
+
+  // can make api call for every page to verify logged in, or can check state?
   useEffect(() => {
     axios.get("http://localhost:8000/api/users/loggedin", {withCredentials: true})
       .then((res) => {
@@ -71,6 +73,7 @@ const User2 = ({loggedUser, setLoggedUser}) => {
             {
               myProducts ? myProducts.map( (item, i) =>
               <div className="col-4 border p-0" key={i}>
+                <Link to={`/profile/update/${item._id}`}>
                         <div className="overflow-hidden" style={{height: "200px"}}>
                             <img className="img-fluid" src={URL + item.productImage} alt="img"/>
                         </div>
@@ -92,6 +95,7 @@ const User2 = ({loggedUser, setLoggedUser}) => {
                         <p className="font-card">Zip Code: {item.location}</p>
                         <p className="font-card">Price: ${item.price}</p>
                         </div>
+                    </Link>
                     </div>
             ):''
           }

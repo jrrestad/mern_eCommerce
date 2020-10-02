@@ -71,6 +71,15 @@ option {
   height: 90vh;
 }
 
+.modal-update {
+  position: fixed;
+  top: 5%;
+  left: 15%;
+  z-index: 1020;
+  width: 70vw;
+  height: 90vh;
+}
+
 .modal-sell {
   position: fixed;
   top: 5%;

@@ -41,6 +41,11 @@ module.exports = {
         .then(data => res.json(data))
         .catch(err => res.json(err))
     },
+    getOne: (req, res) => {
+        Product.find({ _id: req.params.id, createdBy: req.params.createdBy})
+        .then(data => res.json(data))
+        .catch(err => res.json(err))
+    },
     addProduct: (req, res) => {
         Product.create(req.body)
         .then(data => res.json(data))
