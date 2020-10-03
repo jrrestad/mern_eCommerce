@@ -74,9 +74,9 @@ option {
 .modal-update {
   position: fixed;
   top: 5%;
-  left: 15%;
-  z-index: 1020;
-  width: 70vw;
+  left: 30%;
+  z-index: 1010;
+  width: 40vw;
   height: 90vh;
 }
 
@@ -103,7 +103,7 @@ option {
   top: 10%;
   left: 37.5%;
   z-index: 1010;
-  width: 25vw;
+  width: 40vw;
   height: 80vh;
 }
 

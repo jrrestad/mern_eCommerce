@@ -42,40 +42,52 @@ const SignUp2 = (props) => {
 
     <div className="modal-signup bg-white rounded">
 
-    <div className="FadeIn col-12">
-      <form onSubmit={register}>
-      <h3 className="py-3 mb-3 d-flex justify-content-center rounded bg-primary row text-white">Sign Up</h3>
+      <form onSubmit={register} className="FadeIn max-height">
 
-        <div className="form-group d-flex justify-content-between">
+      <h3 className="m-0 d-flex justify-content-center bg-primary text-white" style={{height: "10%"}}>Sign Up</h3>
+
+      <div className="overflow-auto pl-2 border" style={{height: "70%"}}>
+
+        <div className="form-group d-flex pt-2 justify-content-between">
           <label className="col-form-label">Username:</label>
-            <input className="col-8 form-control" type="text" name="username" onChange={(e) => setUsername(e.target.value)} value={username} />
+          <div className="col-8">
+            <input className="col-12 form-control" type="text" name="username" onChange={(e) => setUsername(e.target.value)} value={username} />
             {/* ?. is called optional chaining, lets you safely try to access keys that might not exist and avoid errors */}
+            {errors?.username && (<p className="text-danger text-center mb-0">{errors.username?.message}</p>)}
+          </div>
         </div>
-            {errors?.username && (<p className="text-danger text-right mb-0">{errors.username?.message}</p>)}
 
         <div className="form-group d-flex justify-content-between">
           <label className="col-form-label">Email:</label>
-            <input className="col-8 form-control" type="text" name="email" onChange={(e) => setEmail(e.target.value)} value={email} />
+          <div className="col-8">
+            <input className="col-12 form-control" type="text" name="email" onChange={(e) => setEmail(e.target.value)} value={email} />
+            {errors?.email && (<p className="text-danger text-center mb-0">{errors.email?.message}</p>)}
+          </div>
         </div>
-            {errors?.email && (<p className="text-danger text-right mb-0">{errors.email?.message}</p>)}
 
         <div className="form-group d-flex justify-content-between">
           <label className="col-form-label">Password:</label>
-            <input className="col-8 form-control" type="password" name="email" onChange={(e) => setPassword(e.target.value)} value={password} />
+          <div className="col-8">
+            <input className="col-12 form-control" type="password" name="email" onChange={(e) => setPassword(e.target.value)} value={password} />
+            {errors?.password && (<p className="text-danger text-center mb-0">{errors.password?.properties?.message}</p>)}
+          </div>
         </div>
-            {errors?.password && (<p className="text-danger text-right mb-0">{errors.password?.properties?.message}</p>)}
 
         <div className="form-group d-flex justify-content-between">
           <label className="col-form-label">Confirm Password:</label>
-            <input className="col-8 form-control" type="password" name="confirmPassword" onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword} />
+          <div className="col-8">
+            <input className="col-12 form-control" type="password" name="confirmPassword" onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword} />
+            {errors?.confirmPassword && (<p className="text-danger text-center mb-0">{errors.confirmPassword?.properties?.message}</p>)}
+          </div>
         </div>
-            {errors?.confirmPassword && (<p className="text-danger text-right mb-0">{errors.confirmPassword?.properties?.message}</p>)}
 
-        <input className="form-control btn btn-primary" type="submit" value="Sign Up"/>
-      </form>
-      <div className="d-flex justify-content-center"><Link to={"/signin"}><button className="btn-link bg-white">Already registered? Sign in</button></Link></div>
       </div>
-    </div>
+            <div className="form-group d-flex justify-content-center flex-wrap" style={{height: "20%"}}>
+              <input className="form-control mx-2 mt-2 btn btn-primary" type="submit" value="Sign Up"/>
+              <Link to={"/signin"}><button className="btn-link btn p-0">Already registered? Sign in</button></Link>
+            </div>
+        </form>
+      </div>
     </>
   );
 };

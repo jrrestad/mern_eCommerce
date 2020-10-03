@@ -29,6 +29,7 @@ const Modal = ({isShowing, toggleCountModal, id, item}) => isShowing ? ReactDOM.
                     </p>
                     <hr/>
                     <p>{item.createdBy}</p>
+                    <p>{item.description}</p>
                 </div>
                 <button className="modal-close-button" onClick={() => toggleCountModal(id)}>
                     <span aria-hidden="true">&#10006;</span>
