@@ -50,6 +50,7 @@ module.exports = app => {
     app.get("/api/product/single/:id/:createdBy", productController.getOne)
     // app.get("/api/products/:userID", productController.getUserProducts);
     app.post("/api/product", productController.addProduct);
+    app.patch("/api/product/:id", productController.updateProduct);
     // app.post("/api/product/image", upload.single("imageData"), productController.multiPart);
     app.delete("/api/product/:id", productController.deleteProduct);
 

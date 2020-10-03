@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from "@reach/router"
 import axios from 'axios';
 
 const Navbar = (props) => {
     const {
-        loggedUser, setLoggedUser,
-        showProfile, setShowProfile} = props;
+        loggedUser, setLoggedUser} = props;
 
     const logout = () => {
         axios.post("http://localhost:8000/api/logout", {}, {withCredentials: true})
@@ -18,13 +17,13 @@ const Navbar = (props) => {
             .catch(err => console.log(err));
         };
 
-      const handleProfile = () => {
-        if (showProfile === true) {
-            setShowProfile(false)
-        } else {
-            setShowProfile(true);
-        }
-    }
+    //   const handleProfile = () => {
+    //     if (showProfile === true) {
+    //         setShowProfile(false)
+    //     } else {
+    //         setShowProfile(true);
+    //     }
+    // }
 
     return (
         <>

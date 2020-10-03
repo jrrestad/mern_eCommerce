@@ -53,56 +53,59 @@ const User2 = ({loggedUser, setLoggedUser}) => {
   // var daysDiff = Math.floor(diff / (1000 * 60 * 60 * 24))
 
   return (
-    <>
-    <Link to={"/"}><div className="modal-overlay"></div></Link>
-    <div className="modal-profile bg-white rounded">
+  <>
+  <Link to={"/"}><div className="modal-overlay"></div></Link>
+  <div className="modal-profile bg-white rounded">
 
-      <div className="FadeIn max-height bg-white">
-          
-          <h3 className="text-center py-1 m-0 bg-primary text-white" style={{height: "10%"}}>{loggedUser.username}</h3>
-          
-          <div className="container mt-0" style={{height: "30%"}}>
-            <p><strong>Member since:</strong> {new Date(loggedUser.createdAt).toDateString()}</p>
-            <p><strong>Current email:</strong> {loggedUser.email}</p>
-            <p><strong>Your products:</strong> {myProducts.length}</p>
+    <div className="FadeIn max-height bg-white">
 
-          </div>
+      <h3 className="text-center py-1 m-0 bg-primary text-white" style={{height: "10%"}}>{loggedUser.username}</h3>
 
-          <div className="d-flex flex-wrap border-top overflow-auto" style={{height: "60%"}} >
-
-            {
-              myProducts ? myProducts.map( (item, i) =>
-              <div className="col-4 border p-0" key={i}>
-                <Link to={`/profile/update/${item._id}`}>
-                        <div className="overflow-hidden" style={{height: "200px"}}>
-                            <img className="img-fluid" src={URL + item.productImage} alt="img"/>
-                        </div>
-                        <div className="p-2 border-top">
-                        <h6 className="font-card">{item.product}</h6>
-                            <p className="font-card">Condition: <span>
-                            {
-                              (item.condition === 'Poor') ?
-                              <span className="text-danger">{item.condition}</span>
-                              : (item.condition === 'Fair') ?
-                              <span className="text-warning">{item.condition}</span>
-                              : (item.condition === 'Good') ?
-                              <span className="text-info">{item.condition}</span>
-                              :
-                              <span className="text-primary">{item.condition}</span>
-                            }
-                            </span>
-                            </p>
-                        <p className="font-card">Zip Code: {item.location}</p>
-                        <p className="font-card">Price: ${item.price}</p>
-                        </div>
-                    </Link>
-                    </div>
-            ):''
-          }
+      <div className="container mt-0" style={{height: "25%"}}>
+        <div>
+          <p className="m-0"><strong>Member since:</strong> {new Date(loggedUser.createdAt).toDateString()}</p>
+          <p className="m-0"><strong>Current email:</strong> {loggedUser.email}</p>
+          <p className="m-0"><strong>Your products:</strong> {myProducts.length}</p>
         </div>
       </div>
+
+        <h6 className="text-center py-1 m-0 bg-primary text-white float-bottom" style={{height: "5%"}}>Select an item to edit</h6>
+        <div className="d-flex flex-wrap border-top overflow-auto" style={{height: "60%"}} >
+
+        {
+        myProducts ? myProducts.map( (item, i) =>
+          <div className="col-4 p-0" key={i}>
+            <Link to={`/profile/update/${item._id}`}>
+              <div className="overflow-hidden" style={{height: "200px"}}>
+                  <img className="img-fluid" src={URL + item.productImage} alt="img"/>
+              </div>
+              <div className="p-2 border bg-light">
+                <h6 className="font-card">{item.product}</h6>
+                <p className="font-card">Condition: <span>
+                {
+                  (item.condition === 'Poor') ?
+                  <span className="text-danger">{item.condition}</span>
+                  : (item.condition === 'Fair') ?
+                  <span className="text-warning">{item.condition}</span>
+                  : (item.condition === 'Good') ?
+                  <span className="text-info">{item.condition}</span>
+                  :
+                  <span className="text-primary">{item.condition}</span>
+                }
+                </span>
+                </p>
+                <p className="font-card">Zip Code: {item.location}</p>
+                <p className="font-card">Price: ${item.price}</p>
+              </div>
+            </Link>
+          </div>
+        ):''
+        }
+        </div>
+
     </div>
-    </>
+  </div>
+  </>
   );
 };
 

@@ -5,7 +5,7 @@ import './Sell.css'
 
 const SellForm2 = ({loggedUser, allProducts, setAllProducts}) => {
     const API_URL = "http://localhost:8000"
-    const [defaultImg, setDefaultImage] = useState('')
+    const [previewImage, setPreviewImage] = useState('')
     const [state, setState] = useState({
         multerImage: '',
     })
@@ -25,17 +25,21 @@ const SellForm2 = ({loggedUser, allProducts, setAllProducts}) => {
         location: location,
         price: price,
         description: description,
-        productImage: defaultImg.imageData,
+        productImage: previewImage.imageData,
         createdBy: loggedUser.username,
     }
 
     const submitHandler = (e) => {
-        e.preventDefault()  
+        e.preventDefault()
+        console.log("got this far")
+        console.log(state)
         axios.post(`http://localhost:8000/api/product`, listProduct)
         .then(res => {
             if(res.data.errors) {
                 setErrors(res.data.errors)
+                console.log(res.data)
             } else {
+                console.log(res.data)
                 setErrors('')
                 setAllProducts([...allProducts, listProduct])
                 setCategory('')
@@ -64,7 +68,7 @@ const SellForm2 = ({loggedUser, allProducts, setAllProducts}) => {
           .then((res) => {
               if (res.data.success) {
                   console.log(res.data)
-                setDefaultImage(res.data.document)
+                setPreviewImage(res.data.document)
               }
             })
             .catch((err) => {
@@ -103,31 +107,43 @@ const SellForm2 = ({loggedUser, allProducts, setAllProducts}) => {
                             <option value="Excellent">Excellent</option>
                         </select>
                     </div>
+                    {errors.condition?<p className="text-danger">{errors.condition.message}</p>: ''}
+
 
                     <div className="form-group d-flex justify-content-between">
                         <label className="col-form-label" htmlFor="product">Product:</label>
                         <input className="col-8 form-control" value={product} name="product" type="text" onChange={(e) => setProduct(e.target.value)}/>
                     </div>
+                    {errors.product?<p className="text-danger">{errors.product.message}</p>: ''}
+
 
                     <div className="form-group d-flex justify-content-between">
                         <label className="col-form-label" htmlFor="location">Location:</label>
                         <input className="col-8 form-control" value={location} name="location" type="text" onChange={(e) => setLocation(e.target.value)}/>
                     </div>
+                    {errors.location?<p className="text-danger">{errors.location.message}</p>: ''}
+
 
                     <div className="form-group d-flex justify-content-between">
                         <label className="col-form-label" htmlFor="price">Price:</label>
                         <input className="col-8 form-control" value={price} name="price" type="number" step=".01" onChange={(e) => setPrice(e.target.value)}/>
                     </div>
+                    {errors.price?<p className="text-danger">{errors.price.message}</p>: ''}
+
 
                     <div className="form-group d-flex justify-content-between">
                         <label className="col-form-label" htmlFor="description">Description:</label>
                         <textarea className="col-8" value={description} name="description" rows="3" onChange={(e) => setDescription(e.target.value)}></textarea>
                     </div>
+                    {errors.description?<p className="text-danger">{errors.description.message}</p>: ''}
+
 
                     <div className="form-group d-flex justify-content-between">
                         <label className="col-form-label" htmlFor="upload">Upload:</label>
                         <input type="file" className="col-8 form-control btn-primary" name="upload" onChange={uploadImage}/>
                     </div>
+                    {errors.productImage?<p className="text-danger">{errors.productImage.message}</p>: ''}
+
 
                     <div className=" border col-8 offset-4 d-flex justify-content-center row mb-2" style={{height: "100px"}}>
                         <img className="img-fluid mw-100 mh-100" src={state.multerImage} alt=""/>
