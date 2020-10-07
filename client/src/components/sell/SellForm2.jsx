@@ -84,8 +84,8 @@ const SellForm2 = ({loggedUser, allProducts, setAllProducts}) => {
 
             <form className="FadeIn max-height" encType="multipart/form-data" onSubmit={submitHandler}>
 
-                <h3 className="py-3 m-0 d-flex justify-content-center bg-primary text-center text-white">List an item for sale</h3>
-                <div className="overflow-auto pl-2 border" style={{maxHeight: "70%"}} >
+                <h3 className="py-2 m-0 d-flex justify-content-center align-items-center bg-primary text-center text-white" style={{height: "10%"}}>List an item for sale</h3>
+                <div className="overflow-auto pl-2 border" style={{height: "65%"}} >
                     <div className="form-group pt-2 d-flex justify-content-between">
                         <label  className="col-form-label" htmlFor="category">Category:</label>
                         <select className="col-8 form-control" value={category} name="category" onChange={(e) => setCategory(e.target.value)}>
@@ -150,8 +150,9 @@ const SellForm2 = ({loggedUser, allProducts, setAllProducts}) => {
                     </div>
                 </div>
 
-                <div className="form-group d-flex justify-content-center">
-                    <input className="form-control m-2 btn btn-primary" type="submit" value="List Item" />
+                <div className="form-group d-flex flex-column mx-2 justify-content-center" style={{height: "25%"}}>
+                    <input className="form-control mb-2 btn btn-primary" type="submit" value="List Item" />
+                    <Link to={"/profile"} className="form-control btn btn-danger">Cancel</Link>
                 </div>
             </form>
         </div>

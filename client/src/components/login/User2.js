@@ -59,9 +59,9 @@ const User2 = ({loggedUser, setLoggedUser}) => {
 
     <div className="FadeIn max-height bg-white">
 
-      <h3 className="bg-primary text-white d-flex justify-content-center align-items-center" style={{height: "10%"}}>{loggedUser.username}'s profile</h3>
+      <h3 className="bg-primary text-white d-flex justify-content-center m-0 align-items-center" style={{height: "10%"}}>{loggedUser.username}'s profile</h3>
 
-      <div className="container mt-0 d-flex justify-content-between" style={{height: "25%"}}>
+      <div className="container mt-0 p-2 d-flex justify-content-between" style={{height: "25%"}}>
         <div className="">
           <p className="m-0"><strong>Member since:</strong> {new Date(loggedUser.createdAt).toDateString()}</p>
           <p className="m-0"><strong>Current email:</strong> {loggedUser.email}</p>
@@ -70,7 +70,8 @@ const User2 = ({loggedUser, setLoggedUser}) => {
         <Link to={"/sell"}><button className="btn-link btn btn-primary text-white mt-2">List something for sale</button></Link>
       </div>
 
-        <h6 className="text-center py-1 m-0 bg-primary text-white float-bottom" style={{height: "5%"}}>Select an item to edit</h6>
+        <h6 className="text-center text-white py-1 m-0 bg-primary d-flex align-items-center justify-content-center " style={{height: "5%"}}>Select an item to edit</h6>
+
         <div className="d-flex flex-wrap border-top overflow-auto" style={{height: "60%"}} >
 
         {

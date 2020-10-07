@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import Modal from './Modal';
 import './Buy.css'
+import { navigate } from '@reach/router';
 
 const Buy = ({allProducts, setAllProducts}) => {
     let URL = "http://localhost:8000/"
 
-    const [countModal, setCountModal] = useState([])
+    // const [countModal, setCountModal] = useState([])
 
     const categoryHandler = (e) => {
         e.preventDefault()
@@ -15,13 +15,12 @@ const Buy = ({allProducts, setAllProducts}) => {
         .then(res => {
             console.log(res.data)
             setAllProducts(res.data)
-            let ren = [];
-            for (let i = 0; i < res.data.length; i++) {
-                ren.push(false)
-            }
-            setCountModal(ren)
-            console.log(ren)
-
+            // let ren = [];
+            // for (let i = 0; i < res.data.length; i++) {
+            //     ren.push(false)
+            // }
+            // setCountModal(ren)
+            // console.log(ren)
         })
         .catch(err => console.log(err))
     }
@@ -49,22 +48,19 @@ const Buy = ({allProducts, setAllProducts}) => {
         .catch(err => console.log(err))
     }
 
-    const toggleCountModal = (i) => {
-        let [...newCount] = countModal;
-        if (newCount[i] === true) {
-            newCount[i] = false
-        } else {
-            newCount[i] = true
-        }
-        console.log(newCount)
-        setCountModal(newCount)
-    }
+    // const toggleCountModal = (i) => {
+    //     let [...newCount] = countModal;
+    //     if (newCount[i] === true) {
+    //         newCount[i] = false
+    //     } else {
+    //         newCount[i] = true
+    //     }
+    //     console.log(newCount)
+    //     setCountModal(newCount)
+    // }
 
     return (
         <div>
-            {/* <hr/> */}
-            {/* <h1 className="ml-4">See whats for sale</h1> */}
-            <br/>
             <div className="d-flex rounded bg-primary">
                 <h6 className="text-white ml-1 mt-3">Search:</h6>
             
@@ -107,7 +103,7 @@ const Buy = ({allProducts, setAllProducts}) => {
             {
                 allProducts.map( (item, i) => 
                 <div className="m-2 bg-white shadow translucent pointer" style={{width: "14rem"}} key={i}>
-                        {
+                        {/* {
                             countModal[i] ?
                             <Modal 
                                 item={item}
@@ -116,8 +112,8 @@ const Buy = ({allProducts, setAllProducts}) => {
                                 isShowing={countModal[i]}
                             />
                          : ''
-                        }
-                    <div className="border" onClick={ () => toggleCountModal(i)}>
+                        } */}
+                    <div className="border" onClick={ () => navigate(`view/${item._id}`)}>
                         <div className="overflow-hidden" style={{height: "200px"}}>
                             <img className="img-fluid" src={URL + item.productImage} alt="img"/>
                         </div>

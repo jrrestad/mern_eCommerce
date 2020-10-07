@@ -8,6 +8,7 @@
 
 # production
 /build
+server/uploads
 
 # misc
 .DS_Store

@@ -7,6 +7,7 @@ import SellForm2 from "./components/sell/SellForm2";
 import SignIn2 from "./components/login/SignIn2";
 import SignUp2 from "./components/registration/SignUp2"
 import Update from "./components/profile/Update"
+import View from "./components/buy/View"
 import { Router } from '@reach/router';
 import './App.css'
 
@@ -37,12 +38,16 @@ function App() {
   }, [])
 
   return (
+
     <div className="col">
       <Navbar 
       loggedUser={loggedUser} setLoggedUser={setLoggedUser}/>
       <Buy 
       allProducts={allProducts} setAllProducts={setAllProducts}/>
       <Router>
+        <View 
+        allProducts={allProducts} setAllProducts={setAllProducts}
+        path={'/view/:id'}/>
         <SignIn2 
         loggedUser={loggedUser} setLoggedUser={setLoggedUser}
         path={"/signin"}/>

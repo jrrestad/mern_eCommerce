@@ -8,9 +8,7 @@ const Update = (props) => {
     const [errors, setErrors] = useState('')
 
     const API_URL = "http://localhost:8000/"
-    const [state, setState] = useState({
-        multerImage: '',
-    })
+
     const [category, setCategory] = useState('')
     const [condition, setCondition] = useState('')
     const [product, setProduct] = useState('')
@@ -53,12 +51,7 @@ const Update = (props) => {
         e.preventDefault()
           let imageFormObj = new FormData();
           imageFormObj.append("imageName", "multer-image-" + Date.now());
-          imageFormObj.append("imageData", e.target.files[0]);
-          // stores a readable instance of the image being uploaded using multer
-          setState({
-            multerImage: URL.createObjectURL(e.target.files[0])
-          });
-          
+          imageFormObj.append("imageData", e.target.files[0]);          
           axios.post(`${API_URL}uploadmulter`, imageFormObj)
           .then((res) => {
               if (res.data.success) {
@@ -87,17 +80,16 @@ const Update = (props) => {
     return (
     <>
     <Link to={"/"}><div className="modal-overlay"></div></Link>
-        <div className="modal-update bg-white rounded">
+    <div className="modal-update bg-white rounded">
         <div className="FadeIn max-height bg-white">
             
             <form className="FadeIn max-height" encType="multipart/form-data" onSubmit={submitHandler}>
 
-            <h3 className="py-3 m-0 d-flex justify-content-center bg-primary text-center text-white">Edit this product</h3>
-            <div className="overflow-auto pl-2 border" style={{maxHeight: "70%"}} >
+            <h3 className="py-2 m-0 d-flex justify-content-center align-items-center bg-primary text-white" style={{height: "10%"}}>Edit this product</h3>
+            <div className="overflow-auto pl-2 border" style={{height: "65%"}} >
                 <div className="form-group pt-2 d-flex justify-content-between">
                     <label  className="col-form-label" htmlFor="category">Category:</label>
                     <select className="col-8 form-control" value={category} name="category" onChange={(e) => setCategory(e.target.value)}>
-                        <option value=" "></option>
                         <option value="Electronics">Electronics</option>
                         <option value="Automotive">Automotive</option>
                         <option value="Apparel">Apparel</option>
@@ -108,7 +100,6 @@ const Update = (props) => {
                 <div className="form-group d-flex justify-content-between">
                     <label  className="col-form-label" htmlFor="condition">Condition:</label>
                     <select className="col-8 form-control" value={condition} name="condition" id="" onChange={(e) => setCondition(e.target.value)}>
-                        <option value=" "></option>
                         <option value="Poor">Poor</option>
                         <option value="Fair">Fair</option>
                         <option value="Good">Good</option>
@@ -152,8 +143,9 @@ const Update = (props) => {
                 </div>
             </div>
 
-            <div className="form-group d-flex justify-content-center">
-                <input className="form-control m-2 btn btn-primary" type="submit" value="Update Item" />
+            <div className="form-group d-flex flex-column mx-2 justify-content-center align-items-bottom" style={{height: "25%"}}>
+                <input className="form-control mb-2 btn btn-primary" type="submit" value="Update Item" />
+                <Link to={"/profile"} className="form-control btn btn-danger">Cancel</Link>
             </div>
             </form>
         </div>
