@@ -10,7 +10,6 @@ const SellForm2 = ({loggedUser, allProducts, setAllProducts}) => {
         navigate('/')
     }
 
-
     const API_URL = "http://localhost:8000"
     const [previewImage, setPreviewImage] = useState('')
     const [state, setState] = useState({
@@ -39,7 +38,6 @@ const SellForm2 = ({loggedUser, allProducts, setAllProducts}) => {
                 console.log("Geocode location")
                 console.log(response.results[0].geometry.location)
                 let coords = response.results[0].geometry.location
-                // let lngChord = response.results[0].geometry.location.lng
                 console.log(`Lat chord ${coords.lat} Lng chord ${coords.lng}`)
 
                 const listProduct = {

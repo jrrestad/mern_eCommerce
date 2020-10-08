@@ -17,27 +17,50 @@ const Buy = ({allProducts, setAllProducts}) => {
         .catch(err => console.log(err))
     }
 
-    const [searchType, setSearchType ] = useState('')
-    const checkSearchType = (e) => {
-        let search = e.target.value
-        setSearchType(search)
+    // const checkSearchType = (e) => {
+        //     let search = e.target.value
+        //     setSearchType(search)
+        // }
+        
+    const [searchParam1, setSearchParam1] = useState('')
+    const searchHandler1 = (e) => {
+        let searchValue = e.target.value;
+        setSearchParam1(searchValue)
     }
-
-    const [searchBySeller, setSearchBySeller] = useState('')
-    const searchHandler = (e) => {
-        let typedSearch = e.target.value;
-        setSearchBySeller(typedSearch)
+    const [searchParam2, setSearchParam2] = useState('')
+    const searchHandler2 = (e) => {
+        let searchValue = e.target.value;
+        setSearchParam2(searchValue)
     }
-
-    const submitSearchBySeller = (e) => {
+    const [searchParam3, setSearchParam3] = useState('')
+    const searchHandler3 = (e) => {
+        let searchValue = e.target.value;
+        setSearchParam3(searchValue)
+    }
+    const submitSearch = (e) => {
         e.preventDefault()
-        console.log(searchBySeller)
-        axios.get(`${URL}api/products/username/${searchBySeller}`)
-        .then(res => {
-            console.log(res.data)
-            setAllProducts(res.data)
-        })
-        .catch(err => console.log(err))
+        if (searchParam1 === 'seller') {
+            axios.get(`${URL}api/products/username/${searchParam2}`)
+            .then(res => {
+                console.log(res.data)
+                setAllProducts(res.data)
+            })
+            .catch(err => console.log(err))
+        } else if (searchParam1 === 'product') {
+            axios.get(`${URL}api/products/product/${searchParam2}`)
+            .then(res => {
+                console.log(res.data)
+                setAllProducts(res.data)
+            })
+            .catch(err => console.log(err))
+        } else if (searchParam1 === 'price') {
+            axios.get(`${URL}api/products/price/${searchParam2}/${searchParam3}`)
+            .then(res => {
+                console.log(res.data)
+                setAllProducts(res.data)
+            })
+            .catch(err => console.log(err))
+        }
     }
 
     return (
@@ -46,16 +69,19 @@ const Buy = ({allProducts, setAllProducts}) => {
                 <h6 className="text-white ml-1 mt-3">Search:</h6>
             
             <div className="col-2 mt-2">
-                <select className="form-control pl-0 mb-2" name="searchType" id="" onChange={checkSearchType}>
+                <select className="form-control pl-0 mb-2" name="searchType" id="" onChange={searchHandler1}>
                     <option value="">Search by...</option>
                     <option value="category">Category</option>
                     <option value="seller">Seller</option>
                     <option value="product">Product</option>
+                    <option value="price">Price</option>
                 </select>
             </div>
 
             {
-            searchType === 'category' ?
+
+            searchParam1 === 'category' ?
+
             <div className="col-2 mt-2">
                 <select className=" form-control" name="category" onChange={categoryHandler}>
                     <option value="">Search by category...</option>
@@ -64,11 +90,23 @@ const Buy = ({allProducts, setAllProducts}) => {
                     <option value="Apparel">Apparel</option>
                 </select>
             </div>
-            : searchType === 'seller' || searchType === 'product' ?
+
+            : searchParam1 === 'seller' || searchParam1 === 'product' ?
+            
             <div className="col-2 mt-2">
-                <form onSubmit={submitSearchBySeller}>
+                <form onSubmit={submitSearch}>
                     <div className="input-group row">
-                        <input className="form-control" placeholder="Type your search..." type="text" onChange={searchHandler}/>
+                        <input className="form-control" placeholder="Type your search..." type="text" onChange={searchHandler2}/>
+                        <button className="input-group-append btn btn-success">&#x2713;</button>
+                    </div>
+                </form>
+            </div>
+            : searchParam1 === 'price' ?
+            <div className="col-3 mt-2">
+                <form onSubmit={submitSearch}>
+                    <div className="input-group row">
+                        <input type="number" name="minPrice" className="form-control" onChange={searchHandler2}/>
+                        <input type="number" name="maxPrice" className="form-control" onChange={searchHandler3}/>
                         <button className="input-group-append btn btn-success">&#x2713;</button>
                     </div>
                 </form>
@@ -77,6 +115,11 @@ const Buy = ({allProducts, setAllProducts}) => {
             }
 
         </div>
+            {
+                searchParam1 ?
+                <p className="text-muted m-0">There were ( {allProducts.length} ) results...</p>
+                : ''
+            }
 
             <hr/>
             <div className="d-flex flex-wrap bg-light">

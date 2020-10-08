@@ -37,7 +37,17 @@ module.exports = {
         .catch(err => res.json(err))
     },
     getByUser: (req, res) => {
-        Product.find({ createdBy: req.params.createdBy }).sort({ createdAt: -1})
+        Product.find({ createdBy: { $regex: req.params.createdBy, $options: 'i'}}).sort({ createdAt: -1})
+        .then(data => res.json(data))
+        .catch(err => res.json(err))
+    },
+    getByProduct: (req, res) => {
+        Product.find({ product: { $regex: req.params.product, $options: 'i'}}).sort({ createdAt: -1})
+        .then(data => res.json(data))
+        .catch(err => res.json(err))
+    },
+    getByPrice: (req, res) => {
+        Product.find({ price: { $lte: req.params.maxPrice, $gte: req.params.minPrice }}).sort({ price: 1})
         .then(data => res.json(data))
         .catch(err => res.json(err))
     },

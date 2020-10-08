@@ -47,6 +47,9 @@ module.exports = app => {
 
     app.get("/api/products/category/:category", productController.getByCategory);
     app.get("/api/products/username/:createdBy", productController.getByUser);
+    app.get("/api/products/product/:product", productController.getByProduct);
+    app.get("/api/products/price/:minPrice/:maxPrice", productController.getByPrice);
+
     app.get("/api/product/single/:id/:createdBy", productController.getOne)
     // app.get("/api/products/:userID", productController.getUserProducts);
     app.post("/api/product", productController.addProduct);
