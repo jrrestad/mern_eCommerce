@@ -33,7 +33,7 @@ const View = ({id, allProducts}) => {
                     <h4>${item.price}</h4>
                     <hr/>
                     <p className="text-muted font-italic m-0">Locations</p>
-                    <Map zipcode={item.location}/>
+                    <Map coords={item.coords.coordinates}/>
                     <p className="mb-0">{time.toLocaleDateString()} at {time.toLocaleTimeString()}</p>
                         {
                             diff / (1000 * 60) < 60 ?

@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import GoogleMapReact from 'google-map-react'
-import Geocode from 'react-geocode'
 
 const Map = (props) => {
-    const { zipcode } = props;
-   
-    const [coords, setCoords] = useState('')
+    const { coords } = props;
 
     const LocationPin = () => (
         <div style={{
@@ -18,24 +15,11 @@ const Map = (props) => {
         }}>
         </div>
     )
-    
-    useEffect( () => {
-        Geocode.setApiKey("AIzaSyD59vfWYpyItYDuIPp1mi3yAyYR1Vxcfjw")
-        Geocode.fromAddress(zipcode).then(
-            response => {
-                    console.log(response.results[0].geometry.location)
-                    setCoords(response.results[0].geometry.location)
-            },
-            error => {
-                setCoords({lng: 0, lat: 0})
-                console.error(error);
-            })
-        }, [zipcode])
         
     const location = {
         address: "Some Text",
-        lat: coords.lat,
-        lng: coords.lng,
+        lat: coords[1],
+        lng: coords[0],
         }
     
     return(

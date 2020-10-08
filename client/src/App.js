@@ -51,9 +51,9 @@ function App() {
         <SignIn2 
         loggedUser={loggedUser} setLoggedUser={setLoggedUser}
         path={"/signin"}/>
-        <SignUp2 
-        loggedUser={loggedUser} setLoggedUser={setLoggedUser}
-        path={"/signup"}/>
+          <SignUp2 
+          loggedUser={loggedUser} setLoggedUser={setLoggedUser}
+          path={"/signup"}/>
         <User2 
         loggedUser={loggedUser} setLoggedUser={setLoggedUser}
         path={"/profile"}/>

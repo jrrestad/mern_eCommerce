@@ -1,9 +1,16 @@
 import React, { useState } from 'react'
 import { Link, navigate } from '@reach/router'
+import Geocode from 'react-geocode'
 import axios from 'axios';
 import './Sell.css'
 
 const SellForm2 = ({loggedUser, allProducts, setAllProducts}) => {
+
+    if (!loggedUser) {
+        navigate('/')
+    }
+
+
     const API_URL = "http://localhost:8000"
     const [previewImage, setPreviewImage] = useState('')
     const [state, setState] = useState({
@@ -15,43 +22,58 @@ const SellForm2 = ({loggedUser, allProducts, setAllProducts}) => {
     const [condition, setCondition] = useState('')
     const [product, setProduct] = useState('')
     const [location, setLocation] = useState('')
+
+
     const [price, setPrice] = useState('')
     const [description, setDescription] = useState('')
-    
-    const listProduct = {
-        category: category,
-        condition: condition,
-        product: product,
-        location: location,
-        price: price,
-        description: description,
-        productImage: previewImage.imageData,
-        createdBy: loggedUser.username,
-    }
 
     const submitHandler = (e) => {
+        console.log("Start submit handler")
         e.preventDefault()
-        console.log("got this far")
-        console.log(state)
-        axios.post(`http://localhost:8000/api/product`, listProduct)
-        .then(res => {
-            if(res.data.errors) {
-                setErrors(res.data.errors)
-                console.log(res.data)
-            } else {
-                console.log(res.data)
-                setErrors('')
-                setAllProducts([...allProducts, listProduct])
-                setCategory('')
-                setCondition('')
-                setProduct('')
-                setLocation('')
-                setPrice('')
-                setDescription('')
-                navigate('/profile')
-            }
-        })
-        .catch((err) => console.log(err))
+        if (e.target['location'].value.length < 5) {
+            window.alert('Please enter a valid zip code. Keep in mind that only U.S. postal codes are valid.')
+        } else {
+        Geocode.setApiKey("AIzaSyD59vfWYpyItYDuIPp1mi3yAyYR1Vxcfjw")
+        Geocode.fromAddress(location)
+        .then(response => {
+                console.log("Geocode location")
+                console.log(response.results[0].geometry.location)
+                let coords = response.results[0].geometry.location
+                // let lngChord = response.results[0].geometry.location.lng
+                console.log(`Lat chord ${coords.lat} Lng chord ${coords.lng}`)
+
+                const listProduct = {
+                    category: category, condition: condition,
+                    product: product, location: location,
+                    coords: {type: "Point", coordinates: [coords.lng, coords.lat]},
+                    price: price, description: description,
+                    productImage: previewImage.imageData,
+                    createdBy: loggedUser.username,
+                }
+
+                axios.post(`http://localhost:8000/api/product`, listProduct)
+                .then(res => {
+                    if(res.data.errors) {
+                        setErrors(res.data.errors) 
+                        console.log(res.data)
+                    } else {
+                        console.log("Axios data");
+                        console.log(res.data);
+                        setErrors('');
+                        setAllProducts([listProduct, ...allProducts]);
+                        setCategory(''); setCondition('');
+                        setProduct(''); setLocation('');
+                        setPrice(''); setDescription('');
+                        navigate('/profile')
+                    }
+                })
+                .catch((err) => console.log(err))
+            },
+            error => {
+                window.alert("No location could be found with that postal code, please try again.")
+                console.error(error);})
+            
+        }
     }
 
     const uploadImage = (e) => {
@@ -67,15 +89,16 @@ const SellForm2 = ({loggedUser, allProducts, setAllProducts}) => {
           axios.post(`${API_URL}/uploadmulter`, imageFormObj)
           .then((res) => {
               if (res.data.success) {
+                  console.log("Multer")
                   console.log(res.data)
-                setPreviewImage(res.data.document)
+                  setPreviewImage(res.data.document)
+                  console.log("End Multer")
               }
             })
             .catch((err) => {
               alert("Error while uploading image using multer");
             });
       }
-
 
     return (
         <>

@@ -47,8 +47,11 @@ module.exports = {
         .catch(err => res.json(err))
     },
     addProduct: (req, res) => {
+        console.log(req.body)
         Product.create(req.body)
-        .then(data => res.json(data))
+        .then(data => {
+            console.log(data)
+            res.json(data)})
         .catch(err => res.json(err))
     },
     updateProduct: (req, res) => {

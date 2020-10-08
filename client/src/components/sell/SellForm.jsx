@@ -61,6 +61,7 @@ const SellForm = ({loggedUser, allProducts, setAllProducts}) => {
           axios.post(`${API_URL}/uploadmulter`, imageFormObj)
           .then((res) => {
               if (res.data.success) {
+                  console.log("Shouldnt be coming from here")
                   console.log(res.data)
                 setDefaultImage(res.data.document)
               }

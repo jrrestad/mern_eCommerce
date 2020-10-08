@@ -23,6 +23,17 @@ const ProductSchema  = new mongoose.Schema({
             message: "Please follow format 12345 or 12345-1234"
         },
     },
+    coords: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    },
     price: {
         type: Number,
         required: [true, "Please set a listing price"],
@@ -42,6 +53,8 @@ const ProductSchema  = new mongoose.Schema({
         required: [true, "Must have a created by name"]
     },
 }, {timestamps: true})
+
+ProductSchema.index({coords: '2dsphere'});
 
 const Product = mongoose.model("Product", ProductSchema);
 
