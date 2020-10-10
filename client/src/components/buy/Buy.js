@@ -1,5 +1,6 @@
 import React, { useState} from 'react'
 import axios from 'axios';
+import AdvancedSearch from './AdvancedSearch'
 import './Buy.css'
 import { navigate } from '@reach/router';
 
@@ -65,7 +66,7 @@ const Buy = ({allProducts, setAllProducts}) => {
 
     return (
         <div>
-            <div className="d-flex rounded bg-primary">
+            <div className="d-flex rounded bg-primary mt-3">
                 <h6 className="text-white ml-1 mt-3">Search:</h6>
             
             <div className="col-2 mt-2">
@@ -75,6 +76,7 @@ const Buy = ({allProducts, setAllProducts}) => {
                     <option value="seller">Seller</option>
                     <option value="product">Product</option>
                     <option value="price">Price</option>
+                    <option value="advanced">Advanced Search</option>
                 </select>
             </div>
 
@@ -91,7 +93,7 @@ const Buy = ({allProducts, setAllProducts}) => {
                 </select>
             </div>
 
-            : searchParam1 === 'seller' || searchParam1 === 'product' ?
+            : searchParam1 === 'seller' ?
             
             <div className="col-2 mt-2">
                 <form onSubmit={submitSearch}>
@@ -101,7 +103,20 @@ const Buy = ({allProducts, setAllProducts}) => {
                     </div>
                 </form>
             </div>
+
+            : searchParam1 === 'product' ?
+
+            <div className="col-2 mt-2">
+            <form onSubmit={submitSearch}>
+                <div className="input-group row">
+                    <input className="form-control" placeholder="Type your search..." type="text" onChange={searchHandler2}/>
+                    <button className="input-group-append btn btn-success">&#x2713;</button>
+                </div>
+            </form>
+            </div>
+
             : searchParam1 === 'price' ?
+
             <div className="col-3 mt-2">
                 <form onSubmit={submitSearch}>
                     <div className="input-group row">
@@ -115,6 +130,11 @@ const Buy = ({allProducts, setAllProducts}) => {
             }
 
         </div>
+            {        
+            searchParam1 === 'advanced' ?
+            <AdvancedSearch/>
+            : ''
+            }
             {
                 searchParam1 ?
                 <p className="text-muted m-0">There were ( {allProducts.length} ) results...</p>

@@ -3,24 +3,25 @@ const mongoose = require('mongoose')
 const ProductSchema  = new mongoose.Schema({
     category: {
         type: String,
-        required: [true, "Please select a category"]
+        required: [true, "is required"]
     },
     condition: {
         type: String,
-        required: [true, "Please select a condition"]
+        required: [true, "is required"]
     },
     product: {
         type: String,
-        required: [true, "Please give your product a title"]
+        required: [true, "is required"],
+        minlength: [3, "must be at least 3 characters"]
     },
     location: {
         type: String,
-        required: [true, "Please enter a zip code"],
+        required: [true, "is required"],
         validate: {
             validator: function(v) {
               return /^[0-9]{5}(?:-[0-9]{4})?$/.test(v)
             },
-            message: "Please follow format 12345 or 12345-1234"
+            message: "must follow format 12345 or 12345-1234"
         },
     },
     coords: {
@@ -36,17 +37,17 @@ const ProductSchema  = new mongoose.Schema({
     },
     price: {
         type: Number,
-        required: [true, "Please set a listing price"],
+        required: [true, "is required"],
         min: 0
     },
     description: {
         type: String,
-        required: [true, "Please provide a description"],
-        minlength: [10, "The description must be at least 10 characters"]
+        required: [true, "is required"],
+        minlength: [10, "must be at least 10 characters"]
     },
     productImage: {
         type: String,
-        required: [true, "Must contain an image"]
+        required: [true, "is required"]
     },
     createdBy: {
         type: String,

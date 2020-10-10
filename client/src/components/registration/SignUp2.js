@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Link, navigate } from '@reach/router'
 import axios from "axios";
-import './SignUp.css'
 
-const SignUp2 = (props) => {
+const SignUp2 = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,57 +38,39 @@ const SignUp2 = (props) => {
   return (
     <>
     <Link to={"/"}><div className="modal-overlay"></div></Link>
-
     <div className="modal-signup bg-white rounded">
-
+      <button className="modal-close-button" onClick={() => navigate('/')}>&#10006;</button>
       <form onSubmit={register} className="FadeIn max-height">
-
-      <h3 className="m-0 d-flex justify-content-center bg-primary text-white" style={{height: "10%"}}>Sign Up</h3>
-
-      <div className="overflow-auto pl-2 border" style={{height: "70%"}}>
-
-        <div className="form-group d-flex pt-2 justify-content-between">
-          <label className="col-form-label">Username:</label>
-          <div className="col-8">
-            <input className="col-12 form-control" type="text" name="username" onChange={(e) => setUsername(e.target.value)} value={username} />
-            {/* ?. is called optional chaining, lets you safely try to access keys that might not exist and avoid errors */}
-            {errors?.username && (<p className="text-danger text-center mb-0">{errors.username?.message}</p>)}
+        <div className="overflow-auto" style={{height: "15%"}}>
+          <div className="container mt-2">
+            <h3>Sign Up</h3>
+            <p className="text-muted">Only takes a second and completely free.</p>
           </div>
         </div>
-
-        <div className="form-group d-flex justify-content-between">
-          <label className="col-form-label">Email:</label>
-          <div className="col-8">
-            <input className="col-12 form-control" type="text" name="email" onChange={(e) => setEmail(e.target.value)} value={email} />
-            {errors?.email && (<p className="text-danger text-center mb-0">{errors.email?.message}</p>)}
+        <div className="overflow-auto" style={{height: "70%"}}>
+          <div className="mx-5" style={{position: "relative", top: "50%", transform: "translateY(-50%"}}>
+            <label className="text-muted">Username <span className="text-danger font-italic">{errors?errors.username?.message:''}</span></label>
+            <input className="form-control" type="text" name="username" onChange={(e) => setUsername(e.target.value)} value={username} />
+            <label className="text-muted">Email <span className="text-danger font-italic">{errors?errors.email?.message:''}</span></label>
+            <input className="form-control" type="text" name="email" onChange={(e) => setEmail(e.target.value)} value={email} />
+            <label className="text-muted">Password <span className="text-danger  font-italic">{errors?errors.password?.message:''}</span></label>
+            <input className="form-control" type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
+            <label className="text-muted">Confirm password <span className="text-danger font-italic">{errors?errors.confirmPassword?.message:''}</span></label>
+            <input className="form-control" type="password" onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword} />
           </div>
         </div>
-
-        <div className="form-group d-flex justify-content-between">
-          <label className="col-form-label">Password:</label>
-          <div className="col-8">
-            <input className="col-12 form-control" type="password" name="email" onChange={(e) => setPassword(e.target.value)} value={password} />
-            {errors?.password && (<p className="text-danger text-center mb-0">{errors.password?.properties?.message}</p>)}
+        <div className="overflow-auto" style={{height: "15%"}}>
+          <div className="px-5">
+            <input className="form-control btn btn-primary" type="submit" value="Sign Up"/>
+            <Link className="d-block text-center" to={"/signin"}><button className="btn-link btn">Already registered? Sign in</button></Link>
           </div>
         </div>
-
-        <div className="form-group d-flex justify-content-between">
-          <label className="col-form-label">Confirm Password:</label>
-          <div className="col-8">
-            <input className="col-12 form-control" type="password" name="confirmPassword" onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword} />
-            {errors?.confirmPassword && (<p className="text-danger text-center mb-0">{errors.confirmPassword?.properties?.message}</p>)}
-          </div>
-        </div>
-
-      </div>
-            <div className="form-group d-flex justify-content-center flex-wrap" style={{height: "20%"}}>
-              <input className="form-control mx-2 mt-2 btn btn-primary" type="submit" value="Sign Up"/>
-              <Link to={"/signin"}><button className="btn-link btn p-0">Already registered? Sign in</button></Link>
-            </div>
-        </form>
-      </div>
+      </form>
+    </div>
     </>
   );
 };
 
 export default SignUp2;
+
+// ?. for errors is called optional chaining, lets you safely try to access keys that might not exist and avoid errors

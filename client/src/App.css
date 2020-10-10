@@ -101,10 +101,14 @@ option {
 .modal-signup {
   position: fixed;
   top: 10%;
-  left: 37.5%;
+  left: 35%;
   z-index: 1010;
-  width: 40vw;
+  width: 30vw;
   height: 80vh;
+}
+
+.box-sizing {
+  box-sizing: border-box;
 }
 
 /* .modal-wrapper {
@@ -141,11 +145,10 @@ option {
   font-size: 1.4rem;
   font-weight: 700;
   line-height: 1;
-  color: white;
-  background-color: rgb(230, 2, 2);
+  color: black;
+  background-color: transparent;
   opacity: 1;
   cursor: pointer;
-  border: none;
 }
 
 button {
@@ -178,6 +181,11 @@ button {
 .v-align {
   display: flex;
   align-items: center;
+}
+
+.font-card {
+  margin: 0;
+  font-size: 12px;
 }
 
 .fadeIn{

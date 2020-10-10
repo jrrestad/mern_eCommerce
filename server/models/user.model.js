@@ -4,20 +4,21 @@ const bcrypt = require("bcrypt");
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: [true, "A name is required"],
+        minlength: [2, "must be at least 2 characters"],
+        required: [true, "is required"],
     },
     email: {
         type: String,
-        required: [true, "Email is required"],
+        required: [true, "is required"],
         validate: {
             validator: val => /^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/.test(val),
-            message: "That email address is invalid"
+            message: "address is invalid"
         }
     },
     password: {
         type: String,
-        required: [true, "Password is required"],
-        minlength: [8, "Password must be at least 8 characters"],
+        required: [true, "is required"],
+        minlength: [8, "must be at least 8 characters"],
         select: false,
     }
 }, {timestamps: true})
@@ -28,7 +29,7 @@ UserSchema.virtual('confirmPassword')
 
 UserSchema.pre('validate', function(next) {
     if (this.password !== this.confirmPassword) {
-        this.invalidate('confirmPassword', 'Password must match confirm password')
+        this.invalidate('confirmPassword', 'must match password')
     }
     next();
 })

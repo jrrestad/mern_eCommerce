@@ -7,8 +7,6 @@ const User2 = ({loggedUser, setLoggedUser}) => {
   const getUser = loggedUser.username
   let URL = "http://localhost:8000/"
 
-
-  // can make api call for every page to verify logged in, or can check state?
   useEffect(() => {
     axios.get("http://localhost:8000/api/users/loggedin", {withCredentials: true})
       .then((res) => {
@@ -31,58 +29,46 @@ const User2 = ({loggedUser, setLoggedUser}) => {
     .catch(err => console.log(err))
   }, [getUser])
 
-  //   var formatDate = new Intl.DateTimeFormat('en-US', {
-  //   month: 'long', 
-  //   weekday: 'short',
-  //   year: 'numeric', 
-  //   day: '2-digit',
-  //   hour: 'numeric', 
-  //   minute: 'numeric', 
-  //   second: 'numeric',
-  // });
-
-  // var apiDate = new Date(loggedUser.createdAt)
-  // var date = apiDate.toDateString()
-  // var time = apiDate.toLocaleTimeString()
-
-  // var date = new Date(loggedUser.createdAt)
-  // var nowDate = new Date().getTime()
-  // var diff = Math.abs(nowDate - date );
-  // var minDiff = Math.floor(diff / (1000 * 60))
-  // var hourDiff = Math.floor(diff / (1000 * 60 * 60))
-  // var daysDiff = Math.floor(diff / (1000 * 60 * 60 * 24))
-
   return (
   <>
   <Link to={"/"}><div className="modal-overlay"></div></Link>
   <div className="modal-profile bg-white rounded">
+  <button className="modal-close-button" onClick={() => navigate('/')}>&#10006;</button>
 
-    <div className="FadeIn max-height bg-white">
+    <div className="FadeIn max-height bg-transparent d-flex justify-content-between">
 
-      <h3 className="bg-primary text-white d-flex justify-content-center m-0 align-items-center" style={{height: "10%"}}>{loggedUser.username}'s profile</h3>
+      <div className="col-6 border-right" style={{height: "100%"}}>
 
-      <div className="container mt-0 p-2 d-flex justify-content-between" style={{height: "25%"}}>
-        <div className="">
-          <p className="m-0"><strong>Member since:</strong> {new Date(loggedUser.createdAt).toDateString()}</p>
-          <p className="m-0"><strong>Current email:</strong> {loggedUser.email}</p>
-          <p className="m-0"><strong>Your products:</strong> {myProducts.length}</p>
+      <h3 className="mt-2" >{loggedUser.username} profile</h3>
+      <hr/>
+        <div className="container">
+          <p className=""><strong>Member since:</strong> {new Date(loggedUser.createdAt).toDateString()}</p>
+          <p className=""><strong>Current email:</strong> {loggedUser.email}</p>
+          <Link to={"/sell"}><button className="btn-link btn btn-primary text-white ml-0">List something for sale</button></Link>
         </div>
-        <Link to={"/sell"}><button className="btn-link btn btn-primary text-white mt-2">List something for sale</button></Link>
       </div>
 
-        <h6 className="text-center text-white py-1 m-0 bg-primary d-flex align-items-center justify-content-center " style={{height: "5%"}}>Select an item to edit</h6>
+      <div style={{height: "100%"}}>
 
-        <div className="d-flex flex-wrap border-top overflow-auto" style={{height: "60%"}} >
+        <div className="container" style={{height: "20%"}}>
+          <h5 className="pt-2">Your listed products</h5>
+          <p className="m-0 text-muted">Total listed ({myProducts.length})</p>
+        </div>
+        <div className="container" style={{height: "5%"}}>
+          <p className="m-0">Select an item to edit</p>
+        </div>
 
+        <div className="d-flex flex-wrap border-top overflow-auto" style={{height: "75%"}}>
         {
-        myProducts ? myProducts.map( (item, i) =>
+          myProducts ? myProducts.map( (item, i) =>
           <div className="col-4 p-0" key={i}>
             <Link to={`/profile/update/${item._id}`}>
               <div className="overflow-hidden" style={{height: "200px"}}>
                   <img className="img-fluid" src={URL + item.productImage} alt="img"/>
               </div>
               <div className="p-2 border bg-light">
-                <h6 className="font-card">{item.product}</h6>
+
+                <h6 className="font-card overflow-hidden" style={{height: "15px"}}>{item.product}</h6>
                 <p className="font-card">Condition: <span>
                 {
                   (item.condition === 'Poor') ?
@@ -104,7 +90,7 @@ const User2 = ({loggedUser, setLoggedUser}) => {
         ):''
         }
         </div>
-
+      </div>
     </div>
   </div>
   </>

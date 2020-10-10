@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import './Sell.css'
 
 const SellForm = ({loggedUser, allProducts, setAllProducts}) => {
     const API_URL = "http://localhost:8000"
