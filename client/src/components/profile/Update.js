@@ -81,75 +81,71 @@ const Update = (props) => {
     <>
     <Link to={"/"}><div className="modal-overlay"></div></Link>
     <div className="modal-update bg-white rounded">
-        <div className="FadeIn max-height bg-white">
-            
-            <form className="FadeIn max-height" encType="multipart/form-data" onSubmit={submitHandler}>
+        <button className="modal-close-button" onClick={() => navigate('/')}>&#10006;</button>
+        <form className="FadeIn max-height" encType="multipart/form-data" onSubmit={submitHandler}>
 
-            <h3 className="py-2 m-0 d-flex justify-content-center align-items-center bg-primary text-white" style={{height: "10%"}}>Edit this product</h3>
-            <div className="overflow-auto pl-2 border" style={{height: "65%"}} >
-                <div className="form-group pt-2 d-flex justify-content-between">
-                    <label  className="col-form-label" htmlFor="category">Category:</label>
-                    <select className="col-8 form-control" value={category} name="category" onChange={(e) => setCategory(e.target.value)}>
-                        <option value="Electronics">Electronics</option>
-                        <option value="Automotive">Automotive</option>
-                        <option value="Apparel">Apparel</option>
-                    </select>
+        <div className="overflow-auto container" style={{height: "15%"}}>
+            <h3 className="mt-2" >Edit your product</h3>
+        </div>
+
+
+        <div className="overflow-auto" style={{height: "70%"}} >
+
+            <div className="mx-5">
+                <label className="text-muted" htmlFor="product">Title <span className="text-danger font-italic">{errors?errors.product?.message:''}</span></label>
+                <input className="form-control" value={product} name="product" type="text" onChange={(e) => setProduct(e.target.value)}/>
+
+                <div className="d-flex">
+
+                    <div className="col-6 pl-0">
+                        <label  className="text-muted" htmlFor="category">Category <span className="text-danger font-italic">{errors?errors.category?.message:''}</span></label>
+                        <select className="form-control" value={category} name="category" onChange={(e) => setCategory(e.target.value)}>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Automotive">Automotive</option>
+                            <option value="Apparel">Apparel</option>
+                        </select>
+                    </div>
+
+                    <div className="col-6 pr-0">
+                        <label  className="text-muted" htmlFor="condition">Condition  <span className="text-danger font-italic">{errors?errors.condition?.message:''}</span></label>
+                        <select className="form-control" value={condition} name="condition" id="" onChange={(e) => setCondition(e.target.value)}>
+                            <option value="Poor">Poor</option>
+                            <option value="Fair">Fair</option>
+                            <option value="Good">Good</option>
+                            <option value="Excellent">Excellent</option>
+                        </select>
+                    </div>
                 </div>
-                {errors.category?<p className="text-danger">{errors.category.message}</p>: ''}
 
-                <div className="form-group d-flex justify-content-between">
-                    <label  className="col-form-label" htmlFor="condition">Condition:</label>
-                    <select className="col-8 form-control" value={condition} name="condition" id="" onChange={(e) => setCondition(e.target.value)}>
-                        <option value="Poor">Poor</option>
-                        <option value="Fair">Fair</option>
-                        <option value="Good">Good</option>
-                        <option value="Excellent">Excellent</option>
-                    </select>
+            <div className="d-flex">
+
+                <div className="col-6 pl-0">
+                    <label className="text-muted" htmlFor="location">Zipcode <span className="text-danger font-italic">{errors?errors.location?.message:''}</span></label>
+                    <input className="form-control" value={location} name="location" type="text" onChange={(e) => setLocation(e.target.value)}/>
                 </div>
-                {errors.condition?<p className="text-danger">{errors.condition.message}</p>: ''}
 
-                <div className="form-group d-flex justify-content-between">
-                    <label className="col-form-label" htmlFor="product">Product:</label>
-                    <input className="col-8 form-control" value={product} name="product" type="text" onChange={(e) => setProduct(e.target.value)}/>
+                <div className="col-6 pr-0">
+                    <label className="text-muted" htmlFor="price">Price <span className="text-danger font-italic">{errors?errors.price?.message:''}</span></label>
+                    <input className="form-control" value={price} name="price" type="number" step=".01" onChange={(e) => setPrice(e.target.value)}/>
                 </div>
-                {errors.product?<p className="text-danger">{errors.product.message}</p>: ''}
+            </div>
 
-                <div className="form-group d-flex justify-content-between">
-                    <label className="col-form-label" htmlFor="location">Location:</label>
-                    <input className="col-8 form-control" value={location} name="location" type="text" onChange={(e) => setLocation(e.target.value)}/>
-                </div>
-                {errors.location?<p className="text-danger">{errors.location.message}</p>: ''}
+                    <label className="text-muted" htmlFor="description">Description <span className="text-danger font-italic">{errors?errors.description?.message:''}</span></label>
+                    <textarea className="form-control" value={description} name="description" rows="1" onChange={(e) => setDescription(e.target.value)}></textarea>
+                    <label className="col-form-label" htmlFor="upload">Photo <span className="text-danger font-italic">{errors?errors.productImage?.message:''}</span></label>
+                    <input type="file" className="d-block" name="upload" onChange={uploadImage}/>
 
-                <div className="form-group d-flex justify-content-between">
-                    <label className="col-form-label" htmlFor="price">Price:</label>
-                    <input className="col-8 form-control" value={price} name="price" type="number" step=".01" onChange={(e) => setPrice(e.target.value)}/>
-                </div>
-                {errors.price?<p className="text-danger">{errors.price.message}</p>: ''}
-
-                <div className="form-group d-flex justify-content-between">
-                    <label className="col-form-label" htmlFor="description">Description:</label>
-                    <textarea className="col-8" value={description} name="description" rows="3" onChange={(e) => setDescription(e.target.value)}></textarea>
-                </div>
-                {errors.description?<p className="text-danger">{errors.description.message}</p>: ''}
-
-                <div className="form-group d-flex justify-content-between">
-                    <label className="col-form-label" htmlFor="upload">Upload:</label>
-                    <input type="file" className="col-8 form-control btn-primary" name="upload" onChange={uploadImage}/>
-                </div>
-                {errors.productImage?<p className="text-danger">{errors.productImage.message}</p>: ''}
-
-                <div className=" border col-8 offset-4 d-flex justify-content-center row mb-2" style={{height: "100px"}}>
+                <div className="border form-control d-flex justify-content-center" style={{height: "100px"}}>
                     <img className="img-fluid mw-100 mh-100" src={API_URL + productImage} alt=""/>
                 </div>
             </div>
-
-            <div className="form-group d-flex flex-column mx-2 justify-content-center align-items-bottom" style={{height: "25%"}}>
-                <input className="form-control mb-2 btn btn-primary" type="submit" value="Update Item" />
-                <Link to={"/profile"} className="form-control btn btn-danger">Cancel</Link>
+        </div>
+            <div className="px-5" style={{height: "15%"}}>
+                <input className="form-control btn btn-primary" type="submit" value="Update Item" />
+                <Link className="d-block text-center btn btn-link" to={"/profile"}>Cancel</Link>
             </div>
             </form>
         </div>
-    </div>
     </>
     )
 }

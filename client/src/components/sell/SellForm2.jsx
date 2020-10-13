@@ -69,7 +69,6 @@ const SellForm2 = ({loggedUser, allProducts, setAllProducts}) => {
             error => {
                 window.alert("No location could be found with that postal code, please try again.")
                 console.error(error);})
-            
         }
     }
 
@@ -107,50 +106,54 @@ const SellForm2 = ({loggedUser, allProducts, setAllProducts}) => {
                 <h3 className="mt-2">List an item for sale</h3>
             </div>
             <div className="overflow-auto" style={{height: "70%"}} >
+
                 <div className="mx-5">
-                <label className="text-muted" htmlFor="product">Title <span className="text-danger font-italic">{errors?errors.product?.message:''}</span></label>
+                    <label className="text-muted" htmlFor="product">Title <span className="text-danger font-italic">{errors?errors.product?.message:''}</span></label>
                     <input className="form-control" value={product} name="product" type="text" onChange={(e) => setProduct(e.target.value)}/>
-                <div className="d-flex">
-                    <div className="col-6 pl-0">
-                        <label  className="text-muted" htmlFor="category">Category <span className="text-danger font-italic">{errors?errors.category?.message:''}</span></label>
-                        <select className="form-control" value={category} name="category" onChange={(e) => setCategory(e.target.value)}>
-                            <option value=" "></option>
-                            <option value="Electronics">Electronics</option>
-                            <option value="Automotive">Automotive</option>
-                            <option value="Apparel">Apparel</option>
-                        </select>
+
+                    <div className="d-flex">
+                        
+                        <div className="col-6 pl-0">
+                            <label  className="text-muted" htmlFor="category">Category <span className="text-danger font-italic">{errors?errors.category?.message:''}</span></label>
+                            <select className="form-control" value={category} name="category" onChange={(e) => setCategory(e.target.value)}>
+                                <option value=" "></option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Automotive">Automotive</option>
+                                <option value="Apparel">Apparel</option>
+                            </select>
+                        </div>
+                        <div className="col-6 pr-0">
+                            <label  className="text-muted" htmlFor="condition">Condition <span className="text-danger font-italic">{errors?errors.condition?.message:''}</span></label>
+                            <select className="form-control" value={condition} name="condition" id="" onChange={(e) => setCondition(e.target.value)}>
+                                <option value=" "></option>
+                                <option value="Poor">Poor</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Good">Good</option>
+                                <option value="Excellent">Excellent</option>
+                            </select>
+                        </div>
                     </div>
-                    <div className="col-6 pr-0">
-                        <label  className="text-muted" htmlFor="condition">Condition <span className="text-danger font-italic">{errors?errors.condition?.message:''}</span></label>
-                        <select className="form-control" value={condition} name="condition" id="" onChange={(e) => setCondition(e.target.value)}>
-                            <option value=" "></option>
-                            <option value="Poor">Poor</option>
-                            <option value="Fair">Fair</option>
-                            <option value="Good">Good</option>
-                            <option value="Excellent">Excellent</option>
-                        </select>
+                    <div className="d-flex">
+                        <div className="col-6 pl-0">
+                            <label className="text-muted" htmlFor="location">Zipcode <span className="text-danger font-italic">{errors?errors.location?.message:''}</span></label>
+                            <input className="form-control" value={location} name="location" type="text" onChange={(e) => setLocation(e.target.value)}/>
+                        </div>
+                        <div className="col-6 pr-0">
+                            <label className="text-muted" htmlFor="price">Price <span className="text-danger font-italic">{errors?errors.price?.message:''}</span></label>
+                            <input className="form-control" value={price} name="price" type="number" step=".01" onChange={(e) => setPrice(e.target.value)}/>
+                        </div>
+                    </div>
+                        <label className="text-muted" htmlFor="description">Description <span className="text-danger font-italic">{errors?errors.description?.message:''}</span></label>
+                        <textarea className="form-control" value={description} name="description" rows="1" onChange={(e) => setDescription(e.target.value)}></textarea>
+                        <label className="text-muted" htmlFor="upload">Photo <span className="text-danger font-italic">{errors?errors.productImage?.message:''}</span></label>
+                        <input type="file" className="d-block" name="upload" onChange={uploadImage}/>
+                        <div className="border form-control d-flex justify-content-center" style={{height: "100px"}}>
+                            <img className="img-fluid mw-100 mh-100" src={state.multerImage} alt=""/>   
+                        </div>
                     </div>
                 </div>
-                <div className="d-flex">
-                    <div className="col-6 pl-0">
-                        <label className="text-muted" htmlFor="location">Zipcode <span className="text-danger font-italic">{errors?errors.location?.message:''}</span></label>
-                        <input className="form-control" value={location} name="location" type="text" onChange={(e) => setLocation(e.target.value)}/>
-                    </div>
-                    <div className="col-6 pr-0">
-                        <label className="text-muted" htmlFor="price">Price <span className="text-danger font-italic">{errors?errors.price?.message:''}</span></label>
-                        <input className="form-control" value={price} name="price" type="number" step=".01" onChange={(e) => setPrice(e.target.value)}/>
-                    </div>
-                </div>
-                    <label className="text-muted" htmlFor="description">Description <span className="text-danger font-italic">{errors?errors.description?.message:''}</span></label>
-                    <textarea className="form-control" value={description} name="description" rows="1" onChange={(e) => setDescription(e.target.value)}></textarea>
-                    <label className="text-muted" htmlFor="upload">Photo <span className="text-danger font-italic">{errors?errors.productImage?.message:''}</span></label>
-                    <input type="file" className="d-block" name="upload" onChange={uploadImage}/>
-                    <div className="border form-control d-flex justify-content-center" style={{height: "100px"}}>
-                        <img className="img-fluid mw-100 mh-100" src={state.multerImage} alt=""/>   
-                    </div>
-                </div>
-            </div>
-            <div className="overflow-auto" style={{height: "15%"}}>
+                
+                <div className="overflow-auto" style={{height: "15%"}}>
                 <div className="px-5">
                     <input className="form-control btn btn-primary" type="submit" value="List Item" />
                     <Link className="d-block text-center btn btn-link" to={"/profile"}>Cancel</Link>

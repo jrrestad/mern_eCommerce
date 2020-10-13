@@ -1,10 +1,8 @@
 const userController = require('../controllers/controller');
 const productController = require('../controllers/product.controller');
+const conversationController = require('../controllers/conversation.controller')
 const { authenticate } = require("../config/jwt.config");
-// const imageController = require('../controllers/image.controller');
 const { Image } = require('../models/image.model')
-
-
 
 const multer = require('multer');
 
@@ -41,23 +39,25 @@ module.exports = app => {
     app.post("/api/logout", userController.logout);
     app.post("/api/logout2", userController.logout2);
   
-    // this route now has to be authenticated
+    // USER ROUTES
     app.get("/api/users", authenticate, userController.getAll);
     app.get("/api/users/loggedin", authenticate, userController.getLoggedInUser);
 
+    // CONVERSATION ROUTES
+    app.get("/api/conversation/:forId", conversationController.getAllReceived);
+    app.post("/api/conversation", conversationController.createConversation);
+    app.patch("/api/conversation/reply/:cId", conversationController.createReply);
+
+    // PRODUCT ROUTES
     app.get("/api/products/category/:category", productController.getByCategory);
     app.get("/api/products/username/:createdBy", productController.getByUser);
     app.get("/api/products/product/:product", productController.getByProduct);
     app.get("/api/products/price/:minPrice/:maxPrice", productController.getByPrice);
-
     app.get("/api/product/single/:id/:createdBy", productController.getOne)
-    // app.get("/api/products/:userID", productController.getUserProducts);
     app.post("/api/product", productController.addProduct);
     app.patch("/api/product/:id", productController.updateProduct);
-    // app.post("/api/product/image", upload.single("imageData"), productController.multiPart);
     app.delete("/api/product/:id", productController.deleteProduct);
 
-    // app.post("/uploadmulter", upload.uploadOne);
     app.post("/uploadmulter", upload.single('imageData'), (req, res, next) => {
       console.log(req.body);
       const newImage = new Image({

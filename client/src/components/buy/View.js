@@ -1,15 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Map from '../Map'
+import axios from 'axios'
 import { Link, navigate } from '@reach/router'
 
-const View = ({id, allProducts}) => { 
+const View = ({id, allProducts, loggedUser}) => { 
 
     const item = allProducts.filter(i => i._id === id)[0]
     
-    if (item === undefined) {
-        navigate('/')
-        return null;
-    } else {
+    // if (item === undefined) {
+    //     navigate('/')
+    //     return null;
+    // } else {
+
+        const [message, setMessage] = useState({
+            fromId: '',
+            forId: '',
+            message: '',
+            product: '',
+            isRead: '',
+        })
+
+        const messageHandler = (e) => {
+            setMessage({
+                fromId: loggedUser.username,
+                forId: item.createdBy,
+                message: e.target.value,
+                product: item._id,
+                isRead: false,
+            })
+        }
+        const submitHandler = (e) => {
+            e.preventDefault()
+            axios.post(`http://localhost:8000/api/conversation`, message)
+            .then(res => {
+                console.log(res)
+                window.alert(`Your message was sent to ${item.createdBy}`)
+                navigate('/')
+            })
+            .catch(err => console.log(err))
+        }
 
             const time = new Date(item.createdAt)
             const now = new Date().getTime()
@@ -26,26 +55,36 @@ const View = ({id, allProducts}) => {
                 <div className="col-8 p-0 v-align d-flex justify-content-center">
                     <img className="img-fluid" style={{maxHeight: "100%"}} src={`http://localhost:8000/${item.productImage}`} alt=""/>
                 </div>
-                <div className="col-4 border-left max-height p-3 overflow-auto">
-                    <p className="text-muted font-italics">{item.category}</p>
-                    <hr/>
-                    <h6>{item.product}</h6>
-                    <h4>${item.price}</h4>
-                    <hr/>
-                    <p className="text-muted font-italic m-0">Locations</p>
-                    <Map coords={item.coords.coordinates}/>
-                    <p className="mb-0">{time.toLocaleDateString()} at {time.toLocaleTimeString()}</p>
-                        {
-                            diff / (1000 * 60) < 60 ?
-                            <p className="font-italic text-muted">({minDiff} mins ago)</p>
-                            : diff / (1000 * 60 * 60) < 24 ?
-                            <p className="font-italic text-muted">({hourDiff} hours ago)</p>
-                            :
-                            <p className="font-italic text-muted">({dayDiff} days ago)</p>
-                        }
-                    <hr/>
-                    <p>{item.createdBy}</p>
-                    <p>{item.description}</p>
+                <div className="col-4 m-0 border-left p-0 max-height">
+
+                    <div className="border-bottom overflow-auto" style={{height: "75%"}}>
+                        <p className="text-muted font-italics">{item.category}</p>
+                        <hr/>
+                        <h6>{item.product}</h6>
+                        <h4>${item.price}</h4>
+                        <hr/>
+                        <p className="text-muted font-italic m-0">Locations</p>
+                        <Map coords={item.coords.coordinates}/>
+                        <p className="mb-0">{time.toLocaleDateString()} at {time.toLocaleTimeString()}</p>
+                            {
+                                diff / (1000 * 60) < 60 ?
+                                <p className="font-italic text-muted">({minDiff} mins ago)</p>
+                                : diff / (1000 * 60 * 60) < 24 ?
+                                <p className="font-italic text-muted">({hourDiff} hours ago)</p>
+                                :
+                                <p className="font-italic text-muted">({dayDiff} days ago)</p>
+                            }
+                        <hr/>
+                        <p className="text-muted font-italic m-0">Seller</p>
+                        <h6>{item.createdBy}</h6>
+                        <p>{item.description}</p>
+                    </div>
+                    <div className="" style={{height: "25%"}}>
+                        <form onSubmit={submitHandler} className="m-3">
+                            <input className="form-control mb-2" type="text" placeholder="Send a message..." onChange={messageHandler} />
+                            <button className="m-0 btn-primary form-control">Send</button>
+                        </form>
+                    </div>
                 </div>
                 <button className="modal-close-button" onClick={() => navigate('/')}>
                     <span aria-hidden="true">&#10006;</span>
@@ -54,6 +93,7 @@ const View = ({id, allProducts}) => {
          </div>
          </>
     )
-}}
+}
+// }
 
 export default View

@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link, navigate } from "@reach/router";
+import Profile from '../profile/Profile'
 import axios from "axios";
 
-const User2 = ({loggedUser, setLoggedUser}) => {
-  const [myProducts, setMyProducts] = useState('')
+const User2 = ({loggedUser, setLoggedUser, myProducts, setMyProducts, myConversations, setMyConversations}) => {
+  // const [myProducts, setMyProducts] = useState('')
+  // const [myConversations, setMyConversations] = useState('')
   const getUser = loggedUser.username
   let URL = "http://localhost:8000/"
 
@@ -27,7 +29,17 @@ const User2 = ({loggedUser, setLoggedUser}) => {
       setMyProducts(res.data)
     })
     .catch(err => console.log(err))
-  }, [getUser])
+  }, [getUser, setMyProducts])
+
+  useEffect( () => {
+    axios.get(`http://localhost:8000/api/conversation/${loggedUser.username}`)
+    .then(res => {
+      console.log("messages!!")
+      console.log(res.data)
+      setMyConversations(res.data)
+    })
+    .catch(err => console.log(err))
+  }, [loggedUser.username, setMyConversations])
 
   return (
   <>
@@ -38,17 +50,13 @@ const User2 = ({loggedUser, setLoggedUser}) => {
     <div className="FadeIn max-height bg-transparent d-flex justify-content-between">
 
       <div className="col-6 border-right" style={{height: "100%"}}>
-
-      <h3 className="mt-2" >{loggedUser.username} profile</h3>
-      <hr/>
-        <div className="container">
-          <p className=""><strong>Member since:</strong> {new Date(loggedUser.createdAt).toDateString()}</p>
-          <p className=""><strong>Current email:</strong> {loggedUser.email}</p>
-          <Link to={"/sell"}><button className="btn-link btn btn-primary text-white ml-0">List something for sale</button></Link>
-        </div>
+        <Profile
+          loggedUser={loggedUser}
+          myConversations={myConversations}
+        />
       </div>
 
-      <div style={{height: "100%"}}>
+      <div style={{height: "100%", width: "100%"}}>
 
         <div className="container" style={{height: "20%"}}>
           <h5 className="pt-2">Your listed products</h5>

@@ -8,13 +8,15 @@ import SignIn2 from "./components/login/SignIn2";
 import SignUp2 from "./components/registration/SignUp2"
 import Update from "./components/profile/Update"
 import View from "./components/buy/View"
+import Conversation from "./components/profile/Conversation"
 import { Router } from '@reach/router';
 import './App.css'
 
 function App() {
   const [allProducts, setAllProducts] = useState([])
   const [loggedUser, setLoggedUser] = useState('')
-
+  const [myProducts, setMyProducts] = useState('')
+  const [myConversations, setMyConversations] = useState('')
 
   useEffect(() => {
     axios.get("http://localhost:8000/api/users/loggedin", {withCredentials: true})
@@ -47,6 +49,7 @@ function App() {
       <Router>
         <View 
         allProducts={allProducts} setAllProducts={setAllProducts}
+        loggedUser={loggedUser} setLoggedUser={setLoggedUser}
         path={'/view/:id'}/>
         <SignIn2 
         loggedUser={loggedUser} setLoggedUser={setLoggedUser}
@@ -56,6 +59,8 @@ function App() {
           path={"/signup"}/>
         <User2 
         loggedUser={loggedUser} setLoggedUser={setLoggedUser}
+        myProducts={myProducts} setMyProducts={setMyProducts}
+        myConversations={myConversations} setMyConversations={setMyConversations}
         path={"/profile"}/>
         <SellForm2
         loggedUser={loggedUser} setLoggedUser={setLoggedUser}
@@ -65,6 +70,11 @@ function App() {
         loggedUser={loggedUser}
         allProducts={allProducts}
         path={"/profile/update/:id"}/>
+        <Conversation 
+        loggedUser={loggedUser}
+        myProducts={myProducts} setMyProducts={setMyProducts}
+        myConversations={myConversations} setMyConversations={setMyConversations}
+        path={"/profile/conversation/:id"}/>
       </Router>
     </div>
   );
