@@ -26,6 +26,34 @@ module.exports = {
         .then(data => res.json(data))
         .catch(err => res.json(err))
     },
+    // getByZip: (req, res) => {
+    //     Product.aggregate([
+    //         {
+    //             $geoNear: {near: {type: 'Point', coordinates: [ parseFloat(req.params.lng), parseFloat(req.params.lat) ]},
+    //                 distanceField: "dist.calculated",
+    //                 maxDistance: 2,
+    //                 spherical: true
+    //             }
+    //         }
+    //     ])
+    //     .then(data => res.json(data))
+    //     .catch(err => res.json(err))
+    // },
+    getByAdvanced: (req, res) => {
+        console.log(req.body)
+        Product.aggregate([
+            {
+                $geoNear: {near: {type: 'Point', coordinates: [ parseFloat(req.params.lng), parseFloat(req.params.lat) ]},
+                    distanceField: "dist.calculated",
+                    maxDistance: parseFloat(req.params.distance),
+                    spherical: true,
+                    query: { price: { $lte: parseFloat(req.params.max), $gte: parseFloat(req.params.min)}, category: req.params.category}
+                }
+            }
+        ])
+        .then(data => res.json(data))
+        .catch(err => res.json(err))
+    },
     addProduct: (req, res) => {
         console.log(req.body)
         Product.create(req.body)

@@ -188,9 +188,22 @@ button {
   font-size: 12px;
 }
 
-.fadeIn{
-  transition: width 0.5s, height 2s, opacity 0.5s 0.5s;
+
+
+.pointer:hover {
+  cursor: pointer;
+  box-shadow: 2px 3px 5px #888888;
+  transform: scale(1.03);
 }
+
+.margin-center {
+  width: 80vw;
+  margin: auto;
+}
+
+/* .Fade-In{
+  transition: width 0.5s, height 2s, opacity 0.5s 0.5s;
+} */
 
 @media (prefers-reduced-motion: no-preference) {
   .FadeIn {

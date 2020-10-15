@@ -41,40 +41,40 @@ function App() {
 
   return (
 
-    <div className="col">
+    <div className="margin-center">
       <Navbar 
-      loggedUser={loggedUser} setLoggedUser={setLoggedUser}/>
+        loggedUser={loggedUser} setLoggedUser={setLoggedUser}/>
       <Buy 
-      allProducts={allProducts} setAllProducts={setAllProducts}/>
+        allProducts={allProducts} setAllProducts={setAllProducts}/>
       <Router>
         <View 
-        allProducts={allProducts} setAllProducts={setAllProducts}
-        loggedUser={loggedUser} setLoggedUser={setLoggedUser}
-        path={'/view/:id'}/>
+          allProducts={allProducts} setAllProducts={setAllProducts}
+          loggedUser={loggedUser} setLoggedUser={setLoggedUser}
+          path={'/view/:id'}/>
         <SignIn2 
-        loggedUser={loggedUser} setLoggedUser={setLoggedUser}
-        path={"/signin"}/>
-          <SignUp2 
+          loggedUser={loggedUser} setLoggedUser={setLoggedUser}
+          path={"/signin"}/>
+        <SignUp2 
           loggedUser={loggedUser} setLoggedUser={setLoggedUser}
           path={"/signup"}/>
         <User2 
-        loggedUser={loggedUser} setLoggedUser={setLoggedUser}
-        myProducts={myProducts} setMyProducts={setMyProducts}
-        myConversations={myConversations} setMyConversations={setMyConversations}
-        path={"/profile"}/>
+          loggedUser={loggedUser} setLoggedUser={setLoggedUser}
+          myProducts={myProducts} setMyProducts={setMyProducts}
+          myConversations={myConversations} setMyConversations={setMyConversations}
+          path={"/profile"}/>
         <SellForm2
-        loggedUser={loggedUser} setLoggedUser={setLoggedUser}
-        allProducts={allProducts} setAllProducts={setAllProducts}
-        path={"/sell"}/>
+          loggedUser={loggedUser} setLoggedUser={setLoggedUser}
+          allProducts={allProducts} setAllProducts={setAllProducts}
+          path={"/sell"}/>
         <Update 
-        loggedUser={loggedUser}
-        allProducts={allProducts}
-        path={"/profile/update/:id"}/>
+          loggedUser={loggedUser}
+          allProducts={allProducts}
+          path={"/profile/update/:id"}/>
         <Conversation 
-        loggedUser={loggedUser}
-        myProducts={myProducts} setMyProducts={setMyProducts}
-        myConversations={myConversations} setMyConversations={setMyConversations}
-        path={"/profile/conversation/:id"}/>
+          loggedUser={loggedUser}
+          myProducts={myProducts} setMyProducts={setMyProducts}
+          myConversations={myConversations} setMyConversations={setMyConversations}
+          path={"/profile/conversation/:id"}/>
       </Router>
     </div>
   );

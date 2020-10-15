@@ -6,36 +6,39 @@ import { Link, navigate } from '@reach/router'
 const View = ({id, allProducts, loggedUser}) => { 
 
     const item = allProducts.filter(i => i._id === id)[0]
-    
+    const [errors, setErrors] = useState('')
+
     // if (item === undefined) {
     //     navigate('/')
     //     return null;
     // } else {
 
         const [message, setMessage] = useState({
-            fromId: '',
-            forId: '',
+            fromId: loggedUser.username,
+            forId: item.createdBy,
             message: '',
-            product: '',
-            isRead: '',
+            product: item._id,
+            isRead: false,
         })
 
         const messageHandler = (e) => {
-            setMessage({
-                fromId: loggedUser.username,
-                forId: item.createdBy,
-                message: e.target.value,
-                product: item._id,
-                isRead: false,
-            })
+                setMessage({
+                    ...message,
+                    [e.target.name]: e.target.value
+                });
         }
+
         const submitHandler = (e) => {
             e.preventDefault()
             axios.post(`http://localhost:8000/api/conversation`, message)
             .then(res => {
-                console.log(res)
-                window.alert(`Your message was sent to ${item.createdBy}`)
-                navigate('/')
+                if (res.data.errors) {
+                    console.log(res.data)
+                setErrors(res.data.errors)
+                } else {
+                    window.alert(`Your message was sent to ${item.createdBy}`)
+                    navigate('/')
+                }
             })
             .catch(err => console.log(err))
         }
@@ -81,7 +84,13 @@ const View = ({id, allProducts, loggedUser}) => {
                     </div>
                     <div className="" style={{height: "25%"}}>
                         <form onSubmit={submitHandler} className="m-3">
-                            <input className="form-control mb-2" type="text" placeholder="Send a message..." onChange={messageHandler} />
+                            {
+                                loggedUser ? 
+                                
+                                <p className="form-control mb-2">{loggedUser.username}</p>
+                                :<input className="form-control mb-2" type="text" id="fromId" name="fromId" placeholder={errors?"Name is required":"Name..."} onChange={messageHandler} />
+                            }
+                            <input className="form-control mb-2" type="text" id="message" name="message" placeholder={errors?"Message is required":"Message..."} onChange={messageHandler} />
                             <button className="m-0 btn-primary form-control">Send</button>
                         </form>
                     </div>

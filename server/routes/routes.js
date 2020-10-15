@@ -54,6 +54,8 @@ module.exports = app => {
     app.get("/api/products/product/:product", productController.getByProduct);
     app.get("/api/products/price/:minPrice/:maxPrice", productController.getByPrice);
     app.get("/api/product/single/:id/:createdBy", productController.getOne)
+    // app.get("/api/products/:lng/:lat", productController.getByZip)
+    app.get("/api/products/:lng/:lat/:distance/:min/:max/:category", productController.getByAdvanced)
     app.post("/api/product", productController.addProduct);
     app.patch("/api/product/:id", productController.updateProduct);
     app.delete("/api/product/:id", productController.deleteProduct);
