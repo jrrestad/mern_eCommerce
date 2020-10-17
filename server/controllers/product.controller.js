@@ -1,23 +1,8 @@
 const { Product } = require('../models/product.model');
 
 module.exports = {
-    getByCategory: (req, res) => {
-        Product.find({ category: req.params.category }).sort({ createdAt: -1})
-        .then(data => res.json(data))
-        .catch(err => res.json(err))
-    },
     getByUser: (req, res) => {
         Product.find({ createdBy: { $regex: req.params.createdBy, $options: 'i'}}).sort({ createdAt: -1})
-        .then(data => res.json(data))
-        .catch(err => res.json(err))
-    },
-    getByProduct: (req, res) => {
-        Product.find({ product: { $regex: req.params.product, $options: 'i'}}).sort({ createdAt: -1})
-        .then(data => res.json(data))
-        .catch(err => res.json(err))
-    },
-    getByPrice: (req, res) => {
-        Product.find({ price: { $lte: req.params.maxPrice, $gte: req.params.minPrice }}).sort({ price: 1})
         .then(data => res.json(data))
         .catch(err => res.json(err))
     },
@@ -26,20 +11,21 @@ module.exports = {
         .then(data => res.json(data))
         .catch(err => res.json(err))
     },
-    // getByZip: (req, res) => {
-    //     Product.aggregate([
-    //         {
-    //             $geoNear: {near: {type: 'Point', coordinates: [ parseFloat(req.params.lng), parseFloat(req.params.lat) ]},
-    //                 distanceField: "dist.calculated",
-    //                 maxDistance: 2,
-    //                 spherical: true
-    //             }
-    //         }
-    //     ])
-    //     .then(data => res.json(data))
-    //     .catch(err => res.json(err))
-    // },
-    getByAdvanced: (req, res) => {
+    getFirstPopulate: (req, res) => {
+        console.log(req.body)
+        Product.aggregate([
+            {
+                $geoNear: {near: {type: 'Point', coordinates: [ parseFloat(req.params.lng), parseFloat(req.params.lat) ]},
+                    distanceField: "dist.calculated",
+                    maxDistance: 160934,
+                    spherical: true
+                }
+            }
+        ])
+        .then(data => {res.json(data)})
+        .catch(err => {res.json(err)})
+    },
+    getByPrice: (req, res) => {
         console.log(req.body)
         Product.aggregate([
             {
@@ -47,12 +33,71 @@ module.exports = {
                     distanceField: "dist.calculated",
                     maxDistance: parseFloat(req.params.distance),
                     spherical: true,
-                    query: { price: { $lte: parseFloat(req.params.max), $gte: parseFloat(req.params.min)}, category: req.params.category}
+                    query: { price: { $lte: parseFloat(req.params.max), $gte: parseFloat(req.params.min)}}
                 }
             }
         ])
-        .then(data => res.json(data))
-        .catch(err => res.json(err))
+        .then(data => {res.json(data)})
+        .catch(err => {res.json(err)})
+    },
+    getByCategory: (req, res) => {
+        console.log(req.body)
+        Product.aggregate([
+            {
+                $geoNear: {near: {type: 'Point', coordinates: [ parseFloat(req.params.lng), parseFloat(req.params.lat) ]},
+                    distanceField: "dist.calculated",
+                    maxDistance: parseFloat(req.params.distance),
+                    spherical: true,
+                    query: { price: { $lte: parseFloat(req.params.max), $gte: parseFloat(req.params.min)}, 
+                            category: req.params.category}
+                }
+            }
+        ])
+        .then(data => {res.json(data)})
+        .catch(err => {res.json(err)})
+    },
+    getByCategoryAndCustom: (req, res) => {
+        console.log(req.body)
+        Product.aggregate([
+            {
+                $geoNear: {near: {type: 'Point', coordinates: [ parseFloat(req.params.lng), parseFloat(req.params.lat) ]},
+                    distanceField: "dist.calculated",
+                    maxDistance: parseFloat(req.params.distance),
+                    spherical: true,
+                    query: { price: { $lte: parseFloat(req.params.max), $gte: parseFloat(req.params.min)}, 
+                            category: req.params.category, 
+                            $or: [
+                                { product: {$regex: req.params.custom, $options: 'i'}},
+                                { condition: {$regex: req.params.custom, $options: 'i'}},
+                                { description: {$regex: req.params.custom, $options: 'i'}},
+                                { createdBy: {$regex: req.params.custom, $options: 'i'}},
+                        ]}
+                }
+            }
+        ])
+        .then(data => {res.json(data)})
+        .catch(err => {res.json(err)})
+    },
+    getByCustom: (req, res) => {
+        console.log(req.body)
+        Product.aggregate([
+            {
+                $geoNear: {near: {type: 'Point', coordinates: [ parseFloat(req.params.lng), parseFloat(req.params.lat) ]},
+                    distanceField: "dist.calculated",
+                    maxDistance: parseFloat(req.params.distance),
+                    spherical: true,
+                    query: { price: { $lte: parseFloat(req.params.max), $gte: parseFloat(req.params.min)}, 
+                            $or: [
+                                { product: {$regex: req.params.custom, $options: 'i'}},
+                                { condition: {$regex: req.params.custom, $options: 'i'}},
+                                { description: {$regex: req.params.custom, $options: 'i'}},
+                                { createdBy: {$regex: req.params.custom, $options: 'i'}},
+                ]}
+                }
+            }
+        ])
+        .then(data => {res.json(data)})
+        .catch(err => {res.json(err)})
     },
     addProduct: (req, res) => {
         console.log(req.body)
@@ -68,7 +113,7 @@ module.exports = {
         .catch(err => res.json(err))
     },
     deleteProduct: (req, res) => {
-        Product.findOneAndDelete({ _id: req.params.id })
+        Product.findOneAndDelete({ _id: req.params.id, createdBy: req.params.createdBy })
         .then(data => res.json(data))
         .catch(err => res.json(err))
     },

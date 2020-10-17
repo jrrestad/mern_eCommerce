@@ -15,7 +15,6 @@ const storage = multer.diskStorage({
     }
   });
 
-
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
         cb(null, true);
@@ -49,16 +48,18 @@ module.exports = app => {
     app.patch("/api/conversation/reply/:cId", conversationController.createReply);
 
     // PRODUCT ROUTES
-    app.get("/api/products/category/:category", productController.getByCategory);
     app.get("/api/products/username/:createdBy", productController.getByUser);
-    app.get("/api/products/product/:product", productController.getByProduct);
-    app.get("/api/products/price/:minPrice/:maxPrice", productController.getByPrice);
     app.get("/api/product/single/:id/:createdBy", productController.getOne)
-    // app.get("/api/products/:lng/:lat", productController.getByZip)
-    app.get("/api/products/:lng/:lat/:distance/:min/:max/:category", productController.getByAdvanced)
     app.post("/api/product", productController.addProduct);
-    app.patch("/api/product/:id", productController.updateProduct);
-    app.delete("/api/product/:id", productController.deleteProduct);
+    app.patch("/api/product/:id", authenticate, productController.updateProduct);
+    app.delete("/api/product/:id/:createdBy", authenticate, productController.deleteProduct);
+
+    // PRODUCT SEARCH ROUTES
+    app.get("/api/products/search/:lng/:lat", productController.getFirstPopulate)
+    app.get("/api/products/price/:lng/:lat/:distance/:min/:max", productController.getByPrice)
+    app.get("/api/products/category/:lng/:lat/:distance/:min/:max/:category", productController.getByCategory)
+    app.get("/api/products/category/custom/:lng/:lat/:distance/:min/:max/:category/:custom", productController.getByCategoryAndCustom)
+    app.get("/api/products/custom/:lng/:lat/:distance/:min/:max/:custom", productController.getByCustom)
 
     app.post("/uploadmulter", upload.single('imageData'), (req, res, next) => {
       console.log(req.body);
@@ -75,22 +76,6 @@ module.exports = app => {
               });
           })
           .catch((err) => next(err));
-  });
-//     app.post("/uploadmulter", upload.single('imageData'), (req, res, next) => {
-//       console.log(req.body);
-//       const newImage = new Image({
-//           imageName: req.body.imageName,
-//           imageData: req.file.path
-//       })
-//       newImage.save()
-//           .then((result) => {
-//               console.log(result);
-//               res.status(200).json({
-//                   success: true,
-//                   document: result
-//               });
-//           })
-//           .catch((err) => next(err));
-//   });
+    });
   };
 

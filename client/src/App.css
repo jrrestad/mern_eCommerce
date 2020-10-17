@@ -188,25 +188,52 @@ button {
   font-size: 12px;
 }
 
-
-
-.pointer:hover {
+/* .pointer:hover {
   cursor: pointer;
   box-shadow: 2px 3px 5px #888888;
   transform: scale(1.03);
-}
+} */
 
 .margin-center {
   width: 80vw;
   margin: auto;
 }
 
-/* .Fade-In{
-  transition: width 0.5s, height 2s, opacity 0.5s 0.5s;
-} */
+.FadeIn{
+	opacity: 1;
+	animation-name: fade-in;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: .3s;
+}
 
-@media (prefers-reduced-motion: no-preference) {
-  .FadeIn {
-      animation: Fade-In .7s 1;
-  }
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.RaiseUp:hover{
+  cursor: pointer;
+  opacity: 1;
+  box-shadow: 2px 3px 5px #888888;
+  transform: scale(1.05); 
+	animation-name: raise-up;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: .1s;
+}
+
+@keyframes raise-up {
+	0% {
+    box-shadow: none;
+    transform: scale(1.00);  
+	}
+	100% {
+    box-shadow: 2px 3px 5px #888888;
+    transform: scale(1.05);  
+	}
 }

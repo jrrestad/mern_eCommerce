@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Map from '../Map'
+import Map from '../display/Map'
 import axios from 'axios'
 import { Link, navigate } from '@reach/router'
 

@@ -1,12 +1,9 @@
 import React, { useEffect } from "react";
 import { Link, navigate } from "@reach/router";
-import Profile from '../profile/Profile'
+import Profile from './Profile'
 import axios from "axios";
 
-const User2 = ({loggedUser, setLoggedUser, myProducts, setMyProducts, myConversations, setMyConversations}) => {
-  // const [myProducts, setMyProducts] = useState('')
-  // const [myConversations, setMyConversations] = useState('')
-  const getUser = loggedUser.username
+const User = ({loggedUser, setLoggedUser, myProducts, setMyProducts, myConversations, setMyConversations}) => {
   let URL = "http://localhost:8000/"
 
   useEffect(() => {
@@ -23,13 +20,13 @@ const User2 = ({loggedUser, setLoggedUser, myProducts, setMyProducts, myConversa
   }, [setLoggedUser]);
 
   useEffect( () => {
-    axios.get(`http://localhost:8000/api/products/username/${getUser}`)
+    axios.get(`http://localhost:8000/api/products/username/${loggedUser.username}`)
     .then(res => {
       console.log(res)
       setMyProducts(res.data)
     })
     .catch(err => console.log(err))
-  }, [getUser, setMyProducts])
+  }, [loggedUser.username, setMyProducts])
 
   useEffect( () => {
     axios.get(`http://localhost:8000/api/conversation/${loggedUser.username}`)
@@ -68,7 +65,7 @@ const User2 = ({loggedUser, setLoggedUser, myProducts, setMyProducts, myConversa
 
         <div className="d-flex flex-wrap border-top overflow-auto" style={{height: "75%"}}>
         {
-          myProducts ? myProducts.map( (item, i) =>
+          myProducts.length > 0 ? myProducts.map( (item, i) =>
           <div className="col-4 p-0" key={i}>
             <Link to={`/profile/update/${item._id}`}>
               <div className="overflow-hidden" style={{height: "200px"}}>
@@ -105,4 +102,4 @@ const User2 = ({loggedUser, setLoggedUser, myProducts, setMyProducts, myConversa
   );
 };
 
-export default User2;
+export default User;

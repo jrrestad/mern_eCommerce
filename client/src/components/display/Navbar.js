@@ -2,9 +2,7 @@ import React from 'react';
 import { Link } from "@reach/router"
 import axios from 'axios';
 
-const Navbar = (props) => {
-    const {
-        loggedUser, setLoggedUser} = props;
+const Navbar = ({loggedUser, setLoggedUser}) => {
 
     const logout = () => {
         axios.post("http://localhost:8000/api/logout", {}, {withCredentials: true})
@@ -17,24 +15,16 @@ const Navbar = (props) => {
             .catch(err => console.log(err));
         };
 
-    //   const handleProfile = () => {
-    //     if (showProfile === true) {
-    //         setShowProfile(false)
-    //     } else {
-    //         setShowProfile(true);
-    //     }
-    // }
-
     return (
         <>
         <div className="row d-flex justify-content-between border-bottom" style={{height: "90px"}}>
             <div className="col">
                 <h1 className=" mb-0 ml-5">Swap Meet</h1>
-                <p className="mt-0 ml-5 font-italic">The digital trading post</p>
+                <p className="mt-0 ml-5 font-italic">The digital sales platform</p>
             </div>
 
             <div className="col-6 float-right">
-            {
+                {
                 loggedUser ? 
                 <div className="float-right">
                     <Link to={"/profile"}><button className="btn-link btn btn-primary text-white mt-2 float-right">Profile</button></Link>
@@ -43,9 +33,8 @@ const Navbar = (props) => {
                 : 
                 <div className="float-right">
                     <Link to={"/signin"}><button className="btn-link btn btn-primary text-white mt-2 float-right">Sign In</button></Link>
-                    {/* <p className="text-muted font-italic">(not logged in)</p> */}
                 </div>
-            }
+                }
             </div>
         </div>
         </>

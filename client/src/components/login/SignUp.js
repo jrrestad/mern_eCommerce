@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, navigate } from '@reach/router'
 import axios from "axios";
 
-const SignUp2 = () => {
+const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -71,6 +71,6 @@ const SignUp2 = () => {
   );
 };
 
-export default SignUp2;
+export default SignUp;
 
 // ?. for errors is called optional chaining, lets you safely try to access keys that might not exist and avoid errors

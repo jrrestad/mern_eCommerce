@@ -3,11 +3,10 @@ import { Link, navigate } from "@reach/router"
 import axios from 'axios'
 
 const Update = (props) => {
-    const { id, loggedUser} = props;
-
-    const [errors, setErrors] = useState('')
+    const { id, loggedUser, allProducts, setAllProducts} = props;
 
     const API_URL = "http://localhost:8000/"
+    const [errors, setErrors] = useState('')
 
     const [category, setCategory] = useState('')
     const [condition, setCondition] = useState('')
@@ -29,7 +28,7 @@ const Update = (props) => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/product/single/${id}/${loggedUser.username}`)
+        axios.get(`http://localhost:8000/api/product/single/${id}/${loggedUser.username}`, {withCredentials: true})
         .then(res => {
             if (res.data[0] === undefined) {
                 navigate('/')
@@ -46,6 +45,23 @@ const Update = (props) => {
         })
         .catch(err => console.log(err))
     }, [id,loggedUser.username])
+
+    const deleteHandler = (e) => {
+        e.preventDefault()
+        axios.delete(`http://localhost:8000/api/product/${id}/${loggedUser.username}`, {withCredentials: true})
+        .then(res => {
+            console.log(res)
+            navigate("/profile")
+            const [...curData] = allProducts;
+            for (let i = 0; i < curData.length; i++) {
+                if (curData[i]._id === id) {
+                    curData.splice(i, 1)
+                    setAllProducts(curData)
+                }
+            }
+        })
+        .catch(err => console.log(err))
+    }
 
     const uploadImage = (e) => {
         e.preventDefault()
@@ -100,19 +116,24 @@ const Update = (props) => {
                     <div className="col-6 pl-0">
                         <label  className="text-muted" htmlFor="category">Category <span className="text-danger font-italic">{errors?errors.category?.message:''}</span></label>
                         <select className="form-control" value={category} name="category" onChange={(e) => setCategory(e.target.value)}>
-                            <option value="Electronics">Electronics</option>
-                            <option value="Automotive">Automotive</option>
-                            <option value="Apparel">Apparel</option>
+                            <option value="apparel">Apparel</option>
+                            <option value="appliances">Appliances</option>
+                            <option value="automotive">Automotive</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="furniture">Furniture</option>
+                            <option value="miscellaneous">Miscellaneous</option>
+                            <option value="pets">Pets</option>
                         </select>
                     </div>
 
                     <div className="col-6 pr-0">
                         <label  className="text-muted" htmlFor="condition">Condition  <span className="text-danger font-italic">{errors?errors.condition?.message:''}</span></label>
                         <select className="form-control" value={condition} name="condition" id="" onChange={(e) => setCondition(e.target.value)}>
-                            <option value="Poor">Poor</option>
-                            <option value="Fair">Fair</option>
-                            <option value="Good">Good</option>
-                            <option value="Excellent">Excellent</option>
+                            <option value="poor">Poor</option>
+                            <option value="fair">Fair</option>
+                            <option value="good">Good</option>
+                            <option value="excellent">Excellent</option>
+                            <option value="perfect">Perfect</option>
                         </select>
                     </div>
                 </div>
@@ -142,7 +163,12 @@ const Update = (props) => {
         </div>
             <div className="px-5" style={{height: "15%"}}>
                 <input className="form-control btn btn-primary" type="submit" value="Update Item" />
-                <Link className="d-block text-center btn btn-link" to={"/profile"}>Cancel</Link>
+                <div className="d-flex justify-content-center align-items-center">
+
+                <Link className="text-center btn btn-link" to={"/profile"}>Cancel</Link>
+                <p className="m-0 p-0">|</p>
+                <p className="m-0 text-center text-danger btn btn-link" to={"/profile"} onClick={deleteHandler}>Remove</p>
+                </div>
             </div>
             </form>
         </div>

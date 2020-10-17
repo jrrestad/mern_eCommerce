@@ -2,10 +2,10 @@ import React, { useState, useEffect} from "react";
 import axios from 'axios';
 import Navbar from "./components/display/Navbar";
 import Buy from "./components/buy/Buy"
-import User2 from "./components/login/User2";
-import SellForm2 from "./components/sell/SellForm2";
-import SignIn2 from "./components/login/SignIn2";
-import SignUp2 from "./components/registration/SignUp2"
+import User from "./components/profile/User";
+import SellForm from "./components/sell/SellForm";
+import SignIn from "./components/login/SignIn";
+import SignUp from "./components/login/SignUp"
 import Update from "./components/profile/Update"
 import View from "./components/buy/View"
 import Conversation from "./components/profile/Conversation"
@@ -30,14 +30,14 @@ function App() {
       });
   }, [setLoggedUser]);
 
-  useEffect(() => {
-    axios.get(`http://localhost:8000/api/products/category/Electronics`)
-    .then(res => {
-        console.log(res)
-        setAllProducts(res.data)
-      })
-    .catch(err => console.log(err))
-  }, [])
+  // useEffect(() => {
+  //   axios.get(`http://localhost:8000/api/products/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${searchParams.category}/${customSearch}`)
+  //   .then(res => {
+  //       console.log(res)
+  //       setAllProducts(res.data)
+  //     })
+  //   .catch(err => console.log(err))
+  // }, [])
 
   return (
 
@@ -51,24 +51,25 @@ function App() {
           allProducts={allProducts} setAllProducts={setAllProducts}
           loggedUser={loggedUser} setLoggedUser={setLoggedUser}
           path={'/view/:id'}/>
-        <SignIn2 
+        <SignIn 
           loggedUser={loggedUser} setLoggedUser={setLoggedUser}
           path={"/signin"}/>
-        <SignUp2 
+        <SignUp 
           loggedUser={loggedUser} setLoggedUser={setLoggedUser}
           path={"/signup"}/>
-        <User2 
+        <User 
           loggedUser={loggedUser} setLoggedUser={setLoggedUser}
           myProducts={myProducts} setMyProducts={setMyProducts}
           myConversations={myConversations} setMyConversations={setMyConversations}
           path={"/profile"}/>
-        <SellForm2
+        <SellForm
           loggedUser={loggedUser} setLoggedUser={setLoggedUser}
           allProducts={allProducts} setAllProducts={setAllProducts}
           path={"/sell"}/>
         <Update 
           loggedUser={loggedUser}
           allProducts={allProducts}
+          setAllProducts={setAllProducts}
           path={"/profile/update/:id"}/>
         <Conversation 
           loggedUser={loggedUser}
