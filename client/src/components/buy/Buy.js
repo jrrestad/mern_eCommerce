@@ -102,18 +102,18 @@ const Buy = ({allProducts, setAllProducts}) => {
 
     return (
         <>
-        <div className="bg-light rounded d-flex pt-4">
-            <form onSubmit={submitZipcode} className="col-2 pt-2">
+        <div className="bg-semi-teal d-flex pt-4">
+            <form onSubmit={submitZipcode} className="col-lg-2 col-md-3 col-4 pt-2">
                 <div className="input-group">
-                    <input className="form-control" placeholder="Zipcode..." name="location" type="text" onChange={zipcodeHandler}/>
-                    <button className="input-group-append btn btn-primary">&#x2713;</button>
+                    <input className="form-control text-orange" placeholder="Zipcode..." name="location" type="text" onChange={zipcodeHandler}/>
+                    <button className="input-group-append btn bg-teal text-white">&#x2713;</button>
                 </div>
                 {errors ? <p className="text-danger font-italic mb-0">Please enter a zipcode</p>: <p className="text-muted font-italic">{city}</p>}
             </form>
-            <form onSubmit={submitCustomSearch} className="col-10 pl-2 pt-2">
+            <form onSubmit={submitCustomSearch} className="col-lg-10 col-md-9 col-8 pl-2 pt-2">
                 <div className="input-group">
-                    <input className="form-control" placeholder={`Search in ${searchParams.category}...`} type="text" onChange={ (e) => setCustomSearch(e.target.value) }/>
-                    <button className="input-group-append btn btn-primary">&#x2713;</button>
+                    <input className="form-control text-orange" placeholder={`Search in ${searchParams.category}...`} type="text" onChange={ (e) => setCustomSearch(e.target.value) }/>
+                    <button className="input-group-append btn bg-teal text-white">&#x2713;</button>
                 </div>
                 <p className="text-muted font-italic mb-0">Results ({allProducts.length})</p>
             </form>
@@ -129,38 +129,6 @@ const Buy = ({allProducts, setAllProducts}) => {
                 allProducts={allProducts} 
             />
         </div>
-
-            {/* <div className="d-flex flex-wrap bg-light pt-2">
-                {
-                allProducts.map( (item, i) => 
-                <div className="m-2 bg-white translucent pointer" style={{width: "15rem"}} key={i}>
-                    <div className="border" onClick={ () => navigate(`view/${item._id}`)}>
-                        <div className="overflow-hidden" style={{height: "200px"}}>
-                            <img className="img-fluid" src={URL + item.productImage} alt="img"/>
-                        </div>
-                        <div className="p-2 border-top">
-                        <h6 className="font-card">{item.product}</h6>
-                            <p className="font-card">Condition: <span>
-                            {
-                                (item.condition === 'Poor') ?
-                                <span className="text-danger">{item.condition}</span>
-                                : (item.condition === 'Fair') ?
-                                <span className="text-warning">{item.condition}</span>
-                                : (item.condition === 'Good') ?
-                                <span className="text-info">{item.condition}</span>
-                                :
-                                <span className="text-primary">{item.condition}</span>
-                            }
-                            </span>
-                            </p>
-                        <p className="font-card">Zip Code: {item.location}</p>
-                        <p className="font-card">Price: ${item.price}</p>
-                        </div>
-                    </div>
-                </div>
-                )
-            }
-            </div> */}
         </>
     )
 }

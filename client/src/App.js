@@ -9,7 +9,8 @@ import SignUp from "./components/login/SignUp"
 import Update from "./components/profile/Update"
 import View from "./components/buy/View"
 import Conversation from "./components/profile/Conversation"
-import { Router } from '@reach/router';
+import About from "./components/display/About"
+import { Router, Link } from '@reach/router';
 import './App.css'
 
 function App() {
@@ -30,22 +31,14 @@ function App() {
       });
   }, [setLoggedUser]);
 
-  // useEffect(() => {
-  //   axios.get(`http://localhost:8000/api/products/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${searchParams.category}/${customSearch}`)
-  //   .then(res => {
-  //       console.log(res)
-  //       setAllProducts(res.data)
-  //     })
-  //   .catch(err => console.log(err))
-  // }, [])
-
   return (
 
-    <div className="margin-center">
+    <div className="m-auto col-xl-10 col-lg-11 col-md-12">
       <Navbar 
         loggedUser={loggedUser} setLoggedUser={setLoggedUser}/>
       <Buy 
         allProducts={allProducts} setAllProducts={setAllProducts}/>
+
       <Router>
         <View 
           allProducts={allProducts} setAllProducts={setAllProducts}
@@ -76,7 +69,14 @@ function App() {
           myProducts={myProducts} setMyProducts={setMyProducts}
           myConversations={myConversations} setMyConversations={setMyConversations}
           path={"/profile/conversation/:id"}/>
+        <About
+          path={"/about"}/>
       </Router>
+      <div className="col-12 bg-semi-teal bg-light-teal">
+        <Link to={"/about"} className="d-flex justify-content-center text-light-teal font-weight-bold mb-0 p-2">
+            About this project
+        </Link>
+        </div>
     </div>
   );
 }

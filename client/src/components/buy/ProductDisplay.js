@@ -5,16 +5,16 @@ const ProductDisplay = ({allProducts}) => {
     let URL = "http://localhost:8000/"
 
     return (
-    <div className="d-flex flex-wrap bg-light pt-2">
+    <div className="overflow-auto flex-wrap d-flex col-lg-10 col-md-9 col-sm-8 p-lg-3 p-2" style={{height: "70vh"}}>
         {
         allProducts.map( (item, i) => 
-        <div className="m-2 bg-white translucent RaiseUp" style={{width: "15rem"}} key={i}>
+        <div className="bg-white col-lg-3 col-md-4 col-sm-6 col-12 p-0 translucent RaiseUp overflow-auto" style={{width: "25%"}} key={i}>
             <div className="border" onClick={ () => navigate(`view/${item._id}`)}>
-                <div className="overflow-hidden" style={{height: "200px"}}>
-                    <img className="img-fluid" src={URL + item.productImage} alt="img"/>
+                <div className="overflow-hidden " style={{height: "200px"}}>
+                    <img className=" img-fluid" src={URL + item.productImage} alt="img"/>
                 </div>
-                <div className="p-2 border-top">
-                    <h6 className="font-card">{item.product}</h6>
+                <div className="p-2 bg-semi-orange">
+                    <h6 className="font-card text-orange">{item.product}</h6>
                     <p className="font-card">Condition: <span>
                     {
                         (item.condition === 'poor') ?

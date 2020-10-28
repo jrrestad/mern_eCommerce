@@ -43,26 +43,26 @@ const SignUp = () => {
       <form onSubmit={register} className="FadeIn max-height">
         <div className="overflow-auto" style={{height: "15%"}}>
           <div className="container mt-2">
-            <h3>Sign Up</h3>
-            <p className="text-muted">Only takes a second and completely free.</p>
+            <h3 className="text-teal">Sign Up</h3>
+            <p className="text-light-teal">Only takes a second and completely free.</p>
           </div>
         </div>
         <div className="overflow-auto" style={{height: "70%"}}>
           <div className="mx-5" style={{position: "relative", top: "50%", transform: "translateY(-50%"}}>
-            <label className="text-muted">Username <span className="text-danger font-italic">{errors?errors.username?.message:''}</span></label>
+            <label className="text-light-teal">Username <span className="text-danger font-italic">{errors?errors.username?.message:''}</span></label>
             <input className="form-control" type="text" name="username" onChange={(e) => setUsername(e.target.value)} value={username} />
-            <label className="text-muted">Email <span className="text-danger font-italic">{errors?errors.email?.message:''}</span></label>
+            <label className="text-light-teal">Email <span className="text-danger font-italic">{errors?errors.email?.message:''}</span></label>
             <input className="form-control" type="text" name="email" onChange={(e) => setEmail(e.target.value)} value={email} />
-            <label className="text-muted">Password <span className="text-danger  font-italic">{errors?errors.password?.message:''}</span></label>
+            <label className="text-light-teal">Password <span className="text-danger  font-italic">{errors?errors.password?.message:''}</span></label>
             <input className="form-control" type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
-            <label className="text-muted">Confirm password <span className="text-danger font-italic">{errors?errors.confirmPassword?.message:''}</span></label>
+            <label className="text-light-teal">Confirm password <span className="text-danger font-italic">{errors?errors.confirmPassword?.message:''}</span></label>
             <input className="form-control" type="password" onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword} />
           </div>
         </div>
         <div className="overflow-auto" style={{height: "15%"}}>
           <div className="px-5">
-            <input className="form-control btn btn-primary" type="submit" value="Sign Up"/>
-            <Link className="d-block text-center" to={"/signin"}><button className="btn-link btn">Already registered? Sign in</button></Link>
+            <input className="form-control btn bg-teal text-white" type="submit" value="Sign Up"/>
+            <Link className="d-block text-center" to={"/signin"}><button className="btn-link btn text-orange">Already registered? Sign in</button></Link>
           </div>
         </div>
       </form>

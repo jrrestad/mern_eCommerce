@@ -52,7 +52,7 @@ const View = ({id, allProducts, loggedUser}) => {
 
     return (
         <>
-        <Link to={"/"}><div className="modal-overlay"></div></Link>
+        <Link to={"/"}><div className="FadeIn modal-overlay"></div></Link>
         <div className="FadeIn modal-overlay-2 rounded bg-white">
             <div className="d-flex max-height">
                 <div className="col-8 p-0 v-align d-flex justify-content-center">
@@ -60,13 +60,13 @@ const View = ({id, allProducts, loggedUser}) => {
                 </div>
                 <div className="col-4 m-0 border-left p-0 max-height">
 
-                    <div className="border-bottom overflow-auto" style={{height: "75%"}}>
-                        <p className="text-muted font-italics">{item.category}</p>
-                        <hr/>
+                    <div className="border-bottom container overflow-auto" style={{height: "75%"}}>
+                        <p className="text-light-teal text-center font-italic m-0">{item.category.toUpperCase()}</p>
+                        <hr className="mt-0"/>
                         <h6>{item.product}</h6>
                         <h4>${item.price}</h4>
                         <hr/>
-                        <p className="text-muted font-italic m-0">Locations</p>
+                        <p className="text-light-teal text-center font-italic m-0">Locations</p>
                         <Map coords={item.coords.coordinates}/>
                         <p className="mb-0">{time.toLocaleDateString()} at {time.toLocaleTimeString()}</p>
                             {
@@ -78,7 +78,7 @@ const View = ({id, allProducts, loggedUser}) => {
                                 <p className="font-italic text-muted">({dayDiff} days ago)</p>
                             }
                         <hr/>
-                        <p className="text-muted font-italic m-0">Seller</p>
+                        <p className="text-light-teal text-center font-italic m-0">Seller</p>
                         <h6>{item.createdBy}</h6>
                         <p>{item.description}</p>
                     </div>
@@ -87,11 +87,11 @@ const View = ({id, allProducts, loggedUser}) => {
                             {
                                 loggedUser ? 
                                 
-                                <p className="form-control mb-2">{loggedUser.username}</p>
-                                :<input className="form-control mb-2" type="text" id="fromId" name="fromId" placeholder={errors?"Name is required":"Name..."} onChange={messageHandler} />
+                                <p className="form-control text-orange mb-2">{loggedUser.username}</p>
+                                :<input className="form-control mb-2 text-orange" type="text" id="fromId" name="fromId" placeholder={errors?"Name is required":"Name..."} onChange={messageHandler} />
                             }
-                            <input className="form-control mb-2" type="text" id="message" name="message" placeholder={errors?"Message is required":"Message..."} onChange={messageHandler} />
-                            <button className="m-0 btn-primary form-control">Send</button>
+                            <input className="form-control text-orange mb-2" type="text" id="message" name="message" placeholder={errors?"Message is required":"Message..."} onChange={messageHandler} />
+                            <button className="m-0 bg-teal text-white form-control">Send</button>
                         </form>
                     </div>
                 </div>

@@ -31,28 +31,28 @@ const SignIn = () => {
   return (
     <>
     <Link to={"/"}><div className="modal-overlay"></div></Link>
-    <div className="modal-signup bg-white rounded">
+    <div className="FadeIn modal-signup bg-white rounded">
         <button className="modal-close-button" onClick={() => navigate('/')}>&#10006;</button>
         <form onSubmit={login} className="FadeIn max-height">
           <div className="overflow-auto" style={{height: "15%"}}>
             <div className="container mt-2">
-              <h3>Sign In</h3>
-              <p className="text-muted">Sign in to list items and leave reviews.</p>
+              <h3 className="text-teal">Sign In</h3>
+              <p className="text-light-teal">Sign in to list items and leave reviews.</p>
             </div>
           </div>
           <div className="overflow-auto" style={{height: "70%"}}>
             <div className="mx-5" style={{position: "relative", top: "50%", transform: "translateY(-50%"}}>
-              <label className="text-muted">Email</label>
+              <label className="text-light-teal">Email</label>
               <input className="form-control" type="text" name="email" onChange={(e) => setEmail(e.target.value)} value={email} />
-              <label className="text-muted">Password</label>
+              <label className="text-light-teal">Password</label>
               <input className="form-control" type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
               <p><span className="text-danger font-italic">{''} {errors?errors:''}</span></p>
             </div>
           </div>
           <div className="overflow-auto" style={{height: "15%"}}>
             <div className="px-5">
-              <input className="form-control btn btn-primary" type="submit" value="Sign In"/>
-              <Link className="d-block text-center" to={"/signup"}><button className="btn-link btn">Not registered? Sign up</button></Link>
+              <input className="form-control btn bg-teal text-white" type="submit" value="Sign In"/>
+              <Link className="d-block text-center" to={"/signup"}><button className="btn-link text-orange btn">Not registered? Sign up</button></Link>
             </div>
           </div>
         </form>

@@ -12,16 +12,16 @@ const Conversation = ({id, myConversations,myProducts}) => {
         <div className="modal-sell bg-white rounded">
 
             <div className="max-height">
+                <button className="modal-close-button" onClick={() => navigate('/profile')}>&#10006;</button>
 
-                <div className="overflow-auto p-2" style={{height: "30%"}}>
-                    <button className="modal-close-button" onClick={() => navigate('/profile')}>&#10006;</button>
-                    <p>From {conversation.fromId}</p>
-                    <p>{conversation.message}</p>
+                <div className="overflow-auto p-5" style={{height: "30%"}}>
+                    <h6 className="text-teal">From {conversation.fromId}</h6>
+                    <p className="text-light-teal">{conversation.message}</p>
                 </div>
                 <div style={{height: "70%"}}>
                     {
                     !item? 
-                    <p>Item was marked as sold</p>
+                        <p className="d-flex justify-content-center text-orange">Item was not found</p>
                     :
                     <>
                         <div className="overflow-hidden d-flex justify-content-center" style={{height: "75%"}}>

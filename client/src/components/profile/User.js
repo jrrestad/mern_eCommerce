@@ -56,22 +56,24 @@ const User = ({loggedUser, setLoggedUser, myProducts, setMyProducts, myConversat
       <div style={{height: "100%", width: "100%"}}>
 
         <div className="container" style={{height: "20%"}}>
-          <h5 className="pt-2">Your listed products</h5>
-          <p className="m-0 text-muted">Total listed ({myProducts.length})</p>
+          <h5 className="pt-2 text-teal">Your listed products</h5>
+          <p className="mt-0 text-light-teal">Total listed <strong className="text-orange">{myProducts.length}</strong></p>
+          <Link to={"/sell"}><button className="btn-link btn bg-teal text-white ml-0">List something for sale</button></Link>
+
         </div>
         <div className="container" style={{height: "5%"}}>
-          <p className="m-0">Select an item to edit</p>
+          <p className="m-0 text-light-teal text-center border-bottom ">Select an item to edit</p>
         </div>
 
-        <div className="d-flex flex-wrap border-top overflow-auto" style={{height: "75%"}}>
+        <div className="d-flex flex-wrap overflow-auto p-2" style={{height: "75%"}}>
         {
           myProducts.length > 0 ? myProducts.map( (item, i) =>
-          <div className="col-4 p-0" key={i}>
+          <div className="col-lg-4 col-md-6 col-sm-12 col-12 p-0 RaiseUp border" key={i}>
             <Link to={`/profile/update/${item._id}`}>
-              <div className="overflow-hidden" style={{height: "200px"}}>
+              <div className="overflow-hidden  bg-white" style={{height: "65%"}}>
                   <img className="img-fluid" src={URL + item.productImage} alt="img"/>
               </div>
-              <div className="p-2 border bg-light">
+              <div className="p-2" style={{backgroundColor: "#fdf7f6", height: "35%"}}>
 
                 <h6 className="font-card overflow-hidden" style={{height: "15px"}}>{item.product}</h6>
                 <p className="font-card">Condition: <span>
