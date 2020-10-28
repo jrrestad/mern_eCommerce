@@ -19,7 +19,7 @@ const Search = ({changeHandler, submitCustomSearch}) => {
                 <p className="mb-0 mt-2 text-light-teal font-weight-bold">Price</p>
                 <div className="input-group">
                     <input type="number" name="min" defaultValue="0" className="form-control text-orange" onChange={changeHandler}/>
-                    <input type="number" name="max" defaultValue="9999" className="form-control text-oranger" onChange={changeHandler}/>
+                    <input type="number" name="max" defaultValue="9999" className="form-control text-orange" onChange={changeHandler}/>
                 </div>
                 <p className="mb-0 mt-2 text-light-teal font-weight-bold">Category</p>
                 <select className="form-control text-orange" name="category" onChange={changeHandler}>
