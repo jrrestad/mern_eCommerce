@@ -6,7 +6,8 @@ import axios from 'axios'
 
 
 const Buy = ({allProducts, setAllProducts}) => {
-    let URL = "http://localhost:8000/"
+    let API_URL = "http://localhost:8000/"
+    const API_KEY = `${process.env.REACT_APP_API_KEY}`;
     const [lat, setLat] = useState(47.39648829999999)
     const [lng, setLng] = useState(-122.3107873)
     const [errors, setErrors] = useState('');
@@ -37,7 +38,7 @@ const Buy = ({allProducts, setAllProducts}) => {
 
     const submitZipcode = (e) => {
         e.preventDefault()
-        Geocode.setApiKey("AIzaSyD59vfWYpyItYDuIPp1mi3yAyYR1Vxcfjw")
+        Geocode.setApiKey(API_KEY)
         Geocode.fromAddress(zipcode)
         .then(res => {
             console.log("Geocode Location")
@@ -59,28 +60,28 @@ const Buy = ({allProducts, setAllProducts}) => {
         } else {
         let meters = searchParams.distance * 1609.34
         if (customSearch && searchParams.category) {
-            axios.get(`${URL}api/products/category/custom/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${searchParams.category}/${customSearch}`)
+            axios.get(`${API_URL}api/products/category/custom/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${searchParams.category}/${customSearch}`)
             .then(res => {
                 console.log(res)
                 setAllProducts(res.data)
             })
         .catch(err => console.log(err))
         } else if (searchParams.category) {
-            axios.get(`${URL}api/products/category/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${searchParams.category}`)
+            axios.get(`${API_URL}api/products/category/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${searchParams.category}`)
             .then(res => {
                     console.log(res)
                     setAllProducts(res.data)
             })
             .catch(err => console.log(err))
         } else if (customSearch && !searchParams.category) {
-            axios.get(`${URL}api/products/custom/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${customSearch}`)
+            axios.get(`${API_URL}api/products/custom/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${customSearch}`)
             .then(res => {
                     console.log(res)
                     setAllProducts(res.data)
             })
             .catch(err => console.log(err))
         } else {
-            axios.get(`${URL}api/products/price/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}`)
+            axios.get(`${API_URL}api/products/price/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}`)
             .then(res => {
                     console.log(res)
                     setAllProducts(res.data)
@@ -106,8 +107,10 @@ const Buy = ({allProducts, setAllProducts}) => {
             <form onSubmit={submitZipcode} className="col-lg-2 col-md-3 col-4 pt-2">
                 <div className="input-group">
                     <input className="form-control text-orange" placeholder="Zipcode..." name="location" type="text" onChange={zipcodeHandler}/>
-                    <button className="input-group-append btn bg-teal text-white">&#x2713;</button>
+                    <button className="input-group-append btn bg-teal text-white" >&#x2713;</button>
                 </div>
+                {/* <p className="text-muted font-italic m-0">(Feature disabled for display)</p>
+                <p className="text-muted font-italic">Seattle, WA 98198, USA</p> */}
                 {errors ? <p className="text-danger font-italic mb-0">Please enter a zipcode</p>: <p className="text-muted font-italic">{city}</p>}
             </form>
             <form onSubmit={submitCustomSearch} className="col-lg-10 col-md-9 col-8 pl-2 pt-2">

@@ -3,11 +3,12 @@ import GoogleMapReact from 'google-map-react'
 
 const Map = (props) => {
     const { coords } = props;
+    const API_KEY = `${process.env.REACT_APP_API_KEY}`;
 
     const LocationPin = () => (
         <div style={{
-        height: "5vh",
-        width: "5vh",
+        height: "10vh",
+        width: "10vh",
         background: "blue",
         color: "white",
         opacity: ".3",
@@ -25,7 +26,7 @@ const Map = (props) => {
     return(
         <div className="google-map" style={{width: "100%", height: "35vh"}}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyD59vfWYpyItYDuIPp1mi3yAyYR1Vxcfjw' }}
+        bootstrapURLKeys={{ key: API_KEY }}
         center={location}
         defaultZoom={12}
         >

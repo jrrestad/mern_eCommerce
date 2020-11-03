@@ -4,7 +4,7 @@ import Geocode from 'react-geocode'
 import axios from 'axios';
 
 const SellForm = ({loggedUser, allProducts, setAllProducts}) => {
-
+    const API_KEY = `${process.env.REACT_APP_API_KEY}`;
     if (!loggedUser) {
         navigate('/')
     }
@@ -31,7 +31,7 @@ const SellForm = ({loggedUser, allProducts, setAllProducts}) => {
         if (e.target['location'].value.length < 5) {
             window.alert('Please enter a valid zip code. Keep in mind that only U.S. postal codes are valid.')
         } else {
-        Geocode.setApiKey("AIzaSyD59vfWYpyItYDuIPp1mi3yAyYR1Vxcfjw")
+        Geocode.setApiKey(API_KEY)
         Geocode.fromAddress(location)
         .then(response => {
                 console.log("Geocode location")
