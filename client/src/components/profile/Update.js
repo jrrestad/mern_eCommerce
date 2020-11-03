@@ -103,8 +103,7 @@ const Update = (props) => {
         <div className="overflow-auto container" style={{height: "15%"}}>
             <h3 className="mt-2 text-teal" >Edit your product</h3>
         </div>
-
-
+        
         <div className="overflow-auto" style={{height: "70%"}} >
 
             <div className="mx-5">

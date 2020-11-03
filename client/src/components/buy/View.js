@@ -15,7 +15,7 @@ const View = ({id, allProducts, loggedUser}) => {
 
         const [message, setMessage] = useState({
             fromId: loggedUser.username,
-            forId: item.createdBy,
+            // forId: item.createdBy,
             message: '',
             product: item._id,
             isRead: false,

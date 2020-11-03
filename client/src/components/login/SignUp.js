@@ -24,9 +24,6 @@ const SignUp = () => {
           setEmail("");
           setPassword("");
           setConfirmPassword("");
-          // create a congratulations for signing up link
-          // and explain benefits of signing in, from there
-          // can redirect to sign in pages
           navigate('/signin')
         }
       })
@@ -72,5 +69,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
-// ?. for errors is called optional chaining, lets you safely try to access keys that might not exist and avoid errors

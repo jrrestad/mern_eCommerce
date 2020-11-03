@@ -3,25 +3,20 @@ import { Link, navigate } from '@reach/router'
 import Geocode from 'react-geocode'
 import axios from 'axios';
 
-const SellForm = ({loggedUser, allProducts, setAllProducts}) => {
+const SellForm = ({loggedUser, setAllProducts, lat, lng}) => {
     const API_KEY = `${process.env.REACT_APP_API_KEY}`;
     if (!loggedUser) {
         navigate('/')
     }
-
-    const API_URL = "http://localhost:8000"
     const [previewImage, setPreviewImage] = useState('')
     const [state, setState] = useState({
         multerImage: '',
     })
     const [errors, setErrors] = useState('')
-
     const [category, setCategory] = useState('')
     const [condition, setCondition] = useState('')
     const [product, setProduct] = useState('')
     const [location, setLocation] = useState('')
-
-
     const [price, setPrice] = useState('')
     const [description, setDescription] = useState('')
 
@@ -57,7 +52,13 @@ const SellForm = ({loggedUser, allProducts, setAllProducts}) => {
                         console.log("Axios data");
                         console.log(res.data);
                         setErrors('');
-                        setAllProducts([listProduct, ...allProducts]);
+                        axios.get(`http://localhost:8000/api/products/search/${lng}/${lat}`)
+                        .then(res => {
+                            console.log("first load")
+                            console.log(res)
+                            setAllProducts(res.data)
+                        })
+                        .catch((err) => console.log(err))
                         setCategory(''); setCondition('');
                         setProduct(''); setLocation('');
                         setPrice(''); setDescription('');
@@ -82,7 +83,7 @@ const SellForm = ({loggedUser, allProducts, setAllProducts}) => {
             multerImage: URL.createObjectURL(e.target.files[0])
           });
           
-          axios.post(`${API_URL}/uploadmulter`, imageFormObj)
+          axios.post(`http://localhost:8000/uploadmulter`, imageFormObj)
           .then((res) => {
               if (res.data.success) {
                   console.log("Multer")

@@ -18,6 +18,8 @@ function App() {
   const [loggedUser, setLoggedUser] = useState('')
   const [myProducts, setMyProducts] = useState('')
   const [myConversations, setMyConversations] = useState('')
+  const [lat, setLat] = useState(42.3101523)
+  const [lng, setLng] = useState(-87.86970559999999)
 
   useEffect(() => {
     axios.get("http://localhost:8000/api/users/loggedin", {withCredentials: true})
@@ -37,7 +39,8 @@ function App() {
       <Navbar 
         loggedUser={loggedUser} setLoggedUser={setLoggedUser}/>
       <Buy 
-        allProducts={allProducts} setAllProducts={setAllProducts}/>
+        allProducts={allProducts} setAllProducts={setAllProducts}
+        lat={lat} lng={lng} setLat={setLat} setLng={setLng}/>
 
       <Router>
         <View 
@@ -58,6 +61,7 @@ function App() {
         <SellForm
           loggedUser={loggedUser} setLoggedUser={setLoggedUser}
           allProducts={allProducts} setAllProducts={setAllProducts}
+          lat={lat} lng={lng}
           path={"/sell"}/>
         <Update 
           loggedUser={loggedUser}

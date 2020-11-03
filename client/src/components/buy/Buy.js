@@ -4,18 +4,13 @@ import ProductDisplay from './ProductDisplay';
 import Geocode from 'react-geocode'
 import axios from 'axios'
 
-
-const Buy = ({allProducts, setAllProducts}) => {
-    let API_URL = "http://localhost:8000/"
+const Buy = ({allProducts, setAllProducts, lat, lng, setLat, setLng}) => {
     const API_KEY = `${process.env.REACT_APP_API_KEY}`;
-    const [lat, setLat] = useState(47.39648829999999)
-    const [lng, setLng] = useState(-122.3107873)
-    const [errors, setErrors] = useState('');
+    const API_KEY_2 = `${process.env.REACT_APP_API_KEY_2}`;
     const [city, setCity] = useState('');
+    const [clientLocation, setClientLocation] = useState('')
     const [zipcode, setZipcode] = useState('')
-
     const [customSearch, setCustomSearch] = useState('')
-
     const [searchParams, setSearchParams] = useState({
         distance: 100,
         min: 0, 
@@ -36,6 +31,7 @@ const Buy = ({allProducts, setAllProducts}) => {
         setZipcode(searchValue)
     }
 
+    // Allow clients to change their zipcode (lat, long) search parameters
     const submitZipcode = (e) => {
         e.preventDefault()
         Geocode.setApiKey(API_KEY)
@@ -47,7 +43,6 @@ const Buy = ({allProducts, setAllProducts}) => {
             setLat(res.results[0].geometry.location.lat)
             setLng(res.results[0].geometry.location.lng)
             setCity(res.results[0].formatted_address)
-            setErrors('')
         })
         .catch(err => console.log(err)) 
     }
@@ -55,41 +50,52 @@ const Buy = ({allProducts, setAllProducts}) => {
     const submitCustomSearch = (e) => {
         e.preventDefault()
         if (!lat && !lng) {
-            setErrors("Please enter a zipcode")
             console.log("zip empty")
         } else {
         let meters = searchParams.distance * 1609.34
         if (customSearch && searchParams.category) {
-            axios.get(`${API_URL}api/products/category/custom/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${searchParams.category}/${customSearch}`)
+            axios.get(`http://localhost:8000/api/products/category/custom/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${searchParams.category}/${customSearch}`)
             .then(res => {
                 console.log(res)
                 setAllProducts(res.data)
             })
         .catch(err => console.log(err))
         } else if (searchParams.category) {
-            axios.get(`${API_URL}api/products/category/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${searchParams.category}`)
+            axios.get(`http://localhost:8000/api/products/category/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${searchParams.category}`)
             .then(res => {
                     console.log(res)
                     setAllProducts(res.data)
             })
             .catch(err => console.log(err))
         } else if (customSearch && !searchParams.category) {
-            axios.get(`${API_URL}api/products/custom/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${customSearch}`)
+            axios.get(`http://localhost:8000/api/products/custom/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${customSearch}`)
             .then(res => {
                     console.log(res)
                     setAllProducts(res.data)
             })
             .catch(err => console.log(err))
         } else {
-            axios.get(`${API_URL}api/products/price/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}`)
+            axios.get(`http://localhost:8000/api/products/price/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}`)
             .then(res => {
                     console.log(res)
                     setAllProducts(res.data)
             })
             .catch(err => console.log(err))
-        }
+            }
         }
     }
+
+    // Retrieve client location by IP address upon visiting component
+    useEffect( () => {
+        axios.get(`https://geolocation-db.com/json/${API_KEY_2}`)
+        .then(res => {
+            console.log(res)
+            setClientLocation(res.data)
+            setLat(res.data.latitude)
+            setLng(res.data.longitude)
+        })
+        .catch(err => console.log(err))
+    }, [API_KEY_2, setLat, setLng])
 
     useEffect( () => {
         axios.get(`http://localhost:8000/api/products/search/${lng}/${lat}`)
@@ -109,9 +115,13 @@ const Buy = ({allProducts, setAllProducts}) => {
                     <input className="form-control text-orange" placeholder="Zipcode..." name="location" type="text" onChange={zipcodeHandler}/>
                     <button className="input-group-append btn bg-teal text-white" >&#x2713;</button>
                 </div>
-                {/* <p className="text-muted font-italic m-0">(Feature disabled for display)</p>
-                <p className="text-muted font-italic">Seattle, WA 98198, USA</p> */}
-                {errors ? <p className="text-danger font-italic mb-0">Please enter a zipcode</p>: <p className="text-muted font-italic">{city}</p>}
+                {
+                    city ?
+                    <p className="text-muted font-italic">{city}</p>
+                    :
+                    <p className="text-muted font-italic">{clientLocation.city}, {clientLocation.postal}</p>
+
+                }
             </form>
             <form onSubmit={submitCustomSearch} className="col-lg-10 col-md-9 col-8 pl-2 pt-2">
                 <div className="input-group">
@@ -125,11 +135,11 @@ const Buy = ({allProducts, setAllProducts}) => {
         <div className="d-flex">
             <Search
                 changeHandler={changeHandler}
-                setErrors={setErrors}
                 submitCustomSearch={submitCustomSearch}
             />
             <ProductDisplay
-                allProducts={allProducts} 
+                allProducts={allProducts} setAllProducts={setAllProducts}
+                lat={lat} lng={lng}
             />
         </div>
         </>

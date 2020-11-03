@@ -6,7 +6,6 @@ const Profile = ({loggedUser, myConversations}) => {
     return (
         <>
         <h3 className="mt-2 text-teal" >{loggedUser.username} profile</h3>
-
         <div className="container">
           <p className="text-light-teal"><strong>Member since:</strong> {new Date(loggedUser.createdAt).toDateString()}</p>
           <p className="text-light-teal"><strong>Current email:</strong> {loggedUser.email}</p>

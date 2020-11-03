@@ -24,6 +24,7 @@ const About = () => {
                 <p className="text-light-teal font-weight-bold">In progess:
                     <ul className="text-orange font-weight-normal">
                         <li>Allow multiple file uploads</li>
+                        <li>Allow clients to edit/update profile</li>
                         <li>Improve messaging functionality</li>
                         <li>Allow posting items without an account</li>
                         <li>Implement a review system of sellers/buyers</li>

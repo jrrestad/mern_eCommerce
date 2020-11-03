@@ -24,7 +24,6 @@ const Navbar = ({loggedUser, setLoggedUser}) => {
                     <img className="img-fluid" src={require("../Images/Bazar_Logo-04.png")} alt="logo"/>
                     <p className="text-center text-light-teal">a virtual marketplace</p>
                 </div>
-                {/* <h1 className=" mb-0 ml-5">Swap Meet</h1> */}
             </div>
 
             <div className="col-6 float-right">
