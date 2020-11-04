@@ -16,10 +16,8 @@ const SignUp = () => {
     axios.post("http://localhost:8000/api/register", newUser, {withCredentials: true})
       .then((res) => {
         if (res.data.errors) {
-          console.log(res)
           setErrors(res.data.errors)
         } else {
-          console.log(res);
           setUsername("");
           setEmail("");
           setPassword("");

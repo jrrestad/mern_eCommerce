@@ -8,14 +8,9 @@ const View = ({id, allProducts, loggedUser}) => {
     const item = allProducts.filter(i => i._id === id)[0]
     const [errors, setErrors] = useState('')
 
-    // if (item === undefined) {
-    //     navigate('/')
-    //     return null;
-    // } else {
-
         const [message, setMessage] = useState({
             fromId: loggedUser.username,
-            // forId: item.createdBy,
+            forId: item.createdBy,
             message: '',
             product: item._id,
             isRead: false,
@@ -33,7 +28,6 @@ const View = ({id, allProducts, loggedUser}) => {
             axios.post(`http://localhost:8000/api/conversation`, message)
             .then(res => {
                 if (res.data.errors) {
-                    console.log(res.data)
                 setErrors(res.data.errors)
                 } else {
                     window.alert(`Your message was sent to ${item.createdBy}`)
@@ -103,6 +97,5 @@ const View = ({id, allProducts, loggedUser}) => {
          </>
     )
 }
-// }
 
 export default View

@@ -7,8 +7,6 @@ const Navbar = ({loggedUser, setLoggedUser}) => {
     const logout = () => {
         axios.post("http://localhost:8000/api/logout", {}, {withCredentials: true})
             .then((res) => {
-              console.log(res);
-              console.log("log me out!")
               localStorage.clear();
               setLoggedUser('')
             })

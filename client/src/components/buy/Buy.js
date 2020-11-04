@@ -37,9 +37,6 @@ const Buy = ({allProducts, setAllProducts, lat, lng, setLat, setLng}) => {
         Geocode.setApiKey(API_KEY)
         Geocode.fromAddress(zipcode)
         .then(res => {
-            console.log("Geocode Location")
-            console.log(res)
-            console.log(res.results[0].geometry.location)
             setLat(res.results[0].geometry.location.lat)
             setLng(res.results[0].geometry.location.lng)
             setCity(res.results[0].formatted_address)
@@ -56,28 +53,24 @@ const Buy = ({allProducts, setAllProducts, lat, lng, setLat, setLng}) => {
         if (customSearch && searchParams.category) {
             axios.get(`http://localhost:8000/api/products/category/custom/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${searchParams.category}/${customSearch}`)
             .then(res => {
-                console.log(res)
                 setAllProducts(res.data)
             })
         .catch(err => console.log(err))
         } else if (searchParams.category) {
             axios.get(`http://localhost:8000/api/products/category/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${searchParams.category}`)
             .then(res => {
-                    console.log(res)
                     setAllProducts(res.data)
             })
             .catch(err => console.log(err))
         } else if (customSearch && !searchParams.category) {
             axios.get(`http://localhost:8000/api/products/custom/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}/${customSearch}`)
             .then(res => {
-                    console.log(res)
                     setAllProducts(res.data)
             })
             .catch(err => console.log(err))
         } else {
             axios.get(`http://localhost:8000/api/products/price/${lng}/${lat}/${meters}/${searchParams.min}/${searchParams.max}`)
             .then(res => {
-                    console.log(res)
                     setAllProducts(res.data)
             })
             .catch(err => console.log(err))
@@ -89,7 +82,6 @@ const Buy = ({allProducts, setAllProducts, lat, lng, setLat, setLng}) => {
     useEffect( () => {
         axios.get(`https://geolocation-db.com/json/${API_KEY_2}`)
         .then(res => {
-            console.log(res)
             setClientLocation(res.data)
             setLat(res.data.latitude)
             setLng(res.data.longitude)
@@ -100,8 +92,6 @@ const Buy = ({allProducts, setAllProducts, lat, lng, setLat, setLng}) => {
     useEffect( () => {
         axios.get(`http://localhost:8000/api/products/search/${lng}/${lat}`)
         .then(res => {
-            console.log("first load")
-            console.log(res)
             setAllProducts(res.data)
         })
         .catch(err => console.log(err))

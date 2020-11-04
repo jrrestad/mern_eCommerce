@@ -9,12 +9,9 @@ const User = ({loggedUser, setLoggedUser, myProducts, setMyProducts, myConversat
   useEffect(() => {
     axios.get("http://localhost:8000/api/users/loggedin", {withCredentials: true})
       .then((res) => {
-          console.log("GETTING USER DATA")
-          console.log(res.data)
           setLoggedUser(res.data);
       })
       .catch((err) => {
-        console.log("not authorized");
         navigate("/");
       });
   }, [setLoggedUser]);
@@ -22,7 +19,6 @@ const User = ({loggedUser, setLoggedUser, myProducts, setMyProducts, myConversat
   useEffect( () => {
     axios.get(`http://localhost:8000/api/products/username/${loggedUser.username}`)
     .then(res => {
-      console.log(res)
       setMyProducts(res.data)
     })
     .catch(err => console.log(err))
@@ -31,8 +27,6 @@ const User = ({loggedUser, setLoggedUser, myProducts, setMyProducts, myConversat
   useEffect( () => {
     axios.get(`http://localhost:8000/api/conversation/${loggedUser.username}`)
     .then(res => {
-      console.log("messages!!")
-      console.log(res.data)
       setMyConversations(res.data)
     })
     .catch(err => console.log(err))
@@ -57,7 +51,7 @@ const User = ({loggedUser, setLoggedUser, myProducts, setMyProducts, myConversat
 
         <div className="container" style={{height: "20%"}}>
           <h5 className="pt-2 text-teal">Your listed products</h5>
-          <p className="mt-0 text-light-teal">Total listed <strong className="text-orange">{myProducts.length}</strong></p>
+          <p className="mt-0 text-light-teal">Total listed <strong className="text-orange">{myProducts ? 0 : myProducts.length}</strong></p>
           <Link to={"/sell"}><button className="btn-link btn bg-teal text-white ml-0">List something for sale</button></Link>
 
         </div>

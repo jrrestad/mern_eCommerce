@@ -11,19 +11,13 @@ const SignIn = () => {
     event.preventDefault();
     axios.post("http://localhost:8000/api/login", { email, password }, {withCredentials: true})
       .then((res) => {
-        console.log(res)
         if (res.data.errors) {
-          console.log('RES DATA')
-          console.log(res.data)
           setErrors(res.data.errors)
         } else {
-          console.log(res.data);
-          console.log("SIGN IN SUCCESSFUL")
           navigate('/profile')
         }
       })
       .catch((err) => {
-        console.log(err);
         setErrors(err.response.data.msg)
       });
   };
