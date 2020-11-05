@@ -2,7 +2,7 @@ import React from 'react'
 import { navigate } from '@reach/router'
 
 const ProductDisplay = ({allProducts}) => {
-    let URL = "http://localhost:8000/"
+    let URL = "/"
 
     return (
     <div className="overflow-auto flex-wrap d-flex col-lg-10 col-md-9 col-sm-8 p-lg-3 p-2" style={{height: "70vh"}}>
@@ -11,7 +11,7 @@ const ProductDisplay = ({allProducts}) => {
         <div className="bg-white col-lg-3 col-md-4 col-sm-6 col-12 p-0 translucent RaiseUp overflow-auto" style={{width: "25%"}} key={i}>
             <div className="border" onClick={ () => navigate(`view/${item._id}`)}>
                 <div className="overflow-hidden " style={{height: "200px"}}>
-                    <img className=" img-fluid" src={URL + item.productImage} alt="img"/>
+                    <img className=" img-fluid" src={"http://localhost:8000" + URL + item.productImage} alt="img"/>
                 </div>
                 <div className="p-2 bg-semi-orange">
                     <h6 className="font-card text-orange">{item.product}</h6>

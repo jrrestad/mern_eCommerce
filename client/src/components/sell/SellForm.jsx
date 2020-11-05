@@ -83,7 +83,7 @@ const SellForm = ({loggedUser, setAllProducts, lat, lng}) => {
             multerImage: URL.createObjectURL(e.target.files[0])
           });
           
-          axios.post(`http://localhost:8000/uploadmulter`, imageFormObj)
+          axios.post(`http://localhost:8000/api/uploadmulter`, imageFormObj)
           .then((res) => {
               if (res.data.success) {
                   console.log("Multer")
