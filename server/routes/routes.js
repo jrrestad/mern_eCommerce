@@ -61,7 +61,7 @@ module.exports = app => {
     app.get("/api/products/category/custom/:lng/:lat/:distance/:min/:max/:category/:custom", productController.getByCategoryAndCustom)
     app.get("/api/products/custom/:lng/:lat/:distance/:min/:max/:custom", productController.getByCustom)
 
-    app.post("/uploadmulter", upload.single('imageData'), (req, res, next) => {
+    app.post("/api/uploadmulter", upload.single('imageData'), (req, res, next) => {
       console.log(req.body);
       const newImage = new Image({
           imageName: req.body.imageName,
