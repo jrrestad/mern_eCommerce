@@ -4,8 +4,6 @@ import Profile from './Profile'
 import axios from "axios";
 
 const User = ({loggedUser, setLoggedUser, myProducts, setMyProducts, myConversations, setMyConversations}) => {
-  let URL = "http://localhost:8000/"
-
   useEffect(() => {
     axios.get("http://localhost:8000/api/users/loggedin", {withCredentials: true})
       .then((res) => {
@@ -65,7 +63,7 @@ const User = ({loggedUser, setLoggedUser, myProducts, setMyProducts, myConversat
           <div className="col-lg-4 col-md-6 col-sm-12 col-12 p-0 RaiseUp border" key={i}>
             <Link to={`/profile/update/${item._id}`}>
               <div className="overflow-hidden  bg-white" style={{height: "65%"}}>
-                  <img className="img-fluid" src={URL + item.productImage} alt="img"/>
+                  <img className="img-fluid" src={item.productImage} alt="img"/>
               </div>
               <div className="p-2" style={{backgroundColor: "#fdf7f6", height: "35%"}}>
 

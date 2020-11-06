@@ -4,10 +4,7 @@ import axios from 'axios'
 
 const Update = (props) => {
     const { id, loggedUser, allProducts, setAllProducts} = props;
-
-    const API_URL = "http://localhost:8000/"
     const [errors, setErrors] = useState('')
-
     const [category, setCategory] = useState('')
     const [condition, setCondition] = useState('')
     const [product, setProduct] = useState('')
@@ -67,12 +64,12 @@ const Update = (props) => {
         e.preventDefault()
           let imageFormObj = new FormData();
           imageFormObj.append("imageName", "multer-image-" + Date.now());
-          imageFormObj.append("imageData", e.target.files[0]);          
-          axios.post(`${API_URL}uploadmulter`, imageFormObj)
+          imageFormObj.append("imagePath", e.target.files[0]);          
+          axios.post(`http://localhost:8000/api/uploadmulter`, imageFormObj)
           .then((res) => {
               if (res.data.success) {
                   console.log(res.data)
-                setProductImage(res.data.document.imageData)
+                setProductImage(res.data.document.imagePath)
               }
             })
             .catch((err) => {
@@ -156,7 +153,7 @@ const Update = (props) => {
                     <input type="file" className="d-block" name="upload" onChange={uploadImage}/>
 
                 <div className="border form-control d-flex justify-content-center" style={{height: "100px"}}>
-                    <img className="img-fluid mw-100 mh-100" src={API_URL + productImage} alt=""/>
+                    <img className="img-fluid mw-100 mh-100" src={productImage} alt=""/>
                 </div>
             </div>
         </div>

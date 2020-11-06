@@ -50,7 +50,7 @@ const View = ({id, allProducts, loggedUser}) => {
         <div className="FadeIn modal-overlay-2 rounded bg-white">
             <div className="d-flex max-height">
                 <div className="col-8 p-0 v-align d-flex justify-content-center">
-                    <img className="img-fluid" style={{maxHeight: "100%"}} src={`http://localhost:8000/${item.productImage}`} alt=""/>
+                    <img className="img-fluid" style={{maxHeight: "100%"}} src={item.productImage} alt=""/>
                 </div>
                 <div className="col-4 m-0 border-left p-0 max-height">
 

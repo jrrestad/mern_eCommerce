@@ -4,10 +4,9 @@ import Geocode from 'react-geocode'
 import axios from 'axios';
 
 const SellForm = ({loggedUser, setAllProducts, lat, lng}) => {
+    // Navigate to home if user tries to access component without being logged in
+    if (!loggedUser) {navigate('/')}
     const API_KEY = `${process.env.REACT_APP_API_KEY}`;
-    if (!loggedUser) {
-        navigate('/')
-    }
     const [previewImage, setPreviewImage] = useState('')
     const [state, setState] = useState({
         multerImage: '',
@@ -39,7 +38,7 @@ const SellForm = ({loggedUser, setAllProducts, lat, lng}) => {
                     product: product, location: location,
                     coords: {type: "Point", coordinates: [coords.lng, coords.lat]},
                     price: price, description: description,
-                    productImage: previewImage.imageData,
+                    productImage: previewImage,
                     createdBy: loggedUser.username,
                 }
 
@@ -75,24 +74,21 @@ const SellForm = ({loggedUser, setAllProducts, lat, lng}) => {
 
     const uploadImage = (e) => {
         e.preventDefault()
+        console.log("here we go")
           let imageFormObj = new FormData();
           imageFormObj.append("imageName", "multer-image-" + Date.now());
-          imageFormObj.append("imageData", e.target.files[0]);
+          imageFormObj.append("imagePath", e.target.files[0]);
           // stores a readable instance of the image being uploaded using multer
           setState({
             multerImage: URL.createObjectURL(e.target.files[0])
-          });
-          
+          });          
           axios.post(`http://localhost:8000/api/uploadmulter`, imageFormObj)
-          .then((res) => {
-              if (res.data.success) {
-                  console.log("Multer")
-                  console.log(res.data)
-                  setPreviewImage(res.data.document)
-                  console.log("End Multer")
-              }
-            })
+          .then(res => {
+                  console.log(res)
+                  setPreviewImage(res.data.url)
+              })
             .catch((err) => {
+                console.log(err)
               alert("Error while uploading image using multer");
             });
       }

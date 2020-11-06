@@ -4,6 +4,10 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 
+//BELOW 11/05
+
+//ABOVE
+
 require('./config/mongoose.config')(process.env.DB_NAME);
 app.use(cookieParser());
 // app.use(cors());
