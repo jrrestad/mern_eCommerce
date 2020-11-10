@@ -60,9 +60,9 @@ const User = ({loggedUser, setLoggedUser, myProducts, setMyProducts, myConversat
         <div className="d-flex flex-wrap overflow-auto p-2" style={{height: "75%"}}>
         {
           myProducts.length > 0 ? myProducts.map( (item, i) =>
-          <div className="col-lg-4 col-md-6 col-sm-12 col-12 p-0 RaiseUp border" key={i}>
+          <div className="col-lg-4 col-md-6 col-sm-12 col-12 p-0 RaiseUp border" style={{height: "50%"}} key={i}>
             <Link to={`/profile/update/${item._id}`}>
-              <div className="overflow-hidden  bg-white" style={{height: "65%"}}>
+              <div className="overflow-hidden bg-white" style={{height: "65%"}}>
                   <img className="img-fluid" src={item.productImage} alt="img"/>
               </div>
               <div className="p-2" style={{backgroundColor: "#fdf7f6", height: "35%"}}>

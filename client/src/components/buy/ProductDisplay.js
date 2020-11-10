@@ -6,12 +6,12 @@ const ProductDisplay = ({allProducts}) => {
     <div className="overflow-auto flex-wrap d-flex col-lg-10 col-md-9 col-sm-8 p-lg-3 p-2" style={{height: "70vh"}}>
         {
         allProducts.map( (item, i) => 
-        <div className="bg-white col-lg-3 col-md-4 col-sm-6 col-12 p-0 translucent RaiseUp overflow-auto" style={{width: "25%"}} key={i}>
-            <div className="border" onClick={ () => navigate(`view/${item._id}`)}>
-                <div className="overflow-hidden " style={{height: "200px"}}>
+        <div className="bg-white col-lg-3 col-md-4 col-sm-6 col-12 p-0 translucent RaiseUp" style={{width: "25%", height: "50%"}} key={i}>
+            <div className="border" style={{height: "100%"}} onClick={ () => navigate(`view/${item._id}`)}>
+                <div className="overflow-hidden" style={{height: "70%"}}>
                     <img className=" img-fluid" src={item.productImage} alt="img"/>
                 </div>
-                <div className="p-2 bg-semi-orange">
+                <div className="p-2 bg-semi-orange" style={{height: "30%"}}>
                     <h6 className="font-card text-orange">{item.product}</h6>
                     <p className="font-card">Condition: <span>
                     {
